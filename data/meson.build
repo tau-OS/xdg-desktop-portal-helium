@@ -25,8 +25,8 @@ configure_file(
 
 # Desktop file
 desktop_in = configure_file(
-  input: 'xdg-desktop-portal-gnome.desktop.in',
-  output: 'xdg-desktop-portal-gnome.desktop',
+  input: 'xdg-desktop-portal-gnome.desktop.in.in',
+  output: 'xdg-desktop-portal-gnome.desktop.in',
   configuration: libexecdir_conf,
 )
 

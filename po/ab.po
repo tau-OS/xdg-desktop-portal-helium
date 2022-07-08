@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/xdg-desktop-portal-gnome.desktop:4
+#: data/xdg-desktop-portal-gnome.desktop.in.in:4
 msgid "Portal"
 msgstr "Апортал"
 
 #. TRANSLATORS: Don't translate this text (this is icon name)
-#: data/xdg-desktop-portal-gnome.desktop:6
+#: data/xdg-desktop-portal-gnome.desktop.in.in:6
 msgid "applications-system-symbolic"
 msgstr "applications-system-symbolic"
 

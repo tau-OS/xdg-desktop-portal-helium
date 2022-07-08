@@ -20,12 +20,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 21.04.3\n"
 
-#: data/xdg-desktop-portal-gnome.desktop:4
+#: data/xdg-desktop-portal-gnome.desktop.in.in:4
 msgid "Portal"
 msgstr "ਮੰਚ"
 
 #. TRANSLATORS: Don't translate this text (this is icon name)
-#: data/xdg-desktop-portal-gnome.desktop:6
+#: data/xdg-desktop-portal-gnome.desktop.in.in:6
 msgid "applications-system-symbolic"
 msgstr "applications-system-symbolic"
 

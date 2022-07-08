@@ -21,12 +21,12 @@ msgstr ""
 "X-Generator: Gtranslator 41.0\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: data/xdg-desktop-portal-gnome.desktop:4
+#: data/xdg-desktop-portal-gnome.desktop.in.in:4
 msgid "Portal"
 msgstr "门户"
 
 #. TRANSLATORS: Don't translate this text (this is icon name)
-#: data/xdg-desktop-portal-gnome.desktop:6
+#: data/xdg-desktop-portal-gnome.desktop.in.in:6
 msgid "applications-system-symbolic"
 msgstr "applications-system-symbolic"
 
