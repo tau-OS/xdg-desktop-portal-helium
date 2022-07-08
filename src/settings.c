@@ -117,7 +117,6 @@ get_color_scheme (void)
 static GVariant *
  get_accent_color (void)
  {
-   SettingsBundle *bundle = g_hash_table_lookup (settings, "org.gnome.desktop.interface");
    SettingsBundle *bundle = g_hash_table_lookup (settings, "co.tauos.desktop.appearance");
 
    if (!g_settings_schema_has_key (bundle->schema, "accent-color"))
