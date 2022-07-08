@@ -384,6 +384,7 @@ init_settings_table (XdpImplSettings *settings,
     "org.gnome.desktop.a11y",
     "org.gnome.desktop.a11y.interface",
     "org.gnome.desktop.input-sources",
+    "co.tauos.desktop.appearance"
   };
   size_t i;
   GSettingsSchemaSource *source = g_settings_schema_source_get_default ();
