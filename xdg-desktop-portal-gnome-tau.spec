@@ -49,15 +49,15 @@ org.gnome.SessionManager D-Bus interfaces. (with tauOS additions.)
  
 %install
 %meson_install
-desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
-%find_lang %{name}
+desktop-file-validate %{buildroot}/%{_datadir}/applications/xdg-desktop-portal-gnome.desktop
+%find_lang xdg-desktop-portal-gnome
  
  
 %post
-%systemd_user_post %{name}.service
+%systemd_user_post xdg-desktop-portal-gnome.service
  
 %preun
-%systemd_user_preun %{name}.service
+%systemd_user_preun xdg-desktop-portal-gnome.service
  
  
 %files -f %{name}.lang
