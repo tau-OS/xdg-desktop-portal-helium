@@ -60,7 +60,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/xdg-desktop-portal-g
 %systemd_user_preun xdg-desktop-portal-gnome.service
  
  
-%files -f %{name}.lang
+%files -f xdg-desktop-portal-gnome.lang
 %license COPYING
 %doc NEWS README.md
 %{_libexecdir}/xdg-desktop-portal-gnome
