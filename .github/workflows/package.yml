@@ -61,4 +61,4 @@ jobs:
     secrets:
       repoIP: ${{ secrets.REPO_IP }}
       repoKnownHosts: ${{ secrets.REPO_KNOWN_HOSTS }}
-      repoPrivateKey: ${{ secrets.REPO_PRIVATE_KEY }
+      repoPrivateKey: ${{ secrets.REPO_PRIVATE_KEY }}
