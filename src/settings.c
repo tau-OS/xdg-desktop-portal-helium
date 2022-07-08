@@ -122,7 +122,6 @@ static GVariant *
    if (!g_settings_schema_has_key (bundle->schema, "accent-color"))
      return g_variant_new_uint32 (0); /* No preference */
 
-   return g_settings_get_value (bundle->settings, "accent-color");
    AccentColor color = g_settings_get_enum (bundle->settings, "accent-color");
 
    switch (color) {
