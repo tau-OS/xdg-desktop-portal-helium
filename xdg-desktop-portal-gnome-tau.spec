@@ -32,6 +32,7 @@ Requires:       xdg-desktop-portal >= %{xdg_desktop_portal_version}
 Supplements:    gnome-shell
 
 Provides:       xdg-desktop-portal-gnome
+Provides:       xdg-desktop-portal-gnome%{?_isa}
  
 %description
 A backend implementation for xdg-desktop-portal that is using various pieces of
