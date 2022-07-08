@@ -19,12 +19,12 @@ msgstr ""
 "X-Generator: Poedit 3.0.1\n"
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,-1,-1,-1,22,-1\n"
 
-#: data/xdg-desktop-portal-gnome.desktop.in.in:4
+#: data/xdg-desktop-portal-gnome.desktop:4
 msgid "Portal"
 msgstr ""
 
 #. TRANSLATORS: Don't translate this text (this is icon name)
-#: data/xdg-desktop-portal-gnome.desktop.in.in:6
+#: data/xdg-desktop-portal-gnome.desktop:6
 #, fuzzy
 msgid "applications-system-symbolic"
 msgstr " अनुप्रयोगहरू प्रणाली"
