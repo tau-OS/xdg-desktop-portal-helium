@@ -63,11 +63,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %files -f %{name}.lang
 %license COPYING
 %doc NEWS README.md
-%{_libexecdir}/%{name}
-%{_datadir}/applications/%{name}.desktop
+%{_libexecdir}/xdg-desktop-portal-gnome
+%{_datadir}/applications/xdg-desktop-portal-gnome.desktop
 %{_datadir}/dbus-1/services/org.freedesktop.impl.portal.desktop.gnome.service
 %{_datadir}/xdg-desktop-portal/portals/gnome.portal
-%{_userunitdir}/%{name}.service
+%{_userunitdir}/xdg-desktop-portal-gnome.service
  
 %changelog
 %autochangelog
