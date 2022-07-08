@@ -25,15 +25,15 @@ configure_file(
 
 # Desktop file
 desktop_in = configure_file(
-  input: 'xdg-desktop-portal-gnome.desktop.in.in',
-  output: 'xdg-desktop-portal-gnome.desktop.in',
+  input: 'xdg-desktop-portal-gnome-tau.in.in',
+  output: 'xdg-desktop-portal-gnome-tau.in',
   configuration: libexecdir_conf,
 )
 
 i18n.merge_file(
   type: 'desktop',
   input: desktop_in,
-  output: 'xdg-desktop-portal-gnome.desktop',
+  output: 'xdg-desktop-portal-gnome-tau',
   po_dir: meson.source_root() / 'po',
   install: true,
   install_dir: datadir / 'applications',

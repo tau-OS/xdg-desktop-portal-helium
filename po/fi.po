@@ -19,12 +19,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/xdg-desktop-portal-gnome.desktop.in.in:4
+#: data/xdg-desktop-portal-gnome-tau.in.in:4
 msgid "Portal"
 msgstr "Portaali"
 
 #. TRANSLATORS: Don't translate this text (this is icon name)
-#: data/xdg-desktop-portal-gnome.desktop.in.in:6
+#: data/xdg-desktop-portal-gnome-tau.in.in:6
 msgid "applications-system-symbolic"
 msgstr "applications-system-symbolic"
 

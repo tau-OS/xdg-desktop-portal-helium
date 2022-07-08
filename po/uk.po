@@ -18,12 +18,12 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 20.12.0\n"
 
-#: data/xdg-desktop-portal-gnome.desktop.in.in:4
+#: data/xdg-desktop-portal-gnome-tau.in.in:4
 msgid "Portal"
 msgstr "Портал"
 
 #. TRANSLATORS: Don't translate this text (this is icon name)
-#: data/xdg-desktop-portal-gnome.desktop.in.in:6
+#: data/xdg-desktop-portal-gnome-tau.in.in:6
 msgid "applications-system-symbolic"
 msgstr "applications-system-symbolic"
 

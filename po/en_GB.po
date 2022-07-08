@@ -25,12 +25,12 @@ msgstr ""
 "X-DL-Domain: po\n"
 "X-DL-State: Translating\n"
 
-#: data/xdg-desktop-portal-gnome.desktop.in.in:4
+#: data/xdg-desktop-portal-gnome-tau.in.in:4
 msgid "Portal"
 msgstr "Portal"
 
 #. TRANSLATORS: Don't translate this text (this is icon name)
-#: data/xdg-desktop-portal-gnome.desktop.in.in:6
+#: data/xdg-desktop-portal-gnome-tau.in.in:6
 msgid "applications-system-symbolic"
 msgstr "applications-system-symbolic"
 
