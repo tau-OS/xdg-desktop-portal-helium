@@ -298,7 +298,7 @@ settings_handle_read (XdpImplSettings       *object,
                                              g_variant_new ("(v)", get_color_scheme ()));
       return TRUE;
     }
-  else if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
+  else if (strcmp (arg_namespace, "co.tauos.desktop.appearance") == 0 &&
            strcmp (arg_key, "accent-color") == 0)
     {
       g_dbus_method_invocation_return_value (invocation,
