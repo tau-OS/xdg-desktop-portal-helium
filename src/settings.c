@@ -126,29 +126,61 @@ static GVariant *
 
    switch (color) {
      case PURPLE:
-       double purple[] = {0.5490, 0.3372, 0.7490};
-       return g_variant_new ("(ddd)", purple);
+       GVariant * purple[] = {
+         g_variant_new_double (0.5490),
+         g_variant_new_double (0.3372),
+         g_variant_new_double (0.7490)
+       };
+       return g_variant_new_tuple(purple, 3);
      case PINK:
-       double pink[] = {0.7490, 0.3372, 0.6588};
-       return g_variant_new ("(ddd)", pink);
+       GVariant * pink[] = {
+         g_variant_new_double (0.7490),
+         g_variant_new_double (0.3372),
+         g_variant_new_double (0.6588)
+       };
+       return g_variant_new_tuple(pink, 3);
      case RED:
-       double red[] = {0.8588, 0.1568, 0.3764};
-       return g_variant_new ("(ddd)", red);
+       GVariant * red[] = {
+         g_variant_new_double (0.8588),
+         g_variant_new_double (0.1568),
+         g_variant_new_double (0.3764)
+       };
+       return g_variant_new_tuple(red, 3);
      case ORANGE:
-       double orange[] = {0.9686, 0.5058, 0.168};
-       return g_variant_new ("(ddd)", orange);
+       GVariant * orange[] = {
+         g_variant_new_double (0.9686),
+         g_variant_new_double (0.5058),
+         g_variant_new_double (0.168)
+       };
+       return g_variant_new_tuple(orange, 3);
      case YELLOW:
-       double yellow[] = {0.8784, 0.6313, 0.0039};
-       return g_variant_new ("(ddd)", yellow);
+       GVariant * yellow[] = {
+         g_variant_new_double (0.8784),
+         g_variant_new_double (0.6313),
+         g_variant_new_double (0.0039)
+       };
+       return g_variant_new_tuple(yellow, 3);
      case GREEN:
-       double green[] = {0.2862, 0.8156, 0.3686};
-       return g_variant_new ("(ddd)", green);
+       GVariant * green[] = {
+         g_variant_new_double (0.2862),
+         g_variant_new_double (0.8156),
+         g_variant_new_double (0.3686)
+       };
+       return g_variant_new_tuple(green, 3);
      case MINT:
-       double mint[] = {0.3372, 0.7490, 0.6509};
-       return g_variant_new ("(ddd)", mint);
+       GVariant * mint[] = {
+         g_variant_new_double (0.3372),
+         g_variant_new_double (0.7490),
+         g_variant_new_double (0.6509)
+       };
+       return g_variant_new_tuple(mint, 3);
      case BLUE:
-       double blue[] = {0.1490, 0.5568, 0.9764};
-       return g_variant_new ("(ddd)", blue);
+       GVariant * blue[] = {
+         g_variant_new_double (0.1490),
+         g_variant_new_double (0.5568),
+         g_variant_new_double (0.9764)
+       };
+       return g_variant_new_tuple(blue, 3);
      default:
        return g_variant_new_uint32 (0); /* Unknown color */
    }
