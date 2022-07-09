@@ -298,7 +298,7 @@ settings_handle_read (XdpImplSettings       *object,
                                              g_variant_new ("(v)", get_color_scheme ()));
       return TRUE;
     }
-  else if (strcmp (arg_namespace, "co.tauos.desktop.appearance") == 0 &&
+  else if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
            strcmp (arg_key, "accent-color") == 0)
     {
       g_dbus_method_invocation_return_value (invocation,
@@ -384,7 +384,7 @@ on_settings_changed (GSettings             *settings,
                                             "org.freedesktop.appearance", key,
                                             g_variant_new ("v", get_color_scheme ()));
 
-  if (strcmp (user_data->namespace, "org.gnome.desktop.interface") == 0 &&
+  if (strcmp (user_data->namespace, "co.tauos.desktop.appearance") == 0 &&
       strcmp (key, "accent-color") == 0)
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
