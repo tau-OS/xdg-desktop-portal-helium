@@ -185,11 +185,11 @@ static GVariant *
        return g_variant_new_tuple(blue, 3);
      case MONO:
        GVariant * mono[] = {
-         g_variant_new_double (0.2000),
-         g_variant_new_double (0.2000),
-         g_variant_new_double (0.2000)
+         g_variant_new_double (0.3334),
+         g_variant_new_double (0.3334),
+         g_variant_new_double (0.3334)
        };
-       return g_variant_new_tuple(blue, 3);
+       return g_variant_new_tuple(mono, 3);
      case MULTI:
      default:
        return g_variant_new_uint32 (0); /* Unknown color or multicolor mode */
