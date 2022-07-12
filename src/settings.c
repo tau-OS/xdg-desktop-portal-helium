@@ -45,6 +45,7 @@ typedef struct {
 } SettingsBundle;
 
 typedef enum {
+   MULTI = 0,
    PURPLE = 1,
    PINK = 2,
    RED = 3,
@@ -52,7 +53,8 @@ typedef enum {
    YELLOW = 5,
    GREEN = 6,
    MINT = 7,
-   BLUE = 8
+   BLUE = 8,
+   MONO = 9
  } AccentColor;
 
 static SettingsBundle *
@@ -181,8 +183,16 @@ static GVariant *
          g_variant_new_double (0.9764)
        };
        return g_variant_new_tuple(blue, 3);
+     case MONO:
+       GVariant * mono[] = {
+         g_variant_new_double (0.2000),
+         g_variant_new_double (0.2000),
+         g_variant_new_double (0.2000)
+       };
+       return g_variant_new_tuple(blue, 3);
+     case MULTI:
      default:
-       return g_variant_new_uint32 (0); /* Unknown color */
+       return g_variant_new_uint32 (0); /* Unknown color or multicolor mode */
    }
  }
 
