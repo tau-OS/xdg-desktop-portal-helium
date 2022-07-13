@@ -125,6 +125,8 @@ static GVariant *
      return g_variant_new_uint32 (0); /* No preference */
 
    AccentColor color = g_settings_get_enum (bundle->settings, "accent-color");
+  
+   color_scheme = g_settings_get_enum (bundle->settings, "color-scheme");
 
    switch (color) {
      case PURPLE:
@@ -184,12 +186,21 @@ static GVariant *
        };
        return g_variant_new_tuple(blue, 3);
      case MONO:
-       GVariant * mono[] = {
-         g_variant_new_double (0.3334),
-         g_variant_new_double (0.3334),
-         g_variant_new_double (0.3334)
-       };
-       return g_variant_new_tuple(mono, 3);
+       if (color_scheme == 0) {
+         GVariant * mono[] = {
+           g_variant_new_double (0.3334),
+           g_variant_new_double (0.3334),
+           g_variant_new_double (0.3334)
+         };
+         return g_variant_new_tuple(mono, 3);
+       } else {
+         GVariant * mono[] = {
+          g_variant_new_double (0.5100),
+          g_variant_new_double (0.5100),
+          g_variant_new_double (0.5700)
+         };
+         return g_variant_new_tuple(mono, 3);
+       }
      case MULTI:
      default:
        return g_variant_new_uint32 (0); /* Unknown color or multicolor mode */
