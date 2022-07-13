@@ -126,7 +126,9 @@ static GVariant *
 
    AccentColor color = g_settings_get_enum (bundle->settings, "accent-color");
   
-   color_scheme = g_settings_get_enum (bundle->settings, "color-scheme");
+   SettingsBundle *bundle2 = g_hash_table_lookup (settings, "org.gnome.desktop.interface");
+   int color_scheme;
+   color_scheme = g_settings_get_enum (bundle2->settings, "color-scheme");
 
    switch (color) {
      case PURPLE:
