@@ -47,7 +47,7 @@ typedef struct {
   XdpImplAppChooser *impl;
   GDBusMethodInvocation *invocation;
   Request *request;
-  GtkWidget *dialog;
+  GtkWindow *dialog;
   ExternalWindow *external_parent;
 
   char *chosen;
@@ -62,9 +62,8 @@ app_dialog_handle_free (gpointer data)
 
   g_hash_table_remove (handles, handle->request->id);
   g_clear_object (&handle->external_parent);
-  g_object_unref (handle->request);
-  g_object_unref (handle->dialog);
-  g_free (handle->chosen);
+  g_clear_object (&handle->request);
+  g_clear_pointer (&handle->chosen, g_free);
 
   g_free (handle);
 }
@@ -72,7 +71,7 @@ app_dialog_handle_free (gpointer data)
 static void
 app_dialog_handle_close (AppDialogHandle *handle)
 {
-  gtk_window_destroy (GTK_WINDOW (handle->dialog));
+  g_clear_pointer (&handle->dialog, gtk_window_destroy);
   app_dialog_handle_free (handle);
 }
 
@@ -149,7 +148,7 @@ handle_choose_application (XdpImplAppChooser *object,
                            GVariant *arg_options)
 {
   g_autoptr(Request) request = NULL;
-  GtkWidget *dialog;
+  GtkWindow *dialog;
   AppDialogHandle *handle;
   const char *sender;
   const char *latest_chosen_id;
@@ -193,16 +192,16 @@ handle_choose_application (XdpImplAppChooser *object,
                               NULL);
   g_object_ref_sink (fake_parent);
 
-  dialog = GTK_WIDGET (app_chooser_dialog_new (choices, latest_chosen_id, content_type, location));
-  gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (fake_parent));
+  dialog = GTK_WINDOW (app_chooser_dialog_new (choices, latest_chosen_id, content_type, location));
+  gtk_window_set_transient_for (dialog, GTK_WINDOW (fake_parent));
 
-  gtk_window_set_modal (GTK_WINDOW (dialog), modal);
+  gtk_window_set_modal (dialog, modal);
 
   handle = g_new0 (AppDialogHandle, 1);
   handle->impl = object;
   handle->invocation = invocation;
   handle->request = g_object_ref (request);
-  handle->dialog = g_object_ref (dialog);
+  handle->dialog = g_object_ref_sink (dialog);
   handle->external_parent = external_parent;
 
   g_hash_table_insert (handles, handle->request->id, handle);
@@ -213,7 +212,7 @@ handle_choose_application (XdpImplAppChooser *object,
   g_signal_connect (dialog, "close",
                     G_CALLBACK (handle_app_chooser_close), handle);
 
-  gtk_widget_realize (dialog);
+  gtk_widget_realize (GTK_WIDGET (dialog));
 
   surface = gtk_native_get_surface (GTK_NATIVE (dialog));
   if (external_parent)

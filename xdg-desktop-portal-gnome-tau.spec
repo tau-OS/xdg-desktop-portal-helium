@@ -31,9 +31,9 @@ Requires:       xdg-desktop-portal >= %{xdg_desktop_portal_version}
 
 Supplements:    gnome-shell
 
-Provides:       xdg-desktop-portal-gnome = 42.1
-Provides:       xdg-desktop-portal-gnome%{?_isa} = 42.1
-Obsoletes:      xdg-desktop-portal-gnome < 42.1
+Provides:       xdg-desktop-portal-gnome = 43
+Provides:       xdg-desktop-portal-gnome%{?_isa} = 43
+Obsoletes:      xdg-desktop-portal-gnome < 43
  
 %description
 A backend implementation for xdg-desktop-portal that is using various pieces of

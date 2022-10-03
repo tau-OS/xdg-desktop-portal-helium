@@ -77,7 +77,7 @@ typedef struct _ScreenCastDialogHandle
   Request *request;
   ScreenCastSession *session;
 
-  GtkWidget *dialog;
+  GtkWindow *dialog;
   ExternalWindow *external_parent;
 
   int response;
@@ -251,7 +251,7 @@ static void
 on_gnome_screen_cast_session_closed (GnomeScreenCastSession *gnome_screen_cast_session,
                                      ScreenCastSession      *screen_cast_session)
 {
-  session_close ((Session *)screen_cast_session);
+  session_close ((Session *)screen_cast_session, TRUE);
 }
 
 static gboolean
@@ -353,7 +353,7 @@ create_screen_cast_dialog (ScreenCastSession     *session,
   GdkDisplay *display;
   GdkSurface *surface;
   GtkWidget *fake_parent;
-  GtkWidget *dialog;
+  GtkWindow *dialog;
 
   if (parent_window)
     {
@@ -376,11 +376,11 @@ create_screen_cast_dialog (ScreenCastSession     *session,
                               NULL);
   g_object_ref_sink (fake_parent);
 
-  dialog = GTK_WIDGET (screen_cast_dialog_new (request->app_id,
+  dialog = GTK_WINDOW (screen_cast_dialog_new (request->app_id,
                                                &session->select,
                                                session->persist_mode));
-  gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (fake_parent));
-  gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
+  gtk_window_set_transient_for (dialog, GTK_WINDOW (fake_parent));
+  gtk_window_set_modal (dialog, TRUE);
 
   dialog_handle = g_new0 (ScreenCastDialogHandle, 1);
   dialog_handle->session = session;
@@ -393,13 +393,13 @@ create_screen_cast_dialog (ScreenCastSession     *session,
   g_signal_connect (dialog, "done",
                     G_CALLBACK (on_screen_cast_dialog_done_cb), dialog_handle);
 
-  gtk_widget_realize (dialog);
+  gtk_widget_realize (GTK_WIDGET (dialog));
 
   surface = gtk_native_get_surface (GTK_NATIVE (dialog));
   if (external_parent)
     external_window_set_parent_of (external_parent, surface);
 
-  gtk_widget_show (dialog);
+  gtk_widget_show (GTK_WIDGET (dialog));
 
   return dialog_handle;
 }
@@ -436,16 +436,20 @@ find_best_window_by_app_id_and_title (const char *app_id,
                                       const char *title)
 {
   ShellIntrospect *shell_introspect = shell_introspect_get ();
+  GPtrArray *windows;
   Window *best_match;
   glong best_match_distance;
-  GList *l;
 
   best_match = NULL;
   best_match_distance = G_MAXLONG;
 
-  for (l = shell_introspect_get_windows (shell_introspect); l; l = l->next)
+  shell_introspect_ref_listeners (shell_introspect);
+  shell_introspect_wait_for_windows (shell_introspect);
+
+  windows = shell_introspect_get_windows (shell_introspect);
+  for (size_t i = 0; windows && i < windows->len; i++)
     {
-      Window *window = l->data;
+      Window *window = g_ptr_array_index (windows, i);
       glong distance;
 
       if (g_strcmp0 (window_get_app_id (window), app_id) != 0)
@@ -462,6 +466,8 @@ find_best_window_by_app_id_and_title (const char *app_id,
           best_match_distance = distance;
         }
     }
+
+  shell_introspect_unref_listeners (shell_introspect);
 
   /* If even the best match's window title is too different, don't
    * restore it.

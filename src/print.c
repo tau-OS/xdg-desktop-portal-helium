@@ -143,7 +143,7 @@ typedef struct {
   XdpImplPrint *impl;
   GDBusMethodInvocation *invocation;
   Request *request;
-  GtkWidget *dialog;
+  GtkWindow *dialog;
   ExternalWindow *external_parent;
 
   int fd;
@@ -159,8 +159,7 @@ print_dialog_handle_free (gpointer data)
   PrintDialogHandle *handle = data;
 
   g_clear_object (&handle->external_parent);
-  g_object_unref (handle->request);
-  g_object_unref (handle->dialog);
+  g_clear_object (&handle->request);
   close (handle->fd);
 
   g_free (handle);
@@ -169,7 +168,7 @@ print_dialog_handle_free (gpointer data)
 static void
 print_dialog_handle_close (PrintDialogHandle *handle)
 {
-  gtk_window_destroy (GTK_WINDOW (handle->dialog));
+  g_clear_pointer (&handle->dialog, gtk_window_destroy);
   print_dialog_handle_free (handle);
 }
 
@@ -438,7 +437,7 @@ handle_print (XdpImplPrint          *object,
 {
   g_autoptr(Request) request = NULL;
   const char *sender;
-  GtkWidget *dialog;
+  GtkWindow *dialog;
   PrintDialogHandle *handle;
   guint32 token = 0;
   PrintParams *params;
@@ -502,9 +501,9 @@ handle_print (XdpImplPrint          *object,
   if (!g_variant_lookup (arg_options, "modal", "b", &modal))
     modal = TRUE;
 
-  dialog = gtk_print_unix_dialog_new (arg_title, NULL);
-  gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (fake_parent));
-  gtk_window_set_modal (GTK_WINDOW (dialog), modal);
+  dialog = GTK_WINDOW (gtk_print_unix_dialog_new (arg_title, NULL));
+  gtk_window_set_transient_for (dialog, GTK_WINDOW (fake_parent));
+  gtk_window_set_modal (dialog, modal);
   gtk_print_unix_dialog_set_manual_capabilities (GTK_PRINT_UNIX_DIALOG (dialog),
                                                  can_preview () ? GTK_PRINT_CAPABILITY_PREVIEW : 0 |
                                                  GTK_PRINT_CAPABILITY_PAGE_SET |
@@ -518,7 +517,7 @@ handle_print (XdpImplPrint          *object,
   handle->impl = object;
   handle->invocation = invocation;
   handle->request = g_object_ref (request);
-  handle->dialog = g_object_ref (dialog);
+  handle->dialog = g_object_ref_sink (dialog);
   handle->external_parent = external_parent;
   handle->fd = fd;
 
@@ -526,7 +525,7 @@ handle_print (XdpImplPrint          *object,
 
   g_signal_connect (dialog, "response", G_CALLBACK (handle_print_response), handle);
 
-  gtk_widget_realize (dialog);
+  gtk_widget_realize (GTK_WIDGET (dialog));
 
   surface = gtk_native_get_surface (GTK_NATIVE (dialog));
   if (external_parent)
@@ -619,7 +618,7 @@ handle_prepare_print (XdpImplPrint          *object,
 {
   g_autoptr(Request) request = NULL;
   const char *sender;
-  GtkWidget *dialog;
+  GtkWindow *dialog;
   PrintDialogHandle *handle;
   GtkPrintSettings *settings;
   GtkPageSetup *page_setup;
@@ -656,9 +655,9 @@ handle_prepare_print (XdpImplPrint          *object,
   if (!g_variant_lookup (arg_options, "modal", "b", &modal))
     modal = TRUE;
 
-  dialog = gtk_print_unix_dialog_new (arg_title, NULL);
-  gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (fake_parent));
-  gtk_window_set_modal (GTK_WINDOW (dialog), modal);
+  dialog = GTK_WINDOW (gtk_print_unix_dialog_new (arg_title, NULL));
+  gtk_window_set_transient_for (dialog, GTK_WINDOW (fake_parent));
+  gtk_window_set_modal (dialog, modal);
   gtk_print_unix_dialog_set_manual_capabilities (GTK_PRINT_UNIX_DIALOG (dialog),
                                                  can_preview () ? GTK_PRINT_CAPABILITY_PREVIEW : 0 |
                                                  GTK_PRINT_CAPABILITY_PAGE_SET |
@@ -678,14 +677,14 @@ handle_prepare_print (XdpImplPrint          *object,
   handle->impl = object;
   handle->invocation = invocation;
   handle->request = g_object_ref (request);
-  handle->dialog = g_object_ref (dialog);
+  handle->dialog = g_object_ref_sink (dialog);
   handle->external_parent = external_parent;
 
   g_signal_connect (request, "handle-close", G_CALLBACK (handle_close), handle);
 
   g_signal_connect (dialog, "response", G_CALLBACK (handle_prepare_print_response), handle);
 
-  gtk_widget_realize (dialog);
+  gtk_widget_realize (GTK_WIDGET (dialog));
 
   surface = gtk_native_get_surface (GTK_NATIVE (dialog));
   if (external_parent)
@@ -693,7 +692,7 @@ handle_prepare_print (XdpImplPrint          *object,
 
   request_export (request, g_dbus_method_invocation_get_connection (invocation));
 
-  gtk_window_present (GTK_WINDOW (dialog));
+  gtk_window_present (dialog);
 
   return TRUE;
 }

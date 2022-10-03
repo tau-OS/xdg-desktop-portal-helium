@@ -22,16 +22,6 @@
 #include "shell-dbus.h"
 #include "shellintrospect.h"
 
-enum
-{
-  WINDOWS_CHANGED,
-  ANIMATIONS_ENABLED_CHANGED,
-
-  N_SIGNALS
-};
-
-static guint signals[N_SIGNALS];
-
 struct _Window
 {
   uint64_t id;
@@ -50,7 +40,7 @@ struct _ShellIntrospect
 
   unsigned int version;
 
-  GList *windows;
+  GPtrArray *windows;
 
   int num_listeners;
 
@@ -59,6 +49,16 @@ struct _ShellIntrospect
 };
 
 G_DEFINE_TYPE (ShellIntrospect, shell_introspect, G_TYPE_OBJECT)
+
+enum
+{
+  WINDOWS_CHANGED,
+  ANIMATIONS_ENABLED_CHANGED,
+
+  N_SIGNALS
+};
+
+static guint signals[N_SIGNALS];
 
 static ShellIntrospect *_shell_introspect;
 
@@ -70,50 +70,36 @@ window_free (Window *window)
   g_free (window);
 }
 
-const char *
-window_get_title (Window *window)
-{
-  return window->title;
-}
-
-const char *
-window_get_app_id (Window *window)
-{
-  return window->app_id;
-}
-
-const uint64_t
-window_get_id (Window *window)
-{
-  return window->id;
-}
-
 static void
 get_windows_cb (GObject *source_object,
                 GAsyncResult *res,
                 gpointer user_data)
 {
   ShellIntrospect *shell_introspect = user_data;
+  g_autoptr(GPtrArray) windows = NULL;
   g_autoptr(GVariant) windows_variant = NULL;
   g_autoptr(GError) error = NULL;
   GVariantIter iter;
   uint64_t id;
   GVariant *params = NULL;
-  GList *windows = NULL;
 
-  g_list_free_full (shell_introspect->windows, (GDestroyNotify) window_free);
-  shell_introspect->windows = NULL;
+  g_clear_object (&shell_introspect->cancellable);
 
   if (!org_gnome_shell_introspect_call_get_windows_finish (shell_introspect->proxy,
                                                            &windows_variant,
                                                            res,
                                                            &error))
     {
-      g_warning ("Failed to get window list: %s", error->message);
+      if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+        g_warning ("Failed to get window list: %s", error->message);
       return;
     }
 
   g_variant_iter_init (&iter, windows_variant);
+
+  windows = g_ptr_array_new_full (g_variant_iter_n_children (&iter),
+                                  (GDestroyNotify) window_free);
+
   while (g_variant_iter_loop (&iter, "{t@a{sv}}", &id, &params))
     {
       char *app_id = NULL;
@@ -131,62 +117,28 @@ get_windows_cb (GObject *source_object,
         .title = title,
         .app_id = app_id
       };
-      windows = g_list_prepend (windows, window);
+      g_ptr_array_add (windows, window);
 
       g_clear_pointer (&params, g_variant_unref);
     }
 
-  shell_introspect->windows = windows;
+  shell_introspect->windows = g_steal_pointer (&windows);
   g_signal_emit (shell_introspect, signals[WINDOWS_CHANGED], 0);
 }
 
 static void
 sync_state (ShellIntrospect *shell_introspect)
 {
+  g_clear_pointer (&shell_introspect->windows, g_ptr_array_unref);
+
+  g_cancellable_cancel (shell_introspect->cancellable);
+  g_clear_object (&shell_introspect->cancellable);
+  shell_introspect->cancellable = g_cancellable_new ();
+
   org_gnome_shell_introspect_call_get_windows (shell_introspect->proxy,
                                                shell_introspect->cancellable,
                                                get_windows_cb,
                                                shell_introspect);
-}
-
-GList *
-shell_introspect_get_windows (ShellIntrospect *shell_introspect)
-{
-  return shell_introspect->windows;
-}
-
-void
-shell_introspect_ref_listeners (ShellIntrospect *shell_introspect)
-{
-  shell_introspect->num_listeners++;
-
-  if (shell_introspect->proxy)
-    sync_state (shell_introspect);
-}
-
-void
-shell_introspect_unref_listeners (ShellIntrospect *shell_introspect)
-{
-  g_return_if_fail (shell_introspect->num_listeners > 0);
-
-  shell_introspect->num_listeners--;
-  if (shell_introspect->num_listeners == 0)
-    {
-      g_list_free_full (shell_introspect->windows,
-                        (GDestroyNotify) window_free);
-      shell_introspect->windows = NULL;
-    }
-}
-
-gboolean
-shell_introspect_are_animations_enabled (ShellIntrospect *shell_introspect,
-                                         gboolean        *out_animations_enabled)
-{
-  if (!shell_introspect->animations_enabled_valid)
-    return FALSE;
-
-  *out_animations_enabled = shell_introspect->animations_enabled;
-  return TRUE;
 }
 
 static void
@@ -279,6 +231,29 @@ on_shell_introspect_name_vanished (GDBusConnection *connection,
     }
 }
 
+static void
+shell_introspect_class_init (ShellIntrospectClass *klass)
+{
+  signals[WINDOWS_CHANGED] = g_signal_new ("windows-changed",
+                                           G_TYPE_FROM_CLASS (klass),
+                                           G_SIGNAL_RUN_LAST,
+                                           0,
+                                           NULL, NULL, NULL,
+                                           G_TYPE_NONE, 0);
+  signals[ANIMATIONS_ENABLED_CHANGED] =
+    g_signal_new ("animations-enabled-changed",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE, 0);
+}
+
+static void
+shell_introspect_init (ShellIntrospect *shell_introspect)
+{
+}
+
 ShellIntrospect *
 shell_introspect_get (void)
 {
@@ -299,25 +274,67 @@ shell_introspect_get (void)
   return shell_introspect;
 }
 
-static void
-shell_introspect_init (ShellIntrospect *shell_introspect)
+GPtrArray *
+shell_introspect_get_windows (ShellIntrospect *shell_introspect)
 {
+  return shell_introspect->windows;
 }
 
-static void
-shell_introspect_class_init (ShellIntrospectClass *klass)
+void
+shell_introspect_ref_listeners (ShellIntrospect *shell_introspect)
 {
-  signals[WINDOWS_CHANGED] = g_signal_new ("windows-changed",
-                                           G_TYPE_FROM_CLASS (klass),
-                                           G_SIGNAL_RUN_LAST,
-                                           0,
-                                           NULL, NULL, NULL,
-                                           G_TYPE_NONE, 0);
-  signals[ANIMATIONS_ENABLED_CHANGED] =
-    g_signal_new ("animations-enabled-changed",
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST,
-                  0,
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE, 0);
+  shell_introspect->num_listeners++;
+
+  if (shell_introspect->proxy)
+    sync_state (shell_introspect);
+}
+
+void
+shell_introspect_unref_listeners (ShellIntrospect *shell_introspect)
+{
+  g_return_if_fail (shell_introspect->num_listeners > 0);
+
+  shell_introspect->num_listeners--;
+  if (shell_introspect->num_listeners == 0)
+    g_clear_pointer (&shell_introspect->windows, g_ptr_array_unref);
+}
+
+const char *
+window_get_title (Window *window)
+{
+  return window->title;
+}
+
+const char *
+window_get_app_id (Window *window)
+{
+  return window->app_id;
+}
+
+const uint64_t
+window_get_id (Window *window)
+{
+  return window->id;
+}
+
+gboolean
+shell_introspect_are_animations_enabled (ShellIntrospect *shell_introspect,
+                                         gboolean        *out_animations_enabled)
+{
+  if (!shell_introspect->animations_enabled_valid)
+    return FALSE;
+
+  *out_animations_enabled = shell_introspect->animations_enabled;
+  return TRUE;
+}
+
+void
+shell_introspect_wait_for_windows (ShellIntrospect *shell_introspect)
+{
+  g_assert (shell_introspect->num_listeners > 0);
+
+  sync_state (shell_introspect);
+
+  while (!shell_introspect->windows)
+    g_main_context_iteration (NULL, TRUE);
 }

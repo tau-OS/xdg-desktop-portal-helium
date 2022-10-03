@@ -44,19 +44,6 @@ typedef struct {
   GSettings *settings;
 } SettingsBundle;
 
-typedef enum {
-   MULTI = 0,
-   PURPLE = 1,
-   PINK = 2,
-   RED = 3,
-   ORANGE = 4,
-   YELLOW = 5,
-   GREEN = 6,
-   MINT = 7,
-   BLUE = 8,
-   MONO = 9
- } AccentColor;
-
 static SettingsBundle *
 settings_bundle_new (GSettingsSchema *schema,
                      GSettings       *settings)
@@ -117,99 +104,6 @@ get_color_scheme (void)
 }
 
 static GVariant *
- get_accent_color (void)
- {
-   SettingsBundle *bundle = g_hash_table_lookup (settings, "co.tauos.desktop.appearance");
-
-   if (!g_settings_schema_has_key (bundle->schema, "accent-color"))
-     return g_variant_new_uint32 (0); /* No preference */
-
-   AccentColor color = g_settings_get_enum (bundle->settings, "accent-color");
-  
-   SettingsBundle *bundle2 = g_hash_table_lookup (settings, "org.gnome.desktop.interface");
-   int color_scheme;
-   color_scheme = g_settings_get_enum (bundle2->settings, "color-scheme");
-
-   switch (color) {
-     case PURPLE:
-       GVariant * purple[] = {
-         g_variant_new_double (0.5490),
-         g_variant_new_double (0.3372),
-         g_variant_new_double (0.7490)
-       };
-       return g_variant_new_tuple(purple, 3);
-     case PINK:
-       GVariant * pink[] = {
-         g_variant_new_double (0.7490),
-         g_variant_new_double (0.3372),
-         g_variant_new_double (0.6588)
-       };
-       return g_variant_new_tuple(pink, 3);
-     case RED:
-       GVariant * red[] = {
-         g_variant_new_double (0.8588),
-         g_variant_new_double (0.1568),
-         g_variant_new_double (0.3764)
-       };
-       return g_variant_new_tuple(red, 3);
-     case ORANGE:
-       GVariant * orange[] = {
-         g_variant_new_double (0.9686),
-         g_variant_new_double (0.5058),
-         g_variant_new_double (0.168)
-       };
-       return g_variant_new_tuple(orange, 3);
-     case YELLOW:
-       GVariant * yellow[] = {
-         g_variant_new_double (0.8784),
-         g_variant_new_double (0.6313),
-         g_variant_new_double (0.0039)
-       };
-       return g_variant_new_tuple(yellow, 3);
-     case GREEN:
-       GVariant * green[] = {
-         g_variant_new_double (0.2862),
-         g_variant_new_double (0.8156),
-         g_variant_new_double (0.3686)
-       };
-       return g_variant_new_tuple(green, 3);
-     case MINT:
-       GVariant * mint[] = {
-         g_variant_new_double (0.3372),
-         g_variant_new_double (0.7490),
-         g_variant_new_double (0.6509)
-       };
-       return g_variant_new_tuple(mint, 3);
-     case BLUE:
-       GVariant * blue[] = {
-         g_variant_new_double (0.1490),
-         g_variant_new_double (0.5568),
-         g_variant_new_double (0.9764)
-       };
-       return g_variant_new_tuple(blue, 3);
-     case MONO:
-       if (color_scheme == 0) {
-         GVariant * mono[] = {
-           g_variant_new_double (0.3334),
-           g_variant_new_double (0.3334),
-           g_variant_new_double (0.3334)
-         };
-         return g_variant_new_tuple(mono, 3);
-       } else {
-         GVariant * mono[] = {
-          g_variant_new_double (0.5100),
-          g_variant_new_double (0.5100),
-          g_variant_new_double (0.5700)
-         };
-         return g_variant_new_tuple(mono, 3);
-       }
-     case MULTI:
-     default:
-       return g_variant_new_uint32 (0); /* Unknown color or multicolor mode */
-   }
- }
-
-static GVariant *
 get_theme_value (const char *key)
 {
   SettingsBundle *bundle = g_hash_table_lookup (settings, "org.gnome.desktop.a11y.interface");
@@ -258,8 +152,7 @@ settings_handle_read_all (XdpImplSettings       *object,
           if (strcmp (key, "org.gnome.desktop.interface") == 0 &&
               strcmp (keys[i], "enable-animations") == 0)
             g_variant_dict_insert_value (&dict, keys[i], g_variant_new_boolean (enable_animations));
-          else if (strcmp (key, "org.gnome.desktop.interface") == 0 &&
-                   (strcmp (keys[i], "gtk-theme") == 0 || strcmp (keys[i], "icon-theme") == 0))
+          else if (strcmp (key, "org.gnome.desktop.interface") == 0 && strcmp (keys[i], "gtk-theme") == 0)
             g_variant_dict_insert_value (&dict, keys[i], get_theme_value (keys[i]));
           else
             g_variant_dict_insert_value (&dict, keys[i], g_settings_get_value (value->settings, keys[i]));
@@ -284,7 +177,6 @@ settings_handle_read_all (XdpImplSettings       *object,
 
       g_variant_dict_init (&dict, NULL);
       g_variant_dict_insert_value (&dict, "color-scheme", get_color_scheme ());
-      g_variant_dict_insert_value (&dict, "accent-color", get_accent_color ());
 
       g_variant_builder_add (builder, "{s@a{sv}}", "org.freedesktop.appearance", g_variant_dict_end (&dict));
     }
@@ -319,13 +211,6 @@ settings_handle_read (XdpImplSettings       *object,
     {
       g_dbus_method_invocation_return_value (invocation,
                                              g_variant_new ("(v)", get_color_scheme ()));
-      return TRUE;
-    }
-  else if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
-           strcmp (arg_key, "accent-color") == 0)
-    {
-      g_dbus_method_invocation_return_value (invocation,
-                                             g_variant_new ("(v)", get_accent_color ()));
       return TRUE;
     }
   else if (strcmp (arg_namespace, "org.gnome.desktop.interface") == 0 &&
@@ -407,12 +292,6 @@ on_settings_changed (GSettings             *settings,
                                             "org.freedesktop.appearance", key,
                                             g_variant_new ("v", get_color_scheme ()));
 
-  if (strcmp (user_data->namespace, "co.tauos.desktop.appearance") == 0 &&
-      strcmp (key, "accent-color") == 0)
-    xdp_impl_settings_emit_setting_changed (user_data->self,
-                                            "org.freedesktop.appearance", key,
-                                            g_variant_new ("v", get_accent_color ()));
-
   if (strcmp (user_data->namespace, "org.gnome.desktop.a11y.interface") == 0 &&
       strcmp (key, "high-contrast") == 0)
     {
@@ -439,7 +318,6 @@ init_settings_table (XdpImplSettings *settings,
     "org.gnome.desktop.a11y",
     "org.gnome.desktop.a11y.interface",
     "org.gnome.desktop.input-sources",
-    "co.tauos.desktop.appearance"
   };
   size_t i;
   GSettingsSchemaSource *source = g_settings_schema_source_get_default ();

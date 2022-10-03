@@ -46,8 +46,7 @@ screenshot_dialog_handle_free (gpointer data)
 
   g_clear_object (&handle->external_parent);
   g_clear_object (&handle->request);
-  g_clear_object (&handle->dialog);
-  g_free (handle->uri);
+  g_clear_pointer (&handle->uri, g_free);
 
   g_free (handle);
 }
@@ -155,6 +154,7 @@ handle_screenshot (XdpImplScreenshot *object,
   g_autoptr(Request) request = NULL;
   const char *sender;
   ScreenshotDialogHandle *handle;
+  gboolean permission_store_checked;
   gboolean modal;
   gboolean interactive;
   GtkWindow *dialog;
@@ -172,6 +172,8 @@ handle_screenshot (XdpImplScreenshot *object,
 
   if (!g_variant_lookup (arg_options, "interactive", "b", &interactive))
     interactive = FALSE;
+  if (!g_variant_lookup (arg_options, "permission_store_checked", "b", &permission_store_checked))
+    permission_store_checked = FALSE;
 
   if (arg_parent_window)
     {
@@ -191,15 +193,18 @@ handle_screenshot (XdpImplScreenshot *object,
                               NULL);
   g_object_ref_sink (fake_parent);
 
-  dialog = GTK_WINDOW (screenshot_dialog_new (arg_app_id, interactive, shell));
-  gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (fake_parent));
-  gtk_window_set_modal (GTK_WINDOW (dialog), modal);
+  dialog = GTK_WINDOW (screenshot_dialog_new (arg_app_id,
+                                              permission_store_checked,
+                                              interactive,
+                                              shell));
+  gtk_window_set_transient_for (dialog, GTK_WINDOW (fake_parent));
+  gtk_window_set_modal (dialog, modal);
 
   handle = g_new0 (ScreenshotDialogHandle, 1);
   handle->impl = object;
   handle->invocation = invocation;
   handle->request = g_object_ref (request);
-  handle->dialog = g_object_ref (dialog);
+  handle->dialog = g_object_ref_sink (dialog);
   handle->external_parent = external_parent;
   handle->retval = "url";
 
@@ -298,6 +303,7 @@ screenshot_init (GDBusConnection *bus,
   GDBusInterfaceSkeleton *helper;
 
   helper = G_DBUS_INTERFACE_SKELETON (xdp_impl_screenshot_skeleton_new ());
+  xdp_impl_screenshot_set_version (XDP_IMPL_SCREENSHOT (helper), 2);
 
   g_signal_connect (helper, "handle-screenshot", G_CALLBACK (handle_screenshot), NULL);
   g_signal_connect (helper, "handle-pick-color", G_CALLBACK (handle_pick_color), NULL);

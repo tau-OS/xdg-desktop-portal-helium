@@ -6,31 +6,27 @@
 # Christian Kirbach <Christian.Kirbach@gmail.com>, 2016, 2018.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2018.
 # Philipp Kiemle <philipp.kiemle@gmail.com>, 2022.
+# Jürgen Benvenuti <gastornis@posteo.org>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xdg-desktop-portal-gnome master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
 "gnome/issues\n"
-"POT-Creation-Date: 2022-04-06 11:29+0000\n"
-"PO-Revision-Date: 2022-04-18 09:33+0200\n"
-"Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
+"POT-Creation-Date: 2022-08-06 14:26+0000\n"
+"PO-Revision-Date: 2022-08-07 21:54+0200\n"
+"Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: data/xdg-desktop-portal-gnome.desktop.in.in:4
 msgid "Portal"
 msgstr "Portal"
-
-#. TRANSLATORS: Don't translate this text (this is icon name)
-#: data/xdg-desktop-portal-gnome.desktop.in.in:6
-msgid "applications-system-symbolic"
-msgstr "applications-system-symbolic"
 
 #: src/accountdialog.c:152
 msgid "Select an Image"
@@ -68,7 +64,8 @@ msgstr ""
 msgid "Share Details"
 msgstr "Details freigeben"
 
-#: src/accountdialog.ui:12 src/appchooserdialog.ui:12 src/filechooser.c:452
+#: src/accountdialog.ui:12 src/appchooserdialog.ui:12
+#: src/dynamic-launcher.c:265 src/filechooser.c:451
 #: src/remotedesktopdialog.ui:13 src/screencastdialog.ui:14
 #: src/screenshotdialog.ui:14
 msgid "_Cancel"
@@ -106,8 +103,8 @@ msgid ""
 "No apps installed that can open “%s”. You can find more applications in "
 "Software"
 msgstr ""
-"Es sind keine Apps zum öffnen von »%s« installiert. Suchen Sie weitere "
-"Anwendungen in Software"
+"Es sind keine Apps zum Öffnen von »%s« installiert. Suchen Sie weitere "
+"Anwendungen in Software."
 
 #: src/appchooserdialog.c:420
 msgid "No suitable app installed. You can find more applications in Software."
@@ -119,7 +116,7 @@ msgstr ""
 msgid "Open With…"
 msgstr "Öffnen mit …"
 
-#: src/appchooserdialog.ui:20 src/filechooser.c:447
+#: src/appchooserdialog.ui:20 src/filechooser.c:446
 msgid "_Open"
 msgstr "_Öffnen"
 
@@ -164,15 +161,27 @@ msgstr "Hintergrundaktivität"
 msgid "Find out more"
 msgstr "Mehr herausfinden"
 
-#: src/filechooser.c:447
+#: src/dynamic-launcher.c:257
+msgid "Create Web Application"
+msgstr "Erstellen Sie eine Web-Anwendung."
+
+#: src/dynamic-launcher.c:259
+msgid "Create Application"
+msgstr "Erstellen Sie eine Anwendung."
+
+#: src/dynamic-launcher.c:267
+msgid "C_reate"
+msgstr "_Erstellen"
+
+#: src/filechooser.c:446
 msgid "_Select"
 msgstr "A_uswählen"
 
-#: src/filechooser.c:449
+#: src/filechooser.c:448
 msgid "_Save"
 msgstr "_Speichern"
 
-#: src/filechooser.c:615
+#: src/filechooser.c:617
 msgid "Open files read-only"
 msgstr "Dateien schreibgeschützt öffnen"
 
@@ -182,7 +191,7 @@ msgstr "Entfernter Bildschirm"
 
 #: src/remotedesktopdialog.ui:64
 msgid "Allow remote interaction"
-msgstr "Entfernte Bedienung erlauben"
+msgstr "Fernzugriff zulassen"
 
 #: src/screencastdialog.ui:5
 msgid "Screen Share"
@@ -192,22 +201,22 @@ msgstr "Bildschirmfreigabe"
 msgid "Virtual monitor"
 msgstr "Virtueller Bildschirm"
 
-#: src/screencastwidget.c:542
+#: src/screencastwidget.c:541
 #, c-format
 msgid "Select monitor to share with %s"
 msgstr "Bildschirm wählen, der mit %s geteilt werden soll"
 
-#: src/screencastwidget.c:544
+#: src/screencastwidget.c:543
 #, c-format
 msgid "Select window to share with %s"
 msgstr "Wählen Sie das Fenster, das mit %s geteilt werden soll"
 
-#: src/screencastwidget.c:549
+#: src/screencastwidget.c:548
 msgid "Select monitor to share with the requesting application"
 msgstr ""
 "Bildschirm wählen, der mit der anfragenden Anwendung geteilt werden soll"
 
-#: src/screencastwidget.c:550
+#: src/screencastwidget.c:549
 msgid "Select window to share with the requesting application"
 msgstr ""
 "Wählen Sie das Fenster, das mit der anfragenden Anwendung geteilt werden soll"
@@ -280,9 +289,9 @@ msgstr "_Zeiger einbeziehen"
 
 #: src/screenshotdialog.ui:188
 msgid "Include the window _border"
-msgstr "Fenster_rahmen mit aufnehmen"
+msgstr "Fenster_rahmen einbeziehen"
 
-#: src/settings.c:247
+#: src/settings.c:246
 msgid "Requested setting not found"
 msgstr "Angeforderte Einstellung wurde nicht gefunden"
 
@@ -298,9 +307,13 @@ msgstr "Festlegen"
 msgid "Failed to load image file"
 msgstr "Bilddatei konnte nicht geladen werden"
 
-#: src/wallpaperpreview.ui:50
+#: src/wallpaperpreview.ui:48
 msgid "Activities"
 msgstr "Aktivitäten"
+
+# soll nicht übersetzt werden
+#~ msgid "applications-system-symbolic"
+#~ msgstr "applications-system-symbolic"
 
 #~ msgid "Pointer"
 #~ msgstr "Zeiger"

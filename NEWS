@@ -1,20 +1,29 @@
-Changes in 42.3
-================
+Changes in 43.0
+=================
 
-- Backport screencast session fixes
-
-Changes in 42.2
-================
-
-- Fix invalid usage of app chooder dialog after its destruction
-- Properly handle errors from file operations
-- Fix various memory leaks
 - Translation updates
 
-Changes in 42.1
-================
+Changes in 43.rc
+=================
 
-- Improve filechooser handling of file names and paths
+- Remember last app folder in the Filechooser portal
+- Improve Closed signal emission in the RemoteDesktop/Screencast portal [#508]
+- Translation updates
+
+Changes in 43.beta
+=================
+
+- Don't show screenshot sharing dialog for non-interactive screenshots
+- Fix restoring window screencast streams
+- Translation updates
+
+Changes in 43.alpha
+=================
+
+- Various fixes to the screencast dialog
+- New Dynamic Launcher portal
+- Plug various memory leaks
+- Tweak wallpaper portal dialog
 - Translation updates
 
 Changes in 42.0.1
