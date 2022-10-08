@@ -67,6 +67,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/xdg-desktop-portal-g
 %doc NEWS README.md
 %{_libexecdir}/xdg-desktop-portal-gnome
 %{_datadir}/applications/xdg-desktop-portal-gnome.desktop
+%{_datadir}/glib-2.0/schemas/xdg-desktop-portal-gnome.gschema.xml
 %{_datadir}/dbus-1/services/org.freedesktop.impl.portal.desktop.gnome.service
 %{_datadir}/xdg-desktop-portal/portals/gnome.portal
 %{_userunitdir}/xdg-desktop-portal-gnome.service
