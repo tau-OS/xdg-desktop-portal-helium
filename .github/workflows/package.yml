@@ -27,7 +27,7 @@ jobs:
     uses: tau-OS/github-actions/.github/workflows/upload-rpm.yml@main
     with:
       name: "xdg-desktop-portal-gnome-tau"
-      tauOSVersion: "1.1"
+      tauOSVersion: "1"
       buildVariant: x86_64
     secrets:
       repoIP: ${{ secrets.REPO_IP }}
@@ -56,7 +56,7 @@ jobs:
     uses: tau-OS/github-actions/.github/workflows/upload-rpm.yml@main
     with:
       name: "xdg-desktop-portal-gnome-tau"
-      tauOSVersion: "1.1"
+      tauOSVersion: "1"
       buildVariant: aarch64
     secrets:
       repoIP: ${{ secrets.REPO_IP }}
