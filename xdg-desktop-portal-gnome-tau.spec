@@ -10,7 +10,7 @@ Summary:        Backend implementation for xdg-desktop-portal using GNOME (tauOS
  
 License:        LGPLv2+
 URL:            https://tauos.co
-Source0:        %{name}-%{version}.tar.gz
+Source0:        https://github.com/tau-OS/xdg-desktop-portal-gnome-tau/archive/refs/heads/main.zip
  
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
