@@ -42,7 +42,7 @@ org.gnome.SessionManager D-Bus interfaces. (with tauOS additions.)
  
  
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%setup -q -n xdg-desktop-portal-gnome-tau-main
  
  
 %build
