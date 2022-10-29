@@ -33,9 +33,8 @@ Supplements:    gnome-shell
 
 Provides:       xdg-desktop-portal-gnome = 43
 Provides:       xdg-desktop-portal-gnome%{?_isa} = 43
-Conflicts:      xdg-desktop-portal-gnome = 43
-Conflicts:      xdg-desktop-portal-gnome%{?_isa} = 43
-Obsoletes:      xdg-desktop-portal-gnome <= 43
+Conflicts:       xdg-desktop-portal-gnome = 43
+Conflicts:       xdg-desktop-portal-gnome%{?_isa} = 43
 
 %description
 A backend implementation for xdg-desktop-portal that is using various pieces of
