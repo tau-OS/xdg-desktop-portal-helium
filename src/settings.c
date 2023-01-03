@@ -57,6 +57,12 @@ typedef enum {
    MONO = 9
  } AccentColor;
 
+typedef enum {
+   MEDIUM = 0,
+   HARSH = 1,
+   SOFT = 2
+ } DarkModeStrength;
+
 static SettingsBundle *
 settings_bundle_new (GSettingsSchema *schema,
                      GSettings       *settings)
@@ -114,6 +120,20 @@ get_color_scheme (void)
   color_scheme = g_settings_get_enum (bundle->settings, "color-scheme");
 
   return g_variant_new_uint32 (color_scheme);
+}
+
+static GVariant *
+get_dark_mode_strength (void)
+{
+  SettingsBundle *bundle = g_hash_table_lookup (settings, "co.tauos.desktop.interface");
+  int dark_mode_strength;
+
+  if (!g_settings_schema_has_key (bundle->schema, "dark-mode-strength"))
+    return g_variant_new_uint32 (0); /* No preference */
+
+  dark_mode_strength = g_settings_get_enum (bundle->settings, "dark-mode-strength");
+
+  return g_variant_new_uint32 (dark_mode_strength);
 }
 
 static GVariant *
@@ -322,6 +342,13 @@ settings_handle_read (XdpImplSettings       *object,
       return TRUE;
     }
   else if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
+           strcmp (arg_key, "dark-mode-strength") == 0)
+    {
+      g_dbus_method_invocation_return_value (invocation,
+                                             g_variant_new ("(v)", get_dark_mode_strength ()));
+      return TRUE;
+    }
+  else if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
            strcmp (arg_key, "accent-color") == 0)
     {
       g_dbus_method_invocation_return_value (invocation,
@@ -406,6 +433,12 @@ on_settings_changed (GSettings             *settings,
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
                                             g_variant_new ("v", get_color_scheme ()));
+  
+  if (strcmp (user_data->namespace, "co.tauos.desktop.interface") == 0 &&
+      strcmp (key, "dark-mode-strength") == 0)
+    xdp_impl_settings_emit_setting_changed (user_data->self,
+                                            "org.freedesktop.appearance", key,
+                                            g_variant_new ("v", get_dark_mode_strength ()));
 
   if (strcmp (user_data->namespace, "co.tauos.desktop.appearance") == 0 &&
       strcmp (key, "accent-color") == 0)
