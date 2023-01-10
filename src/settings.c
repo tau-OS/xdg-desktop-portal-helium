@@ -435,7 +435,7 @@ on_settings_changed (GSettings             *settings,
                                             "org.freedesktop.appearance", key,
                                             g_variant_new ("v", get_color_scheme ()));
   
-  if (strcmp (user_data->namespace, "co.tauos.desktop.interface") == 0 &&
+  if (strcmp (user_data->namespace, "co.tauos.desktop.appearance") == 0 &&
       strcmp (key, "dark-mode-strength") == 0)
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
