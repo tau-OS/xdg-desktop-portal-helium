@@ -125,7 +125,7 @@ get_color_scheme (void)
 static GVariant *
 get_dark_mode_strength (void)
 {
-  SettingsBundle *bundle = g_hash_table_lookup (settings, "co.tauos.desktop.interface");
+  SettingsBundle *bundle = g_hash_table_lookup (settings, "co.tauos.desktop.appearance");
   int dark_mode_strength;
 
   if (!g_settings_schema_has_key (bundle->schema, "dark-mode-strength"))
