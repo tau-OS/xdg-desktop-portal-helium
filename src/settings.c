@@ -225,10 +225,11 @@ static GVariant *
          return g_variant_new_tuple(mono, 3);
        }
      case WALL:
-       return g_variant_new_uint32 (1); /* Wallpaper mode */
+       return g_variant_new_uint32 (-1); /* Wallpaper mode */
      case MULTI:
-     default:
        return g_variant_new_uint32 (0); /* Unknown color or multicolor mode */
+     default:
+       break;
    }
  }
 
