@@ -45,19 +45,6 @@ typedef struct {
 } SettingsBundle;
 
 typedef enum {
-   MULTI = 0,
-   PURPLE = 1,
-   PINK = 2,
-   RED = 3,
-   ORANGE = 4,
-   YELLOW = 5,
-   GREEN = 6,
-   MINT = 7,
-   BLUE = 8,
-   MONO = 9
- } AccentColor;
-
-typedef enum {
    MEDIUM = 0,
    HARSH = 1,
    SOFT = 2
@@ -136,99 +123,47 @@ get_dark_mode_strength (void)
   return g_variant_new_uint32 (dark_mode_strength);
 }
 
-static GVariant *
- get_accent_color (void)
- {
+static GVariant * get_accent_color (void)
+{
    SettingsBundle *bundle = g_hash_table_lookup (settings, "co.tauos.desktop.appearance");
 
    if (!g_settings_schema_has_key (bundle->schema, "accent-color"))
-     return g_variant_new_uint32 (0); /* No preference */
+     return g_variant_new_string (""); /* No preference */
 
-   AccentColor color = g_settings_get_enum (bundle->settings, "accent-color");
+   char* color = g_settings_get_string (bundle->settings, "accent-color");
   
    SettingsBundle *bundle2 = g_hash_table_lookup (settings, "org.gnome.desktop.interface");
    int color_scheme;
    color_scheme = g_settings_get_enum (bundle2->settings, "color-scheme");
 
-   switch (color) {
-     case PURPLE:
-       GVariant * purple[] = {
-         g_variant_new_double (0.5490),
-         g_variant_new_double (0.3372),
-         g_variant_new_double (0.7490)
-       };
-       return g_variant_new_tuple(purple, 3);
-     case PINK:
-       GVariant * pink[] = {
-         g_variant_new_double (0.7490),
-         g_variant_new_double (0.3372),
-         g_variant_new_double (0.6588)
-       };
-       return g_variant_new_tuple(pink, 3);
-     case RED:
-       GVariant * red[] = {
-         g_variant_new_double (0.8588),
-         g_variant_new_double (0.1568),
-         g_variant_new_double (0.3764)
-       };
-       return g_variant_new_tuple(red, 3);
-     case ORANGE:
-       GVariant * orange[] = {
-         g_variant_new_double (0.9686),
-         g_variant_new_double (0.5058),
-         g_variant_new_double (0.1680)
-       };
-       return g_variant_new_tuple(orange, 3);
-     case YELLOW:
-       GVariant * yellow[] = {
-         g_variant_new_double (0.8784),
-         g_variant_new_double (0.6313),
-         g_variant_new_double (0.0039)
-       };
-       return g_variant_new_tuple(yellow, 3);
-     case GREEN:
-       GVariant * green[] = {
-         g_variant_new_double (0.2862),
-         g_variant_new_double (0.8156),
-         g_variant_new_double (0.3686)
-       };
-       return g_variant_new_tuple(green, 3);
-     case MINT:
-       GVariant * mint[] = {
-         g_variant_new_double (0.3372),
-         g_variant_new_double (0.7490),
-         g_variant_new_double (0.6509)
-       };
-       return g_variant_new_tuple(mint, 3);
-     case BLUE:
-       GVariant * blue[] = {
-         g_variant_new_double (0.1490),
-         g_variant_new_double (0.5568),
-         g_variant_new_double (0.9764)
-       };
-       return g_variant_new_tuple(blue, 3);
-     case MONO:
-       if (color_scheme == 0) {
-         GVariant * mono[] = {
-           g_variant_new_double (0.3334),
-           g_variant_new_double (0.3334),
-           g_variant_new_double (0.3334)
-         };
-         return g_variant_new_tuple(mono, 3);
-       } else {
-         GVariant * mono[] = {
-          g_variant_new_double (0.5100),
-          g_variant_new_double (0.5100),
-          g_variant_new_double (0.5100)
-         };
-         return g_variant_new_tuple(mono, 3);
-       }
-     case MULTI:
-       return g_variant_new_uint32 (0); /* Unknown color or multicolor mode */
-     default:
-       break;
+   if (color == "purple") {
+      return g_variant_new_string ("#8c56bf");
+   } else if (color == "pink") {
+      return g_variant_new_string ("#bf56a8");
+   } else if (color == "red") {
+      return g_variant_new_string ("#db2860");
+   } else if (color == "orange") {
+      return g_variant_new_string ("#f7812b");
+   } else if (color == "yellow") {
+      return g_variant_new_string ("#e0a101");
+   } else if (color == "green") {
+      return g_variant_new_string ("#49d05e");
+   } else if (color == "mint") {
+      return g_variant_new_string ("#56bfa6");
+   } else if (color == "blue") {
+      return g_variant_new_string ("#bf8856");
+   } else if (color == "multi") {
+      return g_variant_new_string ("");
+   } else if (color == "mono") {
+      if (color_scheme == 0) {
+        return g_variant_new_string ("#2d2d2d");
+      } else {
+        return g_variant_new_string ("#ababb6");
+      }
+   } else {
+      return g_variant_new_string (color);
    }
- }
+}
 
 static GVariant *
 get_theme_value (const char *key)
