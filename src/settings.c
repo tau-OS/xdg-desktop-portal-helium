@@ -177,7 +177,7 @@ static GVariant *
        GVariant * orange[] = {
          g_variant_new_double (0.9686),
          g_variant_new_double (0.5058),
-         g_variant_new_double (0.168)
+         g_variant_new_double (0.1680)
        };
        return g_variant_new_tuple(orange, 3);
      case YELLOW:
@@ -220,7 +220,7 @@ static GVariant *
          GVariant * mono[] = {
           g_variant_new_double (0.5100),
           g_variant_new_double (0.5100),
-          g_variant_new_double (0.5700)
+          g_variant_new_double (0.5100)
          };
          return g_variant_new_tuple(mono, 3);
        }
