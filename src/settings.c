@@ -54,7 +54,8 @@ typedef enum {
    GREEN = 6,
    MINT = 7,
    BLUE = 8,
-   MONO = 9
+   MONO = 9,
+   WALL = 10
  } AccentColor;
 
 typedef enum {
@@ -223,6 +224,8 @@ static GVariant *
          };
          return g_variant_new_tuple(mono, 3);
        }
+     case WALL:
+       return g_variant_new_uint32 (1); /* Wallpaper mode */
      case MULTI:
      default:
        return g_variant_new_uint32 (0); /* Unknown color or multicolor mode */
