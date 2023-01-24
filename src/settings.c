@@ -127,10 +127,10 @@ static GVariant * get_accent_color (void)
 {
    SettingsBundle *bundle = g_hash_table_lookup (settings, "co.tauos.desktop.appearance");
 
-   if (!g_settings_schema_has_key (bundle->schema, "accent-color"))
-     return g_variant_new_string (""); /* No preference */
-
    char* color = g_settings_get_string (bundle->settings, "accent-color");
+
+   if (!g_settings_schema_has_key (bundle->schema, "accent-color"))
+     return g_variant_new_string (color); /* No preference */
   
    SettingsBundle *bundle2 = g_hash_table_lookup (settings, "org.gnome.desktop.interface");
    int color_scheme;
@@ -151,9 +151,9 @@ static GVariant * get_accent_color (void)
    } else if (color == "mint") {
       return g_variant_new_string ("#56bfa6");
    } else if (color == "blue") {
-      return g_variant_new_string ("#bf8856");
+      return g_variant_new_string ("#268ef9");
    } else if (color == "multi") {
-      return g_variant_new_string ("");
+      return g_variant_new_uint32 (0);
    } else if (color == "mono") {
       if (color_scheme == 0) {
         return g_variant_new_string ("#2d2d2d");
