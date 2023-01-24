@@ -130,36 +130,10 @@ static GVariant * get_accent_color (void)
    char* color = g_settings_get_string (bundle->settings, "accent-color");
 
    if (!g_settings_schema_has_key (bundle->schema, "accent-color"))
-     return g_variant_new_string (color); /* No preference */
-  
-   SettingsBundle *bundle2 = g_hash_table_lookup (settings, "org.gnome.desktop.interface");
-   int color_scheme;
-   color_scheme = g_settings_get_enum (bundle2->settings, "color-scheme");
+     return g_variant_new_uint32 (0); /* No preference */
 
-   if (color == "purple") {
-      return g_variant_new_string ("#8c56bf");
-   } else if (color == "pink") {
-      return g_variant_new_string ("#bf56a8");
-   } else if (color == "red") {
-      return g_variant_new_string ("#db2860");
-   } else if (color == "orange") {
-      return g_variant_new_string ("#f7812b");
-   } else if (color == "yellow") {
-      return g_variant_new_string ("#e0a101");
-   } else if (color == "green") {
-      return g_variant_new_string ("#49d05e");
-   } else if (color == "mint") {
-      return g_variant_new_string ("#56bfa6");
-   } else if (color == "blue") {
-      return g_variant_new_string ("#268ef9");
-   } else if (color == "multi") {
+   if (color == "#multi") { // Multicolor
       return g_variant_new_uint32 (0);
-   } else if (color == "mono") {
-      if (color_scheme == 0) {
-        return g_variant_new_string ("#2d2d2d");
-      } else {
-        return g_variant_new_string ("#ababb6");
-      }
    } else {
       return g_variant_new_string (color);
    }
