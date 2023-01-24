@@ -125,18 +125,103 @@ get_dark_mode_strength (void)
 
 static GVariant * get_accent_color (void)
 {
-   SettingsBundle *bundle = g_hash_table_lookup (settings, "co.tauos.desktop.appearance");
+  SettingsBundle *bundle = g_hash_table_lookup (settings, "co.tauos.desktop.appearance");
 
-   char* color = g_settings_get_string (bundle->settings, "accent-color");
+  if (!g_settings_schema_has_key (bundle->schema, "accent-color"))
+    return g_variant_new_uint32 (0); /* No preference */
 
-   if (!g_settings_schema_has_key (bundle->schema, "accent-color"))
-     return g_variant_new_uint32 (0); /* No preference */
+  char* color = g_settings_get_string (bundle->settings, "accent-color");
 
-   if (color == "#multi") { // Multicolor
-      return g_variant_new_uint32 (0);
-   } else {
-      return g_variant_new_string (color);
-   }
+  SettingsBundle *bundle2 = g_hash_table_lookup (settings, "org.gnome.desktop.interface");
+  int color_scheme = g_settings_get_enum (bundle2->settings, "color-scheme");
+
+  if (strcmp(color, "purple") == 0) {
+    GVariant * purple[] = {
+      g_variant_new_double (0.5490),
+      g_variant_new_double (0.3372),
+      g_variant_new_double (0.7490)
+    };
+    return g_variant_new_tuple(purple, 3);
+  } else if (strcmp(color, "pink") == 0) {
+    GVariant * pink[] = {
+      g_variant_new_double (0.7490),
+      g_variant_new_double (0.3372),
+      g_variant_new_double (0.6588)
+    };
+    return g_variant_new_tuple(pink, 3);
+  } else if (strcmp(color, "red") == 0) {
+    GVariant * red[] = {
+      g_variant_new_double (0.8588),
+      g_variant_new_double (0.1568),
+      g_variant_new_double (0.3764)
+    };
+    return g_variant_new_tuple(red, 3);
+  } else if (strcmp(color, "orange") == 0) {
+    GVariant * orange[] = {
+      g_variant_new_double (0.9686),
+      g_variant_new_double (0.5058),
+      g_variant_new_double (0.1680)
+    };
+    return g_variant_new_tuple(orange, 3);
+  } else if (strcmp(color, "yellow") == 0) {
+    GVariant * yellow[] = {
+      g_variant_new_double (0.8784),
+      g_variant_new_double (0.6313),
+      g_variant_new_double (0.0039)
+    };
+    return g_variant_new_tuple(yellow, 3);
+  } else if (strcmp(color, "green") == 0) {
+    GVariant * green[] = {
+      g_variant_new_double (0.2862),
+      g_variant_new_double (0.8156),
+      g_variant_new_double (0.3686)
+    };
+    return g_variant_new_tuple(green, 3);
+  } else if (strcmp(color, "mint") == 0) {
+    GVariant * mint[] = {
+      g_variant_new_double (0.3372),
+      g_variant_new_double (0.7490),
+      g_variant_new_double (0.6509)
+    };
+    return g_variant_new_tuple(mint, 3);
+  } else if (strcmp(color, "blue") == 0) {
+    GVariant * blue[] = {
+      g_variant_new_double (0.1490),
+      g_variant_new_double (0.5568),
+      g_variant_new_double (0.9764)
+    };
+    return g_variant_new_tuple(blue, 3);
+  } else if (strcmp(color, "mono") == 0) {
+    if (color_scheme == 0) {
+      GVariant * mono[] = {
+      g_variant_new_double (0.3334),
+      g_variant_new_double (0.3334),
+      g_variant_new_double (0.3334)
+      };
+      return g_variant_new_tuple(mono, 3);
+    } else {
+      GVariant * mono[] = {
+      g_variant_new_double (0.5100),
+      g_variant_new_double (0.5100),
+      g_variant_new_double (0.5100)
+      };
+      return g_variant_new_tuple(mono, 3);
+    }
+  } else if (strcmp(color, "multi") == 0) {
+    return g_variant_new_uint32(0);
+  }
+
+  GdkRGBA rgba;
+  if (gdk_rgba_parse(&rgba, color)) {
+    GVariant * custom[] = {
+      g_variant_new_double (rgba.red),
+      g_variant_new_double (rgba.green),
+      g_variant_new_double (rgba.blue)
+    };
+    return g_variant_new_tuple(custom, 3);
+  }
+
+  return g_variant_new_uint32(0);
 }
 
 static GVariant *
@@ -344,7 +429,7 @@ on_settings_changed (GSettings             *settings,
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
                                             g_variant_new ("v", get_color_scheme ()));
-  
+
   if (strcmp (user_data->namespace, "co.tauos.desktop.appearance") == 0 &&
       strcmp (key, "dark-mode-strength") == 0)
     xdp_impl_settings_emit_setting_changed (user_data->self,
