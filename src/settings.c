@@ -194,16 +194,16 @@ static GVariant * get_accent_color (void)
   } else if (strcmp(color, "mono") == 0) {
     if (color_scheme == 0) {
       GVariant * mono[] = {
-      g_variant_new_double (0.3334),
-      g_variant_new_double (0.3334),
-      g_variant_new_double (0.3334)
+      g_variant_new_double (0.3333),
+      g_variant_new_double (0.3333),
+      g_variant_new_double (0.3333)
       };
       return g_variant_new_tuple(mono, 3);
     } else {
       GVariant * mono[] = {
-      g_variant_new_double (0.5100),
-      g_variant_new_double (0.5100),
-      g_variant_new_double (0.5100)
+      g_variant_new_double (0.5555),
+      g_variant_new_double (0.5555),
+      g_variant_new_double (0.5555)
       };
       return g_variant_new_tuple(mono, 3);
     }
