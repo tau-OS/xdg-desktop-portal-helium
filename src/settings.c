@@ -112,7 +112,7 @@ get_color_scheme (void)
 static GVariant *
 get_dark_mode_strength (void)
 {
-  SettingsBundle *bundle = g_hash_table_lookup (settings, "co.tauos.desktop.appearance");
+  SettingsBundle *bundle = g_hash_table_lookup (settings, "com.fyralabs.desktop.appearance");
   int dark_mode_strength;
 
   if (!g_settings_schema_has_key (bundle->schema, "dark-mode-strength"))
@@ -125,7 +125,7 @@ get_dark_mode_strength (void)
 
 static GVariant * get_accent_color (void)
 {
-  SettingsBundle *bundle = g_hash_table_lookup (settings, "co.tauos.desktop.appearance");
+  SettingsBundle *bundle = g_hash_table_lookup (settings, "com.fyralabs.desktop.appearance");
 
   if (!g_settings_schema_has_key (bundle->schema, "accent-color"))
     return g_variant_new_uint32 (0); /* No preference */
@@ -430,13 +430,13 @@ on_settings_changed (GSettings             *settings,
                                             "org.freedesktop.appearance", key,
                                             g_variant_new ("v", get_color_scheme ()));
 
-  if (strcmp (user_data->namespace, "co.tauos.desktop.appearance") == 0 &&
+  if (strcmp (user_data->namespace, "com.fyralabs.desktop.appearance") == 0 &&
       strcmp (key, "dark-mode-strength") == 0)
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
                                             g_variant_new ("v", get_dark_mode_strength ()));
 
-  if (strcmp (user_data->namespace, "co.tauos.desktop.appearance") == 0 &&
+  if (strcmp (user_data->namespace, "com.fyralabs.desktop.appearance") == 0 &&
       strcmp (key, "accent-color") == 0)
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
@@ -468,7 +468,7 @@ init_settings_table (XdpImplSettings *settings,
     "org.gnome.desktop.a11y",
     "org.gnome.desktop.a11y.interface",
     "org.gnome.desktop.input-sources",
-    "co.tauos.desktop.appearance"
+    "com.fyralabs.desktop.appearance"
   };
   size_t i;
   GSettingsSchemaSource *source = g_settings_schema_source_get_default ();
