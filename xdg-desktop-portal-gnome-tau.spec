@@ -3,14 +3,14 @@
 # Required for xdp_impl_background_emit_running_applications_changed
 %global xdg_desktop_portal_version 1.5.4
 
-Name:           xdg-desktop-portal-gnome-tau
+Name:           xdg-desktop-portal-tau
 Version:        1.1
 Release:        10
 Summary:        Backend implementation for xdg-desktop-portal using GNOME (tauOS additions)
 
 License:        LGPLv2+
 URL:            https://tauos.co
-Source0:        https://github.com/tau-OS/xdg-desktop-portal-gnome-tau/archive/refs/heads/main.zip
+Source0:        https://github.com/tau-OS/xdg-desktop-portal-tau/archive/refs/heads/main.zip
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -43,7 +43,7 @@ org.gnome.SessionManager D-Bus interfaces. (with tauOS additions.)
 
 
 %prep
-%setup -q -n xdg-desktop-portal-gnome-tau-main
+%setup -q -n xdg-desktop-portal-tau-main
 
 
 %build
