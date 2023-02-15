@@ -186,9 +186,9 @@ static GVariant * get_accent_color (void)
     return g_variant_new_tuple(mint, 3);
   } else if (strcmp(color, "blue") == 0) {
     GVariant * blue[] = {
-      g_variant_new_double (0.1490),
-      g_variant_new_double (0.5568),
-      g_variant_new_double (0.9764)
+      g_variant_new_double (0.2705),
+      g_variant_new_double (0.7294),
+      g_variant_new_double (0.9882)
     };
     return g_variant_new_tuple(blue, 3);
   } else if (strcmp(color, "mono") == 0) {
