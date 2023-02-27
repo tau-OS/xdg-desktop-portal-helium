@@ -152,7 +152,7 @@ static GVariant * get_font_weight (void)
   if (!g_settings_schema_has_key (bundle->schema, "font-weight"))
     return g_variant_new_double (1.0); /* No preference */
 
-  font_weight = g_settings_get_enum (bundle->settings, "font-weight");
+  font_weight = g_settings_get_double (bundle->settings, "font-weight");
 
   return g_variant_new_double (font_weight);
 }
@@ -391,7 +391,7 @@ settings_handle_read (XdpImplSettings       *object,
            strcmp (arg_key, "font-weight") == 0)
     {
       g_dbus_method_invocation_return_value (invocation,
-                                             g_variant_new ("(v)", get_font_weight ()));
+                                             g_variant_new ("d", get_font_weight ()));
       return TRUE;
     }
   else if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
@@ -496,7 +496,7 @@ on_settings_changed (GSettings             *settings,
       strcmp (key, "font-weight") == 0.0)
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
-                                            g_variant_new ("v", get_font_weight ()));
+                                            g_variant_new ("d", get_font_weight ()));
 
   if (strcmp (user_data->namespace, "com.fyralabs.desktop.appearance") == 0 &&
       strcmp (key, "accent-color") == 0)
