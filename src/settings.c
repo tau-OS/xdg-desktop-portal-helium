@@ -144,8 +144,7 @@ get_ensor_scheme (void)
   return g_variant_new_uint32 (ensor_scheme);
 }
 
-static GVariant *
-get_font_weight (void)
+static GVariant * get_font_weight (void)
 {
   SettingsBundle *bundle = g_hash_table_lookup (settings, "com.fyralabs.desktop.appearance");
   double font_weight;
@@ -494,7 +493,7 @@ on_settings_changed (GSettings             *settings,
                                             g_variant_new ("v", get_ensor_scheme ()));
   
   if (strcmp (user_data->namespace, "com.fyralabs.desktop.appearance") == 0 &&
-      strcmp (key, "font-weight") == 0)
+      strcmp (key, "font-weight") == 0.0)
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
                                             g_variant_new ("v", get_font_weight ()));
