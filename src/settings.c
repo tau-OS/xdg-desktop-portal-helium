@@ -391,7 +391,7 @@ settings_handle_read (XdpImplSettings       *object,
            strcmp (arg_key, "font-weight") == 0)
     {
       g_dbus_method_invocation_return_value (invocation,
-                                             g_variant_new ("d", get_font_weight ()));
+                                             g_variant_new ("(v)", get_font_weight ()));
       return TRUE;
     }
   else if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
@@ -493,10 +493,10 @@ on_settings_changed (GSettings             *settings,
                                             g_variant_new ("v", get_ensor_scheme ()));
   
   if (strcmp (user_data->namespace, "com.fyralabs.desktop.appearance") == 0 &&
-      strcmp (key, "font-weight") == 0.0)
+      strcmp (key, "font-weight") == 0)
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
-                                            g_variant_new ("d", get_font_weight ()));
+                                            g_variant_new ("v", get_font_weight ()));
 
   if (strcmp (user_data->namespace, "com.fyralabs.desktop.appearance") == 0 &&
       strcmp (key, "accent-color") == 0)
