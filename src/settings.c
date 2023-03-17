@@ -223,7 +223,7 @@ static GVariant * get_accent_color (void)
     };
     return g_variant_new_tuple(blue, 3);
   } else if (strcmp(color, "brown") == 0) {
-    GVariant * mono[] = {
+    GVariant * brown[] = {
       g_variant_new_double (0.7490),
       g_variant_new_double (0.5330),
       g_variant_new_double (0.3370)
