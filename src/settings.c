@@ -229,6 +229,13 @@ static GVariant * get_accent_color (void)
       g_variant_new_double (0.3370)
     };
     return g_variant_new_tuple(brown, 3);
+  } else if (strcmp(color, "mono") == 0) {
+    GVariant * mono[] = {
+      g_variant_new_double (0.0),
+      g_variant_new_double (0.0),
+      g_variant_new_double (0.0)
+    };
+    return g_variant_new_tuple(mono, 3);
   } else if (strcmp(color, "multi") == 0) {
     return g_variant_new_uint32(0);
   }
