@@ -166,9 +166,6 @@ static GVariant * get_accent_color (void)
 
   char* color = g_settings_get_string (bundle->settings, "accent-color");
 
-  SettingsBundle *bundle2 = g_hash_table_lookup (settings, "org.gnome.desktop.interface");
-  int color_scheme = g_settings_get_enum (bundle2->settings, "color-scheme");
-
   if (strcmp(color, "purple") == 0) {
     GVariant * purple[] = {
       g_variant_new_double (0.5490),
@@ -225,22 +222,13 @@ static GVariant * get_accent_color (void)
       g_variant_new_double (0.9882)
     };
     return g_variant_new_tuple(blue, 3);
-  } else if (strcmp(color, "mono") == 0) {
-    if (color_scheme == 0) {
-      GVariant * mono[] = {
-      g_variant_new_double (0.0000),
-      g_variant_new_double (0.0000),
-      g_variant_new_double (0.0000)
-      };
-      return g_variant_new_tuple(mono, 3);
-    } else {
-      GVariant * mono[] = {
-      g_variant_new_double (0.7777),
-      g_variant_new_double (0.7777),
-      g_variant_new_double (0.7777)
-      };
-      return g_variant_new_tuple(mono, 3);
-    }
+  } else if (strcmp(color, "brown") == 0) {
+    GVariant * mono[] = {
+      g_variant_new_double (0.7490),
+      g_variant_new_double (0.5330),
+      g_variant_new_double (0.3370)
+    };
+    return g_variant_new_tuple(brown, 3);
   } else if (strcmp(color, "multi") == 0) {
     return g_variant_new_uint32(0);
   }
