@@ -1,94 +1,93 @@
-# Dutch translation for xdg-desktop-portal-gnome.
+# Interlingue translation for xdg-desktop-portal-gnome.
 # Copyright (C) 2022 xdg-desktop-portal-gnome's COPYRIGHT HOLDER
 # This file is distributed under the same license as the xdg-desktop-portal-gnome package.
-# Nathan Follens <nfollens@gnome.org>, 2022.
+# Olga Smirnova <mistresssilvara@hotmail.com>, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-gnome gnome-42\n"
+"Project-Id-Version: xdg-desktop-portal-gnome gnome-43\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
 "gnome/issues\n"
-"POT-Creation-Date: 2022-10-07 16:57+0000\n"
-"PO-Revision-Date: 2022-11-02 00:21+0100\n"
-"Last-Translator: Nathan Follens <nfollens@gnome.org>\n"
-"Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
-"Language: nl\n"
+"POT-Creation-Date: 2022-11-12 19:07+0000\n"
+"PO-Revision-Date: 2022-12-13 17:21+0700\n"
+"Language-Team: Interlingue <ie@li.org>\n"
+"Language: ie\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
+"X-Generator: Poedit 1.8.12\n"
 
 #: data/xdg-desktop-portal-gnome.desktop.in.in:4
 msgid "Portal"
-msgstr "Portaal"
+msgstr "Portale"
 
 #: src/accountdialog.c:152
 msgid "Select an Image"
-msgstr "Kies een afbeelding"
+msgstr "Selecter un image"
 
-#: src/accountdialog.c:155 src/wallpaperdialog.ui:14
+#: src/accountdialog.c:155 src/wallpaperdialog.ui:26
 msgid "Cancel"
-msgstr "Annuleren"
+msgstr "Anullar"
 
 #: src/accountdialog.c:156
 msgid "Select"
-msgstr "Selecteren"
+msgstr "Selecter"
 
 #: src/accountdialog.c:157
 msgid "Clear"
-msgstr "Wissen"
+msgstr "Vacuar"
 
 #: src/accountdialog.c:164
 msgid "Images"
-msgstr "Afbeeldingen"
+msgstr "Images"
 
 #: src/accountdialog.c:225
 #, c-format
 msgid "Share your personal information with %1$s? %2$s"
-msgstr "Uw persoonlijke gegevens delen met %1$s? %2$s"
+msgstr "Partir vor personal information con %1$s? %2$s"
 
 #: src/accountdialog.c:231
 #, c-format
 msgid "Share your personal information with the requesting application? %s"
-msgstr "Uw persoonlijke gegevens delen met de toepassing? %s"
+msgstr "Partir vor personal information con li demandant application? %s"
 
 #: src/accountdialog.ui:4
 msgid "Share Details"
-msgstr "Details delen"
+msgstr "Detallies de partite"
 
-#: src/accountdialog.ui:12 src/appchooserdialog.ui:12
+#: src/accountdialog.ui:23 src/appchooserdialog.ui:12
 #: src/dynamic-launcher.c:265 src/filechooser.c:534
-#: src/remotedesktopdialog.ui:13 src/screencastdialog.ui:14
-#: src/screenshotdialog.ui:14
+#: src/remotedesktopdialog.ui:25 src/screencastdialog.ui:26
+#: src/screenshotdialog.ui:26
 msgid "_Cancel"
-msgstr "_Annuleren"
+msgstr "_Anullar"
 
-#: src/accountdialog.ui:19 src/remotedesktopdialog.ui:21
-#: src/screencastdialog.ui:22 src/screenshotdialog.ui:37
+#: src/accountdialog.ui:30 src/remotedesktopdialog.ui:33
+#: src/screencastdialog.ui:34 src/screenshotdialog.ui:49
 msgid "_Share"
-msgstr "_Delen"
+msgstr "_Partir"
 
-#: src/accountdialog.ui:72
+#: src/accountdialog.ui:83
 msgid "Name"
-msgstr "Naam"
+msgstr "Nómine"
 
-#: src/accountdialog.ui:84
+#: src/accountdialog.ui:95
 msgid "Username"
-msgstr "Gebruikersnaam"
+msgstr "Nómine de usator"
 
 #: src/appchooserdialog.c:229
 msgid "Failed to start Software"
-msgstr "Starten van Software is mislukt"
+msgstr "Ne successat lansar li Programmarium"
 
 #: src/appchooserdialog.c:393
 #, c-format
 msgid "Choose an application to open the file “%s”."
-msgstr "Kies een toepassing om het bestand ‘%s’ mee te openen."
+msgstr "Selecte un application por aperter li file «%s»."
 
 #: src/appchooserdialog.c:398
 msgid "Choose an application."
-msgstr "Kies een toepassing."
+msgstr "Selecte un application."
 
 #: src/appchooserdialog.c:415
 #, c-format
@@ -96,35 +95,35 @@ msgid ""
 "No apps installed that can open “%s”. You can find more applications in "
 "Software"
 msgstr ""
-"Er zijn geen toepassingen geïnstalleerd die ‘%s’ kunnen openen. U kunt meer "
-"toepassingen vinden in Software"
+"Null installat applicationes posse aperter «%s». On posse trovar additional "
+"applicationes in li Programmarium"
 
 #: src/appchooserdialog.c:420
 msgid "No suitable app installed. You can find more applications in Software."
 msgstr ""
-"Er is geen geschikte toepassing geïnstalleerd. U kunt meer toepassingen "
-"vinden in Software."
+"Null convenent applicationes es installat. On posse trovar additional "
+"applicationes in li Programmarium."
 
 #: src/appchooserdialog.ui:5
 msgid "Open With…"
-msgstr "Openen met…"
+msgstr "Aperter per…"
 
 #: src/appchooserdialog.ui:20 src/filechooser.c:529
 msgid "_Open"
-msgstr "_Openen"
+msgstr "_Aperter"
 
 #: src/appchooserdialog.ui:104
 msgid "No Apps available"
-msgstr "Geen toepassingen beschikbaar"
+msgstr "Null applicationes disponibil"
 
 #: src/appchooserdialog.ui:144
 msgid "_Find More in Software"
-msgstr "_Zoeken in Software"
+msgstr "_Trovar plu in li Programmarium"
 
 #: src/background.c:214 src/background.c:305
 #, c-format
 msgid "“%s” is running in the background"
-msgstr "‘%s’ draait op de achtergrond"
+msgstr "«%s» execute in li funde"
 
 #: src/background.c:216
 msgid ""
@@ -133,174 +132,169 @@ msgid ""
 "\n"
 "Note that forcing an application to quit might cause data loss."
 msgstr ""
-"Hier kan een geldige reden voor zijn, maar de toepassing heeft er geen "
-"opgegeven.\n"
+"To posse haver un legitim cause, ma li application ne providet it.\n"
 "\n"
-"Let op: een toepassing geforceerd afsluiten kan leiden tot verlies van "
-"bepaalde gegevens."
+"Marca que termination de application posse causar perde de data."
 
 #: src/background.c:219
 msgid "Force quit"
-msgstr "Afsluiten forceren"
+msgstr "Terminar"
 
 #: src/background.c:220
 msgid "Allow"
-msgstr "Toestaan"
+msgstr "Permisser"
 
 #: src/background.c:303
 msgid "Background activity"
-msgstr "Achtergrondactiviteit"
+msgstr "Activitá in funde"
 
 #: src/background.c:311
 msgid "Find out more"
-msgstr "Kom meer te weten"
+msgstr "Plu information"
 
 #: src/dynamic-launcher.c:257
 msgid "Create Web Application"
-msgstr "Webtoepassing aanmaken"
+msgstr "Crear un application web"
 
 #: src/dynamic-launcher.c:259
 msgid "Create Application"
-msgstr "Toepassing aanmaken"
+msgstr "Crear un application"
 
 #: src/dynamic-launcher.c:267
 msgid "C_reate"
-msgstr "Aan_maken"
+msgstr "C_rear"
 
 #: src/filechooser.c:529
 msgid "_Select"
-msgstr "_Selecteren"
+msgstr "_Selecter"
 
 #: src/filechooser.c:531
 msgid "_Save"
-msgstr "Op_slaan"
+msgstr "_Gardar"
 
 #: src/filechooser.c:713
 msgid "Open files read-only"
-msgstr "Bestanden als alleen-lezen openen"
+msgstr "Aperter files solmen por letion"
 
 #: src/remotedesktopdialog.ui:7
 msgid "Remote desktop"
-msgstr "Bureaublad op afstand"
+msgstr "Lontan pupitre"
 
-#: src/remotedesktopdialog.ui:64
+#: src/remotedesktopdialog.ui:76
 msgid "Allow remote interaction"
-msgstr "Interactie vanop afstand toestaan"
+msgstr "Permisser lontan interaction"
 
 #: src/screencastdialog.ui:5
 msgid "Screen Share"
-msgstr "Scherm delen"
+msgstr "Partir li ecran"
 
 #: src/screencastwidget.c:159
 msgid "Virtual monitor"
-msgstr "Virtueel beeldscherm"
+msgstr "Virtual monitor"
 
-#: src/screencastwidget.c:541
+#: src/screencastwidget.c:540
 #, c-format
 msgid "Select monitor to share with %s"
-msgstr "Kies een beeldscherm om met %s te delen"
+msgstr "Selecte un monitor por partir con %s"
 
-#: src/screencastwidget.c:543
+#: src/screencastwidget.c:542
 #, c-format
 msgid "Select window to share with %s"
-msgstr "Kies een venster om met %s te delen"
+msgstr "Selecte un fenestre por partir con %s"
+
+#: src/screencastwidget.c:547
+msgid "Select monitor to share with the requesting application"
+msgstr "Selecte un monitor por partir con li demandant application"
 
 #: src/screencastwidget.c:548
-msgid "Select monitor to share with the requesting application"
-msgstr "Kies een beeldscherm om met de toepassing te delen"
-
-#: src/screencastwidget.c:549
 msgid "Select window to share with the requesting application"
-msgstr "Kies een venster om met de toepassing te delen"
+msgstr "Selecte un fenestre por partir con li demandant application"
 
 #: src/screencastwidget.ui:16
 msgid "Single Window"
-msgstr "Enkel venster"
+msgstr "Singul fenestre"
 
 #: src/screencastwidget.ui:40 src/screencastwidget.ui:86
 msgid "Remember this selection"
-msgstr "Deze selectie onthouden"
+msgstr "Memorar ti selection"
 
 #: src/screencastwidget.ui:64
 msgid "Entire Screen"
-msgstr "Volledig scherm"
+msgstr "Li tot ecran"
 
 #: src/screenshotdialog.c:435
 #, c-format
 msgid "Share this screenshot with %s?"
-msgstr "Deze schermafdruk delen met %s?"
+msgstr "Partir ti-ci captura con %s?"
 
 #: src/screenshotdialog.c:439
 msgid "Share this screenshot with the requesting application?"
-msgstr "Deze schermafdruk delen met de toepassing?"
+msgstr "Partir ti-ci captura con li demandant application?"
 
 #: src/screenshotdialog.ui:8
 msgid "Screenshot"
-msgstr "Schermafdruk"
+msgstr "Captura de ecran"
 
-#: src/screenshotdialog.ui:30
+#: src/screenshotdialog.ui:42
 msgid "_Options…"
-msgstr "_Opties…"
+msgstr "_Parametres…"
 
-#: src/screenshotdialog.ui:55
+#: src/screenshotdialog.ui:67
 msgid "Take _Screenshot"
-msgstr "_Schermafdruk maken"
+msgstr "_Capter li ecran"
 
-#: src/screenshotdialog.ui:108
+#: src/screenshotdialog.ui:120
 msgid "Take Screenshot"
-msgstr "Schermafdruk maken"
+msgstr "Capter li ecran"
 
-#: src/screenshotdialog.ui:118
+#: src/screenshotdialog.ui:130
 msgid "Grab the whole sc_reen"
-msgstr "Het hele _scherm"
+msgstr "Capter li tot ec_ran"
 
-#: src/screenshotdialog.ui:128
+#: src/screenshotdialog.ui:140
 msgid "Grab the current _window"
-msgstr "Het huidige _venster"
-
-#: src/screenshotdialog.ui:138
-msgid "Select _area to grab"
-msgstr "Selecteer een _gebied"
+msgstr "Capter li actual fe_nestre"
 
 #: src/screenshotdialog.ui:150
+msgid "Select _area to grab"
+msgstr "Selecter un _area por capter"
+
+#: src/screenshotdialog.ui:162
 msgid "Grab after a _delay of"
-msgstr "Met een _vertraging van"
+msgstr "Capter pos un retar_de de"
 
-#: src/screenshotdialog.ui:161
+#: src/screenshotdialog.ui:173
 msgid "seconds"
-msgstr "seconden"
+msgstr "secondes"
 
-#: src/screenshotdialog.ui:170
+#: src/screenshotdialog.ui:182
 msgid "Effects"
-msgstr "Effecten"
+msgstr "Efectes"
 
-#: src/screenshotdialog.ui:180
+#: src/screenshotdialog.ui:192
 msgid "Include _pointer"
-msgstr "Muisaanwijzer o_pnemen"
+msgstr "Includer li a_puntator"
 
-#: src/screenshotdialog.ui:188
+#: src/screenshotdialog.ui:200
 msgid "Include the window _border"
-msgstr "De _vensterrand in de schermafdruk opnemen"
+msgstr "Includer li _borde de fenestre"
 
 #: src/settings.c:246
 msgid "Requested setting not found"
-msgstr "Gevraagde instelling niet gevonden"
+msgstr "Un besonat parametre ne esset trovat"
 
 #: src/wallpaperdialog.ui:8
 msgid "Set Background"
-msgstr "Bureaubladachtergrond instellen"
+msgstr "Assignar quam li funde"
 
-#: src/wallpaperdialog.ui:20
+#: src/wallpaperdialog.ui:32
 msgid "Set"
-msgstr "Instellen"
+msgstr "Assignar"
 
-#: src/wallpaperdialog.ui:51
+#: src/wallpaperdialog.ui:63
 msgid "Failed to load image file"
-msgstr "Laden van afbeeldingsbestand mislukt"
+msgstr "Ne successat cargar li file de image"
 
 #: src/wallpaperpreview.ui:48
 msgid "Activities"
-msgstr "Activiteiten"
-
-#~ msgid "applications-system-symbolic"
-#~ msgstr "applications-system-symbolic"
+msgstr "Activitás"
