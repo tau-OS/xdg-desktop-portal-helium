@@ -156,101 +156,106 @@ static GVariant * get_font_weight (void)
 
   return g_variant_new_double (font_weight);
 }
-
 static GVariant * get_accent_color (void)
 {
-  SettingsBundle *bundle = g_hash_table_lookup (settings, "com.fyralabs.desktop.appearance");
+  SettingsBundle * bundle = g_hash_table_lookup (settings, "com.fyralabs.desktop.appearance");
+
+  GVariant * no_preference[] = {
+    g_variant_new_double (69.0),
+    g_variant_new_double (420.0),
+    g_variant_new_double (1337.0)
+  };
 
   if (!g_settings_schema_has_key (bundle->schema, "accent-color"))
-    return g_variant_new_uint32 (0); /* No preference */
+    return g_variant_new_tuple (no_preference, 3); /* No preference */
 
   char* color = g_settings_get_string (bundle->settings, "accent-color");
 
-  if (strcmp(color, "purple") == 0) {
+  if (strcmp (color, "purple") == 0) {
     GVariant * purple[] = {
       g_variant_new_double (0.5490),
       g_variant_new_double (0.3372),
       g_variant_new_double (0.7490)
     };
-    return g_variant_new_tuple(purple, 3);
-  } else if (strcmp(color, "pink") == 0) {
+    return g_variant_new_tuple (purple, 3);
+  } else if (strcmp (color, "pink") == 0) {
     GVariant * pink[] = {
       g_variant_new_double (0.7490),
       g_variant_new_double (0.3372),
       g_variant_new_double (0.6588)
     };
-    return g_variant_new_tuple(pink, 3);
-  } else if (strcmp(color, "red") == 0) {
+    return g_variant_new_tuple (pink, 3);
+  } else if (strcmp (color, "red") == 0) {
     GVariant * red[] = {
       g_variant_new_double (0.8588),
       g_variant_new_double (0.1568),
       g_variant_new_double (0.3764)
     };
-    return g_variant_new_tuple(red, 3);
-  } else if (strcmp(color, "orange") == 0) {
+    return g_variant_new_tuple (red, 3);
+  } else if (strcmp (color, "orange") == 0) {
     GVariant * orange[] = {
       g_variant_new_double (0.9686),
       g_variant_new_double (0.5058),
       g_variant_new_double (0.1680)
     };
-    return g_variant_new_tuple(orange, 3);
-  } else if (strcmp(color, "yellow") == 0) {
+    return g_variant_new_tuple (orange, 3);
+  } else if (strcmp (color, "yellow") == 0) {
     GVariant * yellow[] = {
       g_variant_new_double (0.8784),
       g_variant_new_double (0.6313),
       g_variant_new_double (0.0039)
     };
-    return g_variant_new_tuple(yellow, 3);
-  } else if (strcmp(color, "green") == 0) {
+    return g_variant_new_tuple (yellow, 3);
+  } else if (strcmp (color, "green") == 0) {
     GVariant * green[] = {
       g_variant_new_double (0.2862),
       g_variant_new_double (0.8156),
       g_variant_new_double (0.3686)
     };
-    return g_variant_new_tuple(green, 3);
-  } else if (strcmp(color, "mint") == 0) {
+    return g_variant_new_tuple (green, 3);
+  } else if (strcmp (color, "mint") == 0) {
     GVariant * mint[] = {
       g_variant_new_double (0.3372),
       g_variant_new_double (0.7490),
       g_variant_new_double (0.6509)
     };
-    return g_variant_new_tuple(mint, 3);
-  } else if (strcmp(color, "blue") == 0) {
+    return g_variant_new_tuple (mint, 3);
+  } else if (strcmp (color, "blue") == 0) {
     GVariant * blue[] = {
       g_variant_new_double (0.2705),
       g_variant_new_double (0.7294),
       g_variant_new_double (0.9882)
     };
-    return g_variant_new_tuple(blue, 3);
-  } else if (strcmp(color, "brown") == 0) {
+    return g_variant_new_tuple (blue, 3);
+  } else if (strcmp (color, "brown") == 0) {
     GVariant * brown[] = {
       g_variant_new_double (0.7490),
       g_variant_new_double (0.5330),
       g_variant_new_double (0.3370)
     };
-    return g_variant_new_tuple(brown, 3);
-  } else if (strcmp(color, "mono") == 0) {
+    return g_variant_new_tuple (brown, 3);
+  } else if (strcmp (color, "mono") == 0) {
     GVariant * mono[] = {
       g_variant_new_double (0.0),
       g_variant_new_double (0.0),
       g_variant_new_double (0.0)
     };
-    return g_variant_new_tuple(mono, 3);
-  } else if (strcmp(color, "multi") == 0) {
-    return g_variant_new_uint32(0);
+    return g_variant_new_tuple (mono, 3);
+  } else if (strcmp (color, "multi") == 0) {
+    return g_variant_new_tuple (no_preference, 3);
   }
 
   GdkRGBA rgba;
-  if (gdk_rgba_parse(&rgba, color)) {
+  if (gdk_rgba_parse (&rgba, color)) {
     GVariant * custom[] = {
       g_variant_new_double (rgba.red),
       g_variant_new_double (rgba.green),
       g_variant_new_double (rgba.blue)
     };
-    return g_variant_new_tuple(custom, 3);
+    return g_variant_new_tuple (custom, 3);
   }
 
-  return g_variant_new_uint32(0);
+  return g_variant_new_tuple (no_preference, 3);
 }
 
 static GVariant *
@@ -479,13 +484,13 @@ on_settings_changed (GSettings             *settings,
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
                                             g_variant_new ("v", get_dark_mode_strength ()));
-  
+
   if (strcmp (user_data->namespace, "com.fyralabs.desktop.appearance") == 0 &&
       strcmp (key, "ensor-scheme") == 0)
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
                                             g_variant_new ("v", get_ensor_scheme ()));
-  
+
   if (strcmp (user_data->namespace, "com.fyralabs.desktop.appearance") == 0 &&
       strcmp (key, "font-weight") == 0)
     xdp_impl_settings_emit_setting_changed (user_data->self,
