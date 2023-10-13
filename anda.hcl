@@ -1,5 +1,5 @@
-project "xdg-desktop-portal-gnome-tau" {
+project "xdg-desktop-portal-tau" {
     rpm {
-        spec = "xdg-desktop-portal-gnome-tau.spec"
+        spec = "xdg-desktop-portal-tau.spec"
     }
 }
