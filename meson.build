@@ -1,7 +1,7 @@
 project(
-  'xdg-desktop-portal-gnome',
+  'xdg-desktop-portal-tau',
   'c',
-  version: '43.2',
+  version: '1.1.0',
   meson_version: '>= 0.53.0',
   license: 'LGPLv2.1+'
 )

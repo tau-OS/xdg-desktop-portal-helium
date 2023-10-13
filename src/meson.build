@@ -49,8 +49,8 @@ built_sources += gnome.gdbus_codegen(
 
 # GResources
 built_sources += gnome.compile_resources(
-  'xdg-desktop-portal-gnome-resources',
-  'xdg-desktop-portal-gnome.gresource.xml',
+  'xdg-desktop-portal-tau-resources',
+  'xdg-desktop-portal-tau.gresource.xml',
   c_name: '_xdg_desktop',
 )
 
@@ -114,7 +114,7 @@ sources = built_sources + files(
   'wallpaperdialog.c',
   'wallpaperpreview.c',
   'wallpaper.c',
-  'xdg-desktop-portal-gnome.c',
+  'xdg-desktop-portal-tau.c',
 )
 
 common_flags = []
@@ -135,7 +135,7 @@ endif
 add_project_arguments(common_flags, language: 'c')
 
 executable(
-  'xdg-desktop-portal-gnome',
+  'xdg-desktop-portal-tau',
   sources,
   dependencies: deps,
   install: true,
@@ -143,7 +143,7 @@ executable(
 )
 
 install_data (
-  'xdg-desktop-portal-gnome.gschema.xml',
+  'xdg-desktop-portal-tau.gschema.xml',
   install_dir : datadir / 'glib-2.0' / 'schemas',
 )
 

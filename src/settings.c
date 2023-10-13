@@ -45,12 +45,6 @@ typedef struct {
 } SettingsBundle;
 
 typedef enum {
-   MEDIUM = 0,
-   HARSH = 1,
-   SOFT = 2
- } DarkModeStrength;
-
-typedef enum {
    DEFAULT = 0,
    VIBRANT = 1,
    MUTED = 2,
@@ -114,20 +108,6 @@ get_color_scheme (void)
   color_scheme = g_settings_get_enum (bundle->settings, "color-scheme");
 
   return g_variant_new_uint32 (color_scheme);
-}
-
-static GVariant *
-get_dark_mode_strength (void)
-{
-  SettingsBundle *bundle = g_hash_table_lookup (settings, "com.fyralabs.desktop.appearance");
-  int dark_mode_strength;
-
-  if (!g_settings_schema_has_key (bundle->schema, "dark-mode-strength"))
-    return g_variant_new_uint32 (0); /* No preference */
-
-  dark_mode_strength = g_settings_get_enum (bundle->settings, "dark-mode-strength");
-
-  return g_variant_new_uint32 (dark_mode_strength);
 }
 
 static GVariant *
@@ -333,7 +313,6 @@ settings_handle_read_all (XdpImplSettings       *object,
       g_variant_dict_init (&dict, NULL);
       g_variant_dict_insert_value (&dict, "color-scheme", get_color_scheme ());
       g_variant_dict_insert_value (&dict, "accent-color", get_accent_color ());
-      g_variant_dict_insert_value (&dict, "dark-mode-strength", get_dark_mode_strength ());
       g_variant_dict_insert_value (&dict, "ensor-scheme", get_ensor_scheme ());
       g_variant_dict_insert_value (&dict, "font-weight", get_font_weight ());
 
@@ -370,13 +349,6 @@ settings_handle_read (XdpImplSettings       *object,
     {
       g_dbus_method_invocation_return_value (invocation,
                                              g_variant_new ("(v)", get_color_scheme ()));
-      return TRUE;
-    }
-  else if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
-           strcmp (arg_key, "dark-mode-strength") == 0)
-    {
-      g_dbus_method_invocation_return_value (invocation,
-                                             g_variant_new ("(v)", get_dark_mode_strength ()));
       return TRUE;
     }
   else if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
@@ -478,12 +450,6 @@ on_settings_changed (GSettings             *settings,
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
                                             g_variant_new ("v", get_color_scheme ()));
-
-  if (strcmp (user_data->namespace, "com.fyralabs.desktop.appearance") == 0 &&
-      strcmp (key, "dark-mode-strength") == 0)
-    xdp_impl_settings_emit_setting_changed (user_data->self,
-                                            "org.freedesktop.appearance", key,
-                                            g_variant_new ("v", get_dark_mode_strength ()));
 
   if (strcmp (user_data->namespace, "com.fyralabs.desktop.appearance") == 0 &&
       strcmp (key, "ensor-scheme") == 0)

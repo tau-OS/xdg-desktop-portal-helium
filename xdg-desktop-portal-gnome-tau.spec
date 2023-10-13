@@ -31,11 +31,6 @@ Requires:       xdg-desktop-portal >= %{xdg_desktop_portal_version}
 
 Supplements:    gnome-shell
 
-Provides:       xdg-desktop-portal-gnome = 43
-Provides:       xdg-desktop-portal-gnome%{?_isa} = 43
-Conflicts:       xdg-desktop-portal-gnome = 43
-Conflicts:       xdg-desktop-portal-gnome%{?_isa} = 43
-
 %description
 A backend implementation for xdg-desktop-portal that is using various pieces of
 GNOME infrastructure, such as the org.gnome.Shell.Screenshot or
@@ -52,26 +47,26 @@ org.gnome.SessionManager D-Bus interfaces. (with tauOS additions.)
 
 %install
 %meson_install
-desktop-file-validate %{buildroot}/%{_datadir}/applications/xdg-desktop-portal-gnome.desktop
-%find_lang xdg-desktop-portal-gnome
+desktop-file-validate %{buildroot}/%{_datadir}/applications/xdg-desktop-portal-tau.desktop
+%find_lang xdg-desktop-portal-tau
 
 
 %post
-%systemd_user_post xdg-desktop-portal-gnome.service
+%systemd_user_post xdg-desktop-portal-tau.service
 
 %preun
-%systemd_user_preun xdg-desktop-portal-gnome.service
+%systemd_user_preun xdg-desktop-portal-tau.service
 
 
-%files -f xdg-desktop-portal-gnome.lang
+%files -f xdg-desktop-portal-tau.lang
 %license COPYING
 %doc NEWS README.md
-%{_libexecdir}/xdg-desktop-portal-gnome
-%{_datadir}/applications/xdg-desktop-portal-gnome.desktop
-%{_datadir}/glib-2.0/schemas/xdg-desktop-portal-gnome.gschema.xml
-%{_datadir}/dbus-1/services/org.freedesktop.impl.portal.desktop.gnome.service
-%{_datadir}/xdg-desktop-portal/portals/gnome.portal
-%{_userunitdir}/xdg-desktop-portal-gnome.service
+%{_libexecdir}/xdg-desktop-portal-tau
+%{_datadir}/applications/xdg-desktop-portal-tau.desktop
+%{_datadir}/glib-2.0/schemas/xdg-desktop-portal-tau.gschema.xml
+%{_datadir}/dbus-1/services/org.freedesktop.impl.portal.desktop.tau.service
+%{_datadir}/xdg-desktop-portal/portals/tau.portal
+%{_userunitdir}/xdg-desktop-portal-tau.service
 
 %changelog
 %autochangelog
