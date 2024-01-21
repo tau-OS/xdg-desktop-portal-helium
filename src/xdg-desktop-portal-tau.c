@@ -42,19 +42,7 @@
 
 #include "xdg-desktop-portal-dbus.h"
 
-#include "account.h"
-#include "appchooser.h"
-#include "background.h"
-#include "filechooser.h"
-#include "lockdown.h"
-#include "print.h"
-#include "screenshot.h"
-#include "screencast.h"
-#include "remotedesktop.h"
-#include "request.h"
 #include "settings.h"
-#include "wallpaper.h"
-#include "dynamic-launcher.h"
 
 
 static GMainLoop *loop = NULL;
@@ -106,73 +94,7 @@ on_bus_acquired (GDBusConnection *connection,
 {
   GError *error = NULL;
 
-  if (!file_chooser_init (connection, &error))
-    {
-      g_warning ("error: %s\n", error->message);
-      g_clear_error (&error);
-    }
-
-  if (!account_init (connection, &error))
-    {
-      g_warning ("error: %s\n", error->message);
-      g_clear_error (&error);
-    }
-
-  if (!app_chooser_init (connection, &error))
-    {
-      g_warning ("error: %s\n", error->message);
-      g_clear_error (&error);
-    }
-
-  if (!background_init (connection, &error))
-    {
-      g_warning ("error: %s\n", error->message);
-      g_clear_error (&error);
-    }
-
-  if (!lockdown_init (connection, &error))
-    {
-      g_warning ("error: %s\n", error->message);
-      g_clear_error (&error);
-    }
-
-  if (!print_init (connection, &error))
-    {
-      g_warning ("error: %s\n", error->message);
-      g_clear_error (&error);
-    }
-
-  if (!screenshot_init (connection, &error))
-    {
-      g_warning ("error: %s\n", error->message);
-      g_clear_error (&error);
-    }
-
-  if (!screen_cast_init (connection, &error))
-    {
-      g_warning ("error: %s\n", error->message);
-      g_clear_error (&error);
-    }
-
-  if (!remote_desktop_init (connection, &error))
-    {
-      g_warning ("error: %s\n", error->message);
-      g_clear_error (&error);
-    }
-
   if (!settings_init (connection, &error))
-    {
-      g_warning ("error: %s\n", error->message);
-      g_clear_error (&error);
-    }
-
-  if (!wallpaper_init (connection, &error))
-    {
-      g_warning ("error: %s\n", error->message);
-      g_clear_error (&error);
-    }
-
-  if (!dynamic_launcher_init (connection, &error))
     {
       g_warning ("error: %s\n", error->message);
       g_clear_error (&error);

@@ -27,17 +27,10 @@
 
 #include "settings.h"
 #include "utils.h"
-#include "shellintrospect.h"
 
 #include "xdg-desktop-portal-dbus.h"
-#include "fc-monitor.h"
 
 static GHashTable *settings;
-static FcMonitor *fontconfig_monitor;
-static int fontconfig_serial;
-static gboolean enable_animations;
-
-static void sync_animations_enabled (XdpImplSettings *impl, ShellIntrospect *shell_introspect);
 
 typedef struct {
   GSettingsSchema *schema;
@@ -284,26 +277,13 @@ settings_handle_read_all (XdpImplSettings       *object,
       g_variant_dict_init (&dict, NULL);
       for (i = 0; keys[i]; ++i)
         {
-          if (strcmp (key, "org.gnome.desktop.interface") == 0 &&
-              strcmp (keys[i], "enable-animations") == 0)
-            g_variant_dict_insert_value (&dict, keys[i], g_variant_new_boolean (enable_animations));
-          else if (strcmp (key, "org.gnome.desktop.interface") == 0 && strcmp (keys[i], "gtk-theme") == 0)
+          if (strcmp (key, "org.gnome.desktop.interface") == 0 && strcmp (keys[i], "gtk-theme") == 0)
             g_variant_dict_insert_value (&dict, keys[i], get_theme_value (keys[i]));
           else
             g_variant_dict_insert_value (&dict, keys[i], g_settings_get_value (value->settings, keys[i]));
         }
 
       g_variant_builder_add (builder, "{s@a{sv}}", key, g_variant_dict_end (&dict));
-    }
-
-  if (namespace_matches ("org.gnome.fontconfig", arg_namespaces))
-    {
-      GVariantDict dict;
-
-      g_variant_dict_init (&dict, NULL);
-      g_variant_dict_insert_value (&dict, "serial", g_variant_new_int32 (fontconfig_serial));
-
-      g_variant_builder_add (builder, "{s@a{sv}}", "org.gnome.fontconfig", g_variant_dict_end (&dict));
     }
 
   if (namespace_matches ("org.freedesktop.appearance", arg_namespaces))
@@ -335,16 +315,7 @@ settings_handle_read (XdpImplSettings       *object,
 {
   g_debug ("Read %s %s", arg_namespace, arg_key);
 
-  if (strcmp (arg_namespace, "org.gnome.fontconfig") == 0)
-    {
-      if (strcmp (arg_key, "serial") == 0)
-        {
-          g_dbus_method_invocation_return_value (invocation,
-                                                 g_variant_new ("(v)", g_variant_new_int32 (fontconfig_serial)));
-          return TRUE;
-        }
-    }
-  else if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
+  if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
            strcmp (arg_key, "color-scheme") == 0)
     {
       g_dbus_method_invocation_return_value (invocation,
@@ -370,13 +341,6 @@ settings_handle_read (XdpImplSettings       *object,
     {
       g_dbus_method_invocation_return_value (invocation,
                                              g_variant_new ("(v)", get_accent_color ()));
-      return TRUE;
-    }
-  else if (strcmp (arg_namespace, "org.gnome.desktop.interface") == 0 &&
-           strcmp (arg_key, "enable-animations") == 0)
-    {
-      g_dbus_method_invocation_return_value (invocation,
-                                             g_variant_new ("(v)", g_variant_new_boolean (enable_animations)));
       return TRUE;
     }
   else if (strcmp (arg_namespace, "org.gnome.desktop.interface") == 0 &&
@@ -437,14 +401,6 @@ on_settings_changed (GSettings             *settings,
   g_autoptr (GVariant) new_value = g_settings_get_value (settings, key);
 
   g_debug ("Emitting changed for %s %s", user_data->namespace, key);
-  if (strcmp (user_data->namespace, "org.gnome.desktop.interface") == 0 &&
-      strcmp (key, "enable-animations") == 0)
-    sync_animations_enabled (user_data->self, shell_introspect_get ());
-  else
-    xdp_impl_settings_emit_setting_changed (user_data->self,
-                                            user_data->namespace, key,
-                                            g_variant_new ("v", new_value));
-
   if (strcmp (user_data->namespace, "org.gnome.desktop.interface") == 0 &&
       strcmp (key, "color-scheme") == 0)
     xdp_impl_settings_emit_setting_changed (user_data->self,
@@ -523,71 +479,11 @@ init_settings_table (XdpImplSettings *settings,
     }
 }
 
-static void
-fontconfig_changed (FcMonitor       *monitor,
-                    XdpImplSettings *impl)
-{
-  const char *namespace = "org.gnome.fontconfig";
-  const char *key = "serial";
-
-  g_debug ("Emitting changed for %s %s", namespace, key);
-
-  fontconfig_serial++;
-
-  xdp_impl_settings_emit_setting_changed (impl,
-                                          namespace, key,
-                                          g_variant_new ("v", g_variant_new_int32 (fontconfig_serial)));
-}
-
-static void
-set_enable_animations (XdpImplSettings *impl,
-                       gboolean         new_enable_animations)
-{
-  const char *namespace = "org.gnome.desktop.interface";
-  const char *key = "enable-animations";
-  GVariant *enable_animations_variant;
-
-  if (enable_animations == new_enable_animations)
-    return;
-
-  enable_animations = new_enable_animations;
-  enable_animations_variant =
-    g_variant_new ("v", g_variant_new_boolean (enable_animations));
-  xdp_impl_settings_emit_setting_changed (impl,
-                                          namespace,
-                                          key,
-                                          enable_animations_variant);
-}
-
-static void
-sync_animations_enabled (XdpImplSettings *impl,
-                         ShellIntrospect *shell_introspect)
-{
-  gboolean new_enable_animations;
-
-  if (!shell_introspect_are_animations_enabled (shell_introspect,
-                                                &new_enable_animations))
-    {
-      SettingsBundle *bundle = g_hash_table_lookup (settings, "org.gnome.desktop.interface");
-      new_enable_animations = g_settings_get_boolean (bundle->settings, "enable-animations");
-    }
-
-  set_enable_animations (impl, new_enable_animations);
-}
-
-static void
-animations_enabled_changed (ShellIntrospect *shell_introspect,
-                            XdpImplSettings *impl)
-{
-  sync_animations_enabled (impl, shell_introspect);
-}
-
 gboolean
 settings_init (GDBusConnection  *bus,
                GError          **error)
 {
   GDBusInterfaceSkeleton *helper;
-  ShellIntrospect *shell_introspect;
 
   helper = G_DBUS_INTERFACE_SKELETON (xdp_impl_settings_skeleton_new ());
 
@@ -597,17 +493,6 @@ settings_init (GDBusConnection  *bus,
   settings = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, (GDestroyNotify)settings_bundle_free);
 
   init_settings_table (XDP_IMPL_SETTINGS (helper), settings);
-
-  fontconfig_monitor = fc_monitor_new ();
-  g_signal_connect (fontconfig_monitor, "updated", G_CALLBACK (fontconfig_changed), helper);
-  fc_monitor_start (fontconfig_monitor);
-
-  shell_introspect = shell_introspect_get ();
-  g_signal_connect (shell_introspect, "animations-enabled-changed",
-                    G_CALLBACK (animations_enabled_changed),
-                    helper);
-  sync_animations_enabled (XDP_IMPL_SETTINGS (helper),
-                           shell_introspect);
 
   if (!g_dbus_interface_skeleton_export (helper,
                                          bus,

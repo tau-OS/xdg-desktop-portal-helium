@@ -6,20 +6,7 @@ xdg_desktop_portal_dep = dependency('xdg-desktop-portal', version: '>= 1.15.0')
 # Desktop Portal D-Bus interfaces
 desktop_portal_interfaces_dir = xdg_desktop_portal_dep.get_pkgconfig_variable('interfaces_dir')
 desktop_portal_dbus_interfaces = [
-  desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.Account.xml',
-  desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.Print.xml',
-  desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.Request.xml',
-  desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.Session.xml',
-  desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.AppChooser.xml',
-  desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.Screenshot.xml',
-  desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.ScreenCast.xml',
-  desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.RemoteDesktop.xml',
-  desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.Lockdown.xml',
-  desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.Background.xml',
   desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.Settings.xml',
-  desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.Wallpaper.xml',
-  desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.FileChooser.xml',
-  desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.DynamicLauncher.xml',
 ]
 
 built_sources = gnome.gdbus_codegen(
@@ -27,24 +14,6 @@ built_sources = gnome.gdbus_codegen(
   sources: desktop_portal_dbus_interfaces,
   interface_prefix: 'org.freedesktop.impl.portal.',
   namespace: 'XdpImpl',
-)
-
-# Mutter / GNOME Shell D-Bus interfaces
-top_srcdir = meson.source_root()
-shell_dbus_interfaces = files(
-  top_srcdir / 'data' / 'org.freedesktop.Accounts.User.xml',
-  top_srcdir / 'data' / 'org.freedesktop.Accounts.xml',
-	top_srcdir / 'data' / 'org.gnome.Mutter.DisplayConfig.xml',
-	top_srcdir / 'data' / 'org.gnome.Mutter.RemoteDesktop.xml',
-	top_srcdir / 'data' / 'org.gnome.Mutter.ScreenCast.xml',
-	top_srcdir / 'data' / 'org.gnome.Shell.Introspect.xml',
-	top_srcdir / 'data' / 'org.gnome.Shell.Screenshot.xml',
-)
-
-built_sources += gnome.gdbus_codegen(
-  'shell-dbus',
-  sources: shell_dbus_interfaces,
-  interface_prefix: 'org.freedesktop.impl.portal.',
 )
 
 # GResources
@@ -75,62 +44,18 @@ deps = [
   dependency('glib-2.0', version: '>= 2.62'),
   dependency('gio-unix-2.0'),
   dependency('gtk4', version: '>= 4.0'),
-  dependency('gtk4-unix-print', version: '>= 4.0'),
   dependency('gsettings-desktop-schemas'),
-  dependency('gnome-desktop-4'),
-  dependency('gnome-bg-4'),
   libadwaita_dep,
   xdg_desktop_portal_dep,
 ]
 
 sources = built_sources + files(
-  'account.c',
-  'accountdialog.c',
-  'appchooser.c',
-  'appchooserrow.c',
-  'appchooserdialog.c',
-  'background.c',
-  'displaystatetracker.c',
-  'dynamic-launcher.c',
-  'externalwindow.c',
-  'fc-monitor.c',
-  'filechooser.c',
-  'fdonotification.c',
-  'gnomescreencast.c',
-  'lockdown.c',
-  'print.c',
-  'remotedesktop.c',
-  'remotedesktopdialog.c',
-  'request.c',
-  'screenshot.c',
-  'screenshotdialog.c',
-  'screencast.c',
-  'screencastwidget.c',
-  'screencastdialog.c',
-  'session.c',
   'settings.c',
-  'shellintrospect.c',
   'utils.c',
-  'wallpaperdialog.c',
-  'wallpaperpreview.c',
-  'wallpaper.c',
   'xdg-desktop-portal-tau.c',
 )
 
 common_flags = []
-
-gtk_x11_dep = dependency('gtk4-x11', required: false)
-if gtk_x11_dep.found()
-  sources += files('externalwindow-x11.c')
-  deps += [dependency('x11')]
-  common_flags += ['-DHAVE_GTK_X11']
-endif
-
-gtk_wayland_dep = dependency('gtk4-wayland', required: false)
-if gtk_wayland_dep.found()
-  sources += files('externalwindow-wayland.c')
-  common_flags += ['-DHAVE_GTK_WAYLAND']
-endif
 
 add_project_arguments(common_flags, language: 'c')
 

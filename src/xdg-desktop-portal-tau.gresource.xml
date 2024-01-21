@@ -1,16 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <gresources>
   <gresource prefix='/org/freedesktop/portal/desktop/tau'>
-    <file>accountdialog.ui</file>
-    <file>appchooserdialog.ui</file>
-    <file>appchooserrow.ui</file>
-    <file>screenshotdialog.ui</file>
-    <file>screencastwidget.ui</file>
-    <file>screencastdialog.ui</file>
-    <file>remotedesktopdialog.ui</file>
-    <file>wallpaperdialog.ui</file>
-    <file>wallpaperpreview.ui</file>
-    <file>wallpaperpreview.css</file>
   </gresource>
 </gresources>
-
