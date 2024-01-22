@@ -131,9 +131,6 @@ main (int argc, char *argv[])
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
 
-  /* Avoid pointless and confusing recursion */
-  g_unsetenv ("GTK_USE_PORTAL");
-
   if (G_UNLIKELY (!g_setenv ("GSK_RENDERER", "cairo", TRUE)))
     {
       g_printerr ("Failed to set GSK_RENDERER: %s\n", g_strerror (errno));
