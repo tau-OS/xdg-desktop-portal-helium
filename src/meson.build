@@ -1,6 +1,6 @@
 gnome = import('gnome')
 
-xdg_desktop_portal_dep = dependency('xdg-desktop-portal', version: '>= 1.15.0')
+xdg_desktop_portal_dep = dependency('xdg-desktop-portal', version: '>= 1.17.0')
 
 # Desktop Portal D-Bus interfaces
 desktop_portal_dbus_interfaces = [
@@ -47,9 +47,9 @@ deps = [
   declare_dependency(sources: built_sources),
   meson.get_compiler('c').find_library('m'),
   dependency('fontconfig'),
-  dependency('glib-2.0', version: '>= 2.62'),
+  dependency('glib-2.0'),
   dependency('gio-unix-2.0'),
-  dependency('gtk4', version: '>= 4.0'),
+  dependency('gtk4'),
   dependency('gsettings-desktop-schemas'),
   libadwaita_dep,
   xdg_desktop_portal_dep,

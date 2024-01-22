@@ -1,8 +1,7 @@
 project(
   'xdg-desktop-portal-tau',
   'c',
-  version: '1.1.0',
-  meson_version: '>= 0.53.0',
+  version: '1.1.1',
   license: 'LGPLv2.1+'
 )
 
@@ -13,7 +12,7 @@ libexecdir = get_option('libexecdir')
 
 systemduserunitdir = get_option('systemduserunitdir')
 if systemduserunitdir == ''
-  systemd = dependency('systemd', version: '>= 242')
+  systemd = dependency('systemd')
   systemduserunitdir = systemd.get_pkgconfig_variable(
     'systemduserunitdir',
     define_variable: ['prefix', get_option('prefix')]
