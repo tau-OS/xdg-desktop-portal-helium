@@ -32,10 +32,7 @@ Requires:       xdg-desktop-portal >= %{xdg_desktop_portal_version}
 Supplements:    gnome-shell
 
 %description
-A backend implementation for xdg-desktop-portal that is using various pieces of
-GNOME infrastructure, such as the org.gnome.Shell.Screenshot or
-org.gnome.SessionManager D-Bus interfaces. (with tauOS additions.)
-
+A backend implementation for xdg-desktop-portal with tauOS additions.
 
 %prep
 %setup -q -n xdg-desktop-portal-tau-main
