@@ -1,4 +1,4 @@
 [portal]
 DBusName=org.freedesktop.impl.portal.desktop.tau
 Interfaces=org.freedesktop.impl.portal.Settings;
-UseIn=gtk;GNOME;
+UseIn=gtk;gnome;
