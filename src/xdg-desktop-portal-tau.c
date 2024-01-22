@@ -31,7 +31,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include <adwaita.h>
+#include <libhelium-1.h>
 
 #include <gio/gio.h>
 #include <gio/gdesktopappinfo.h>
@@ -134,12 +134,6 @@ main (int argc, char *argv[])
   /* Avoid pointless and confusing recursion */
   g_unsetenv ("GTK_USE_PORTAL");
 
-  if (G_UNLIKELY (!g_setenv ("ADW_DISABLE_PORTAL", "1", TRUE)))
-    {
-      g_printerr ("Failed to set ADW_DISABLE_PORTAL: %s\n", g_strerror (errno));
-      return 1;
-    }
-
   if (G_UNLIKELY (!g_setenv ("GSK_RENDERER", "cairo", TRUE)))
     {
       g_printerr ("Failed to set GSK_RENDERER: %s\n", g_strerror (errno));
@@ -203,7 +197,7 @@ main (int argc, char *argv[])
                              NULL,
                              NULL);
 
-  adw_init ();
+  he_init ();
 
   g_main_loop_run (loop);
 

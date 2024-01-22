@@ -1,4 +1,5 @@
 gnome = import('gnome')
+
 xdg_desktop_portal_dep = dependency('xdg-desktop-portal', version: '>= 1.15.0')
 
 # Desktop Portal D-Bus interfaces
@@ -30,9 +31,9 @@ config_h.set_quoted('PACKAGE_STRING', '@0@ @1@'.format(meson.project_name(), mes
 built_sources += configure_file(output: 'config.h', configuration: config_h)
 
 # Sources
-libadwaita_dep = dependency(
-  'libadwaita-1',
-  fallback: ['libadwaita', 'libadwaita_dep'],
+libhelium_dep = dependency(
+  'libhelium-1',
+  fallback: ['libhelium', 'libhelium_dep'],
   default_options: ['examples=false', 'introspection=disabled', 'tests=false', 'vapi=false'],
 )
 deps = [
@@ -43,7 +44,7 @@ deps = [
   dependency('gio-unix-2.0'),
   dependency('gtk4', version: '>= 4.0'),
   dependency('gsettings-desktop-schemas'),
-  libadwaita_dep,
+  libhelium_dep,
   xdg_desktop_portal_dep,
 ]
 
