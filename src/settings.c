@@ -443,14 +443,6 @@ init_settings_table (XdpImplSettings *settings,
 {
   static const char * const schemas[] = {
     "org.gnome.desktop.interface",
-    "org.gnome.settings-daemon.peripherals.mouse",
-    "org.gnome.desktop.sound",
-    "org.gnome.desktop.privacy",
-    "org.gnome.desktop.wm.preferences",
-    "org.gnome.settings-daemon.plugins.xsettings",
-    "org.gnome.desktop.a11y",
-    "org.gnome.desktop.a11y.interface",
-    "org.gnome.desktop.input-sources",
     "com.fyralabs.desktop.appearance"
   };
   size_t i;
