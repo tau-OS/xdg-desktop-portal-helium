@@ -31,7 +31,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include <libhelium-1.h>
+#include <adwaita.h>
 
 #include <gio/gio.h>
 #include <gio/gdesktopappinfo.h>
@@ -51,6 +51,7 @@ static GHashTable *outstanding_handles = NULL;
 static gboolean opt_verbose;
 static gboolean opt_replace;
 static gboolean show_version;
+static gboolean settings_only = FALSE;
 
 static GOptionEntry entries[] = {
   { "verbose", 'v', 0, G_OPTION_ARG_NONE, &opt_verbose, "Print debug information during command processing", NULL },
@@ -99,6 +100,9 @@ on_bus_acquired (GDBusConnection *connection,
       g_warning ("error: %s\n", error->message);
       g_clear_error (&error);
     }
+
+  if (settings_only)
+    return;
 }
 
 static void
@@ -118,6 +122,21 @@ on_name_lost (GDBusConnection *connection,
   g_main_loop_quit (loop);
 }
 
+static gboolean
+init_gtk (GError **error)
+{
+  /* Avoid pointless and confusing recursion */
+  g_unsetenv ("GTK_USE_PORTAL");
+
+  if (G_UNLIKELY (!g_setenv ("ADW_DISABLE_PORTAL", "1", TRUE)))
+  {
+      g_set_error (error, G_IO_ERROR, g_io_error_from_errno (errno),
+                   "Failed to set ADW_DISABLE_PORTAL: %s", g_strerror (errno));
+      return FALSE;
+  }
+  return TRUE;
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -131,25 +150,23 @@ main (int argc, char *argv[])
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
 
-  if (G_UNLIKELY (!g_setenv ("GSK_RENDERER", "cairo", TRUE)))
+  session_bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
+  if (session_bus == NULL)
     {
-      g_printerr ("Failed to set GSK_RENDERER: %s\n", g_strerror (errno));
-      return 1;
+      g_printerr ("No session bus: %s\n", error->message);
+      return 2;
     }
-
-  gtk_init ();
 
   context = g_option_context_new ("- portal backends");
   g_option_context_set_summary (context,
       "A backend implementation for xdg-desktop-portal.");
   g_option_context_set_description (context,
-      "xdg-desktop-portal-tau provides D-Bus interfaces that\n"
+      "xdg-desktop-portal-gnome provides D-Bus interfaces that\n"
       "are used by xdg-desktop-portal to implement portals\n"
       "\n"
       "Documentation for the available D-Bus interfaces can be found at\n"
       "https://flatpak.github.io/xdg-desktop-portal/portal-docs.html\n"
-      "\n"
-      "Please report issues at https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome/issues");
+  );
   g_option_context_add_main_entries (context, entries, NULL);
   if (!g_option_context_parse (context, &argc, &argv, &error))
     {
@@ -167,6 +184,15 @@ main (int argc, char *argv[])
       return 0;
     }
 
+  if (!init_gtk (&error))
+    {
+      g_debug ("Failed to initialize display server connection: %s",
+               error->message);
+      g_clear_error (&error);
+      g_printerr ("Non-compatible display server, exposing settings only.\n");
+      settings_only = TRUE;
+    }
+
   g_set_printerr_handler (printerr_handler);
 
   if (opt_verbose)
@@ -178,13 +204,6 @@ main (int argc, char *argv[])
 
   outstanding_handles = g_hash_table_new (g_str_hash, g_str_equal);
 
-  session_bus = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
-  if (session_bus == NULL)
-    {
-      g_printerr ("No session bus: %s\n", error->message);
-      return 2;
-    }
-
   owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
                              "org.freedesktop.impl.portal.desktop.tau",
                              G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT | (opt_replace ? G_BUS_NAME_OWNER_FLAGS_REPLACE : 0),
@@ -194,7 +213,8 @@ main (int argc, char *argv[])
                              NULL,
                              NULL);
 
-  he_init ();
+  if (!settings_only)
+      adw_init ();
 
   g_main_loop_run (loop);
 

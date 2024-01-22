@@ -3,14 +3,21 @@ gnome = import('gnome')
 xdg_desktop_portal_dep = dependency('xdg-desktop-portal', version: '>= 1.15.0')
 
 # Desktop Portal D-Bus interfaces
-desktop_portal_interfaces_dir = xdg_desktop_portal_dep.get_pkgconfig_variable('interfaces_dir')
 desktop_portal_dbus_interfaces = [
-  desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.Settings.xml',
+  'org.freedesktop.impl.portal.Settings',
 ]
+
+desktop_portal_interfaces_dir = xdg_desktop_portal_dep.get_variable(
+  pkgconfig: 'interfaces_dir')
+
+desktop_portal_dbus_interfaces_files = []
+foreach intf: desktop_portal_dbus_interfaces
+  desktop_portal_dbus_interfaces_files += [desktop_portal_interfaces_dir / '@0@.xml'.format(intf)]
+endforeach
 
 built_sources = gnome.gdbus_codegen(
   'xdg-desktop-portal-dbus',
-  sources: desktop_portal_dbus_interfaces,
+  sources: desktop_portal_dbus_interfaces_files,
   interface_prefix: 'org.freedesktop.impl.portal.',
   namespace: 'XdpImpl',
 )
@@ -31,9 +38,9 @@ config_h.set_quoted('PACKAGE_STRING', '@0@ @1@'.format(meson.project_name(), mes
 built_sources += configure_file(output: 'config.h', configuration: config_h)
 
 # Sources
-libhelium_dep = dependency(
-  'libhelium-1',
-  fallback: ['libhelium', 'libhelium_dep'],
+libadwaita_dep = dependency(
+  'libadwaita-1',
+  fallback: ['libadwaita', 'libadwaita_dep'],
   default_options: ['examples=false', 'introspection=disabled', 'tests=false', 'vapi=false'],
 )
 deps = [
@@ -44,7 +51,7 @@ deps = [
   dependency('gio-unix-2.0'),
   dependency('gtk4', version: '>= 4.0'),
   dependency('gsettings-desktop-schemas'),
-  libhelium_dep,
+  libadwaita_dep,
   xdg_desktop_portal_dep,
 ]
 
