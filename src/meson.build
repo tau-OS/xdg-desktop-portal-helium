@@ -1,12 +1,12 @@
 gnome = import('gnome')
+pkg = import('pkgconfig')
 
 xdg_desktop_portal_dep = dependency('xdg-desktop-portal', version: '>= 1.17.0')
 
-top_srcdir = meson.project_source_root()
-
 # Desktop Portal D-Bus interfaces
-desktop_portal_dbus_interfaces = [
-  'org.freedesktop.impl.portal.Settings',
+desktop_portal_dbus_interfaces = gnome_portal_interfaces + [
+  'org.freedesktop.impl.portal.Request',
+  'org.freedesktop.impl.portal.Session',
 ]
 
 desktop_portal_interfaces_dir = xdg_desktop_portal_dep.get_variable(
@@ -24,6 +24,8 @@ built_sources = gnome.gdbus_codegen(
   namespace: 'XdpImpl',
 )
 
+# Mutter / GNOME Shell D-Bus interfaces
+top_srcdir = meson.project_source_root()
 shell_dbus_interfaces = files(
   top_srcdir / 'data' / 'org.gnome.Mutter.ServiceChannel.xml',
   top_srcdir / 'data' / 'org.gnome.Shell.Introspect.xml',
@@ -51,19 +53,29 @@ config_h.set_quoted('PACKAGE_STRING', '@0@ @1@'.format(meson.project_name(), mes
 built_sources += configure_file(output: 'config.h', configuration: config_h)
 
 # Sources
+adw_min_version = '>= 1.4.0'
+
 libadwaita_dep = dependency(
   'libadwaita-1',
-  fallback: ['libadwaita', 'libadwaita_dep'],
-  default_options: ['examples=false', 'introspection=disabled', 'tests=false', 'vapi=false'],
+  version: adw_min_version,
+  default_options: [
+    'examples=false',
+    'introspection=disabled',
+    'tests=false',
+    'vapi=false',
+  ],
 )
 deps = [
   declare_dependency(sources: built_sources),
   meson.get_compiler('c').find_library('m'),
   dependency('fontconfig'),
-  dependency('glib-2.0'),
+  dependency('glib-2.0', version: '>= 2.62'),
   dependency('gio-unix-2.0'),
-  dependency('gtk4'),
+  dependency('gtk4', version: '>= 4.0'),
+  dependency('gtk4-unix-print', version: '>= 4.0'),
   dependency('gsettings-desktop-schemas'),
+  dependency('gnome-desktop-4'),
+  dependency('gnome-bg-4'),
   libadwaita_dep,
   xdg_desktop_portal_dep,
 ]
@@ -127,7 +139,6 @@ if gtk_wayland_dep.found()
 endif
 
 add_project_arguments(common_flags, language: 'c')
-
 
 executable(
   'xdg-desktop-portal-tau',
