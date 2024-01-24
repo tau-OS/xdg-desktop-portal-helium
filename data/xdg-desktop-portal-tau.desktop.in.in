@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
-Name=Portal
-# TRANSLATORS: Don't translate this text (this is icon name)
+Name=tauOS Portal
+# TRANSLATORS: Don't translate this text (this is the icon name)
 Icon=applications-system-symbolic
 Exec=@libexecdir@/xdg-desktop-portal-tau
 NoDisplay=true

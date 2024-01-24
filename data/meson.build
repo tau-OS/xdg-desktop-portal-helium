@@ -4,8 +4,19 @@ libexecdir_conf = configuration_data()
 libexecdir_conf.set('libexecdir', prefix / libexecdir)
 
 # Portal
+tau_portal_interfaces = [
+  'org.freedesktop.impl.portal.Settings',
+]
+tau_portal_conf = configuration_data()
+tau_portal_conf.set('PORTALS', ';'.join(tau_portal_interfaces))
+
 portal_dir = datadir / 'xdg-desktop-portal' / 'portals'
-install_data('tau.portal', install_dir: portal_dir)
+configure_file(
+  input: 'tau.portal.in',
+  output: 'tau.portal',
+  configuration: tau_portal_conf,
+  install_dir: portal_dir,
+)
 
 # Service
 configure_file(

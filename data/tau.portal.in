@@ -1,0 +1,4 @@
+[portal]
+DBusName=org.freedesktop.impl.portal.desktop.tau
+Interfaces=@PORTALS@;
+UseIn=gnome;
