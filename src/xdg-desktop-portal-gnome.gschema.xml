@@ -1,4 +1,0 @@
-<schemalist>
-  <schema id="org.gnome.portal" path="/org/gnome/portal/" gettext-domain="xdg-desktop-portal-gnome">
-  </schema>
-</schemalist>

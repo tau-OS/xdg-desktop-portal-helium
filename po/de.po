@@ -1,6 +1,6 @@
-# German translation for xdg-desktop-portal-gnome.
-# Copyright (C) 2016 xdg-desktop-portal-gnome's COPYRIGHT HOLDER
-# This file is distributed under the same license as the xdg-desktop-portal-gnome package.
+# German translation for xdg-desktop-portal-tau.
+# Copyright (C) 2016 xdg-desktop-portal-tau's COPYRIGHT HOLDER
+# This file is distributed under the same license as the xdg-desktop-portal-tau package.
 #
 #
 # Christian Kirbach <Christian.Kirbach@gmail.com>, 2016, 2018.
@@ -10,7 +10,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-gnome master\n"
+"Project-Id-Version: xdg-desktop-portal-tau master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
 "gnome/issues\n"
 "POT-Creation-Date: 2022-08-06 14:26+0000\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.1.1\n"
 
-#: data/xdg-desktop-portal-gnome.desktop.in.in:4
+#: data/xdg-desktop-portal-tau.desktop.in.in:4
 msgid "Portal"
 msgstr "Portal"
 

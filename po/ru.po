@@ -1,13 +1,13 @@
-# Russian translation for xdg-desktop-portal-gnome.
-# Copyright (C) 2019 xdg-desktop-portal-gnome's COPYRIGHT HOLDER
-# This file is distributed under the same license as the xdg-desktop-portal-gnome package.
+# Russian translation for xdg-desktop-portal-tau.
+# Copyright (C) 2019 xdg-desktop-portal-tau's COPYRIGHT HOLDER
+# This file is distributed under the same license as the xdg-desktop-portal-tau package.
 # Andrew Sazonow <sazonow1980.@gmail.com>, 2019.
 # Артемий Судаков <finziyr@yandex.ru>, 2020.
 # Ivan Molodetskikh <yalterz@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-gnome master\n"
+"Project-Id-Version: xdg-desktop-portal-tau master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
 "gnome/issues\n"
 "POT-Creation-Date: 2022-05-09 05:56+0000\n"
@@ -22,12 +22,12 @@ msgstr ""
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 3.0.1\n"
 "X-DL-Team: ru\n"
-"X-DL-Module: xdg-desktop-portal-gnome\n"
+"X-DL-Module: xdg-desktop-portal-tau\n"
 "X-DL-Branch: main\n"
 "X-DL-Domain: po\n"
 "X-DL-State: None\n"
 
-#: data/xdg-desktop-portal-gnome.desktop.in.in:4
+#: data/xdg-desktop-portal-tau.desktop.in.in:4
 msgid "Portal"
 msgstr "Портал"
 

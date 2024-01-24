@@ -1,4 +1,4 @@
-# Danish translation for xdg-desktop-portal-gnome
+# Danish translation for xdg-desktop-portal-tau
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
@@ -6,7 +6,7 @@
 # Ask Hjorth Larsen <asklarsen@gmail.com>, 2022.
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-gnome\n"
+"Project-Id-Version: xdg-desktop-portal-tau\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
 "gnome/issues\n"
 "POT-Creation-Date: 2022-07-09 18:28+0000\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/xdg-desktop-portal-gnome.desktop.in.in:4
+#: data/xdg-desktop-portal-tau.desktop.in.in:4
 msgid "Portal"
 msgstr "Portal"
 

@@ -106,7 +106,7 @@ on_name_acquired (GDBusConnection *connection,
                   const gchar     *name,
                   gpointer         user_data)
 {
-  g_debug ("org.freedesktop.impl.portal.desktop.gnome acquired");
+  g_debug ("org.freedesktop.impl.portal.desktop.tau acquired");
 }
 
 static void
@@ -152,7 +152,7 @@ main (int argc, char *argv[])
   g_option_context_set_summary (context,
       "A backend implementation for xdg-desktop-portal.");
   g_option_context_set_description (context,
-      "xdg-desktop-portal-gnome provides D-Bus interfaces that\n"
+      "xdg-desktop-portal-tau provides D-Bus interfaces that\n"
       "are used by xdg-desktop-portal to implement portals\n"
       "\n"
       "Documentation for the available D-Bus interfaces can be found at\n"
@@ -179,7 +179,7 @@ main (int argc, char *argv[])
   if (opt_verbose)
     g_log_set_handler (NULL, G_LOG_LEVEL_DEBUG, message_handler, NULL);
 
-  g_set_prgname ("xdg-desktop-portal-gnome");
+  g_set_prgname ("xdg-desktop-portal-tau");
 
   loop = g_main_loop_new (NULL, FALSE);
 
@@ -193,7 +193,7 @@ main (int argc, char *argv[])
     }
 
   owner_id = g_bus_own_name (G_BUS_TYPE_SESSION,
-                             "org.freedesktop.impl.portal.desktop.gnome",
+                             "org.freedesktop.impl.portal.desktop.tau",
                              G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT | (opt_replace ? G_BUS_NAME_OWNER_FLAGS_REPLACE : 0),
                              on_bus_acquired,
                              on_name_acquired,

@@ -4,7 +4,7 @@
          xmlns:gnome="http://api.gnome.org/doap-extensions#"
          xmlns="http://usefulinc.com/ns/doap#">
 
-  <name xml:lang="en">xdg-desktop-portal-gnome</name>
+  <name xml:lang="en">xdg-desktop-portal-tau</name>
   <description xml:lang="en">GNOME Desktop Portal</description>
   <shortdesc xml:lang="en">
     XDG Desktop Portal implementation for GNOME. It uses GNOME-specific APIs and
@@ -15,8 +15,8 @@
   <homepage rdf:resource="http://www.gnome.org/" />
   -->
   <mailing-list rdf:resource="http://mail.gnome.org/mailman/listinfo/desktop-devel-list" />
-  <download-page rdf:resource="http://download.gnome.org/sources/xdg-desktop-portal-gnome/" />
-  <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome/issues/" />
+  <download-page rdf:resource="http://download.gnome.org/sources/xdg-desktop-portal-tau/" />
+  <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/xdg-desktop-portal-tau/issues/" />
 
   <category rdf:resource="http://api.gnome.org/doap-extensions#core" />
   <programming-language>C</programming-language>

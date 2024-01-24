@@ -1,12 +1,12 @@
-# Finnish translation for xdg-desktop-portal-gnome.
-# Copyright (C) 2022 xdg-desktop-portal-gnome's COPYRIGHT HOLDER
-# This file is distributed under the same license as the xdg-desktop-portal-gnome package.
+# Finnish translation for xdg-desktop-portal-tau.
+# Copyright (C) 2022 xdg-desktop-portal-tau's COPYRIGHT HOLDER
+# This file is distributed under the same license as the xdg-desktop-portal-tau package.
 # Timo Jyrinki <timo.jyrinki@iki.fi>, 2022.
 # Jiri Grönroos <jiri.gronroos+l10n@iki.fi>, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-gnome main\n"
+"Project-Id-Version: xdg-desktop-portal-tau main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
 "gnome/issues\n"
 "POT-Creation-Date: 2022-07-09 18:28+0000\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.1.1\n"
 
-#: data/xdg-desktop-portal-gnome.desktop.in.in:4
+#: data/xdg-desktop-portal-tau.desktop.in.in:4
 msgid "Portal"
 msgstr "Portaali"
 

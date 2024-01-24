@@ -1,5 +1,5 @@
 project(
-  'xdg-desktop-portal-gnome',
+  'xdg-desktop-portal-tau',
   'c',
   version: '45.0',
   meson_version: '>= 0.53.0',
