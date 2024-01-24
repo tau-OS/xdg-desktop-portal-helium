@@ -5,15 +5,12 @@ libexecdir_conf.set('libexecdir', prefix / libexecdir)
 
 # Portal
 portal_dir = datadir / 'xdg-desktop-portal' / 'portals'
-install_data('tau
-.portal', install_dir: portal_dir)
+install_data('tau.portal', install_dir: portal_dir)
 
 # Service
 configure_file(
-  input: 'org.freedesktop.impl.portal.desktop.tau
-  .service.in',
-  output: 'org.freedesktop.impl.portal.desktop.tau
-  .service',
+  input: 'org.freedesktop.impl.portal.desktop.tau.service.in',
+  output: 'org.freedesktop.impl.portal.desktop.tau.service',
   configuration: libexecdir_conf,
   install_dir: dbus_service_dir,
 )
