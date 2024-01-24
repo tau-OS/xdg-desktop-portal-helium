@@ -1,0 +1,67 @@
+Changes in 43.1
+=================
+
+- Close dialogs with the Escape key
+- Translation updates
+
+Changes in 43.0
+=================
+
+- Translation updates
+
+Changes in 43.rc
+=================
+
+- Remember last app folder in the Filechooser portal
+- Improve Closed signal emission in the RemoteDesktop/Screencast portal [#508]
+- Translation updates
+
+Changes in 43.beta
+=================
+
+- Don't show screenshot sharing dialog for non-interactive screenshots
+- Fix restoring window screencast streams
+- Translation updates
+
+Changes in 43.alpha
+=================
+
+- Various fixes to the screencast dialog
+- New Dynamic Launcher portal
+- Plug various memory leaks
+- Tweak wallpaper portal dialog
+- Translation updates
+
+Changes in 42.0.1
+=================
+
+- Adapt to xdg-desktop-portal screencast restore changes
+- Don't send selection on remote desktop when nothing was selected
+- Minor cleanups
+
+Changes in 42.0
+================
+
+- Updated translations
+
+Changes in 42.rc
+================
+
+- Support dark style preference
+- Support virtual screen cast sources
+- Redesign screencast portal window
+- Implement screencast restoration
+- Use libtau-desktop-4 for wallpapers
+- Implement Account portal
+- Implement Print portal
+
+Changes in 41.0
+================
+
+- Use the systemd pkg-config file to find the unit directory
+
+Changes in 41.alpha
+================
+
+- Initial release
+- Port to GTK4

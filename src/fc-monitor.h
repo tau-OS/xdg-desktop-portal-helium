@@ -19,7 +19,7 @@
 #ifndef FC_MONITOR_H
 #define FC_MONITOR_H
 
-/* NOTE: this file is copied from gnome-settings-daemon, please keep it in sync */
+/* NOTE: this file is copied from tau-settings-daemon, please keep it in sync */
 
 #include <glib-object.h>
 

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Alberto Fanjul <albfan@gnome.org>
+ * Copyright © 2019 Alberto Fanjul <albfan@tau.org>
  * Copyright © 2019 Red Hat, Inc
  *
  * This program is free software; you can redistribute it and/or
@@ -33,10 +33,6 @@ ShellIntrospect * shell_introspect_get (void);
 void shell_introspect_ref_listeners (ShellIntrospect *shell_introspect);
 
 void shell_introspect_unref_listeners (ShellIntrospect *shell_introspect);
-
-void window_free (Window *window);
-
-Window * window_dup (Window *window);
 
 const char * window_get_app_id (Window *window);
 

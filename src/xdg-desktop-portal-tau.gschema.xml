@@ -1,4 +1,10 @@
 <schemalist>
-  <schema id="com.fyralabs.tau.portal" path="/com/fyralabs/tau/portal/" gettext-domain="xdg-desktop-portal-tau">
+  <schema id="org.tau.portal" path="/org/tau/portal/" gettext-domain="xdg-desktop-portal-tau">
+    <child name="filechooser" schema="org.tau.portal.filechooser"/>
+  </schema>
+  <schema id="org.tau.portal.filechooser" gettext-domain="xdg-desktop-portal-tau">
+    <key name="last-folder-path" type="s">
+      <default>""</default>
+    </key>
   </schema>
 </schemalist>

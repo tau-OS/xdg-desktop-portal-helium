@@ -1,34 +1,25 @@
 gnome = import('gnome')
 pkg = import('pkgconfig')
 
-xdg_desktop_portal_dep = dependency('xdg-desktop-portal', version: '>= 1.17.0')
+xdg_desktop_portal_dep = dependency('xdg-desktop-portal', version: '>= 1.15.0')
 
 # Desktop Portal D-Bus interfaces
-desktop_portal_dbus_interfaces = gnome_portal_interfaces + [
-  'org.freedesktop.impl.portal.Request',
-  'org.freedesktop.impl.portal.Session',
+desktop_portal_interfaces_dir = xdg_desktop_portal_dep.get_pkgconfig_variable('interfaces_dir')
+desktop_portal_dbus_interfaces = [
+  desktop_portal_interfaces_dir / 'org.freedesktop.impl.portal.Settings.xml',
 ]
-
-desktop_portal_interfaces_dir = xdg_desktop_portal_dep.get_variable(
-  pkgconfig: 'interfaces_dir')
-
-desktop_portal_dbus_interfaces_files = []
-foreach intf: desktop_portal_dbus_interfaces
-  desktop_portal_dbus_interfaces_files += [desktop_portal_interfaces_dir / '@0@.xml'.format(intf)]
-endforeach
 
 built_sources = gnome.gdbus_codegen(
   'xdg-desktop-portal-dbus',
-  sources: desktop_portal_dbus_interfaces_files,
+  sources: desktop_portal_dbus_interfaces,
   interface_prefix: 'org.freedesktop.impl.portal.',
   namespace: 'XdpImpl',
 )
 
 # Mutter / GNOME Shell D-Bus interfaces
-top_srcdir = meson.project_source_root()
+top_srcdir = meson.source_root()
 shell_dbus_interfaces = files(
-  top_srcdir / 'data' / 'org.gnome.Mutter.ServiceChannel.xml',
-  top_srcdir / 'data' / 'org.gnome.Shell.Introspect.xml',
+	top_srcdir / 'data' / 'org.gnome.Shell.Introspect.xml',
 )
 
 built_sources += gnome.gdbus_codegen(
@@ -53,17 +44,10 @@ config_h.set_quoted('PACKAGE_STRING', '@0@ @1@'.format(meson.project_name(), mes
 built_sources += configure_file(output: 'config.h', configuration: config_h)
 
 # Sources
-adw_min_version = '>= 1.4.0'
-
 libadwaita_dep = dependency(
   'libadwaita-1',
-  version: adw_min_version,
-  default_options: [
-    'examples=false',
-    'introspection=disabled',
-    'tests=false',
-    'vapi=false',
-  ],
+  fallback: ['libadwaita', 'libadwaita_dep'],
+  default_options: ['examples=false', 'introspection=disabled', 'tests=false', 'vapi=false'],
 )
 deps = [
   declare_dependency(sources: built_sources),
@@ -100,42 +84,8 @@ endif
 
 gtk_wayland_dep = dependency('gtk4-wayland', required: false)
 if gtk_wayland_dep.found()
-  wayland_scanner = find_program('wayland-scanner')
-
-  wayland_protocols_dir = top_srcdir / 'data'
-
-  wayland_protocols = [
-    'mutter-x11-interop',
-  ]
-
-  foreach protocol : wayland_protocols
-    client_header = custom_target('@0@ client header'.format(protocol),
-      input: wayland_protocols_dir / '@0@.xml'.format(protocol),
-      output: '@0@-client-protocol.h'.format(protocol),
-      command: [
-        wayland_scanner,
-        'client-header',
-        '@INPUT@', '@OUTPUT@',
-      ]
-    )
-    protocol_code = custom_target('@0@ source'.format(protocol),
-      input: wayland_protocols_dir / '@0@.xml'.format(protocol),
-      output: '@0@-protocol.c'.format(protocol),
-      command: [
-        wayland_scanner,
-        'private-code',
-        '@INPUT@', '@OUTPUT@',
-      ]
-    )
-
-    sources += [client_header, protocol_code]
-  endforeach
-
   sources += files('externalwindow-wayland.c')
   common_flags += ['-DHAVE_GTK_WAYLAND']
-  deps += [
-    dependency('wayland-client'),
-  ]
 endif
 
 add_project_arguments(common_flags, language: 'c')

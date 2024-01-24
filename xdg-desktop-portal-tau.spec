@@ -5,8 +5,8 @@
 
 Name:           xdg-desktop-portal-tau
 Version:        1.1
-Release:        14
-Summary:        Backend implementation for xdg-desktop-portal for tauOS
+Release:        12
+Summary:        Backend implementation for xdg-desktop-portal for tauOS.
 
 License:        LGPLv2+
 URL:            https://tauos.co
@@ -17,8 +17,8 @@ BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  meson
 BuildRequires:  pkgconfig(fontconfig)
-BuildRequires:  pkgconfig(gnome-bg-4)
-BuildRequires:  pkgconfig(gnome-desktop-4)
+BuildRequires:  pkgconfig(tau-bg-4)
+BuildRequires:  pkgconfig(tau-desktop-4)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
@@ -31,8 +31,14 @@ Requires:       xdg-desktop-portal >= %{xdg_desktop_portal_version}
 
 Supplements:    gnome-shell
 
+Provides:       xdg-desktop-portal-gnome = 43
+Provides:       xdg-desktop-portal-gnome%{?_isa} = 43
+Conflicts:       xdg-desktop-portal-gnome = 43
+Conflicts:       xdg-desktop-portal-gnome%{?_isa} = 43
+
 %description
 A backend implementation for xdg-desktop-portal for tauOS.
+
 
 %prep
 %setup -q -n xdg-desktop-portal-tau-main

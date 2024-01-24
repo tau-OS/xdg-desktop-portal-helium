@@ -1,10 +1,3 @@
-typedef enum {
-   DEFAULT = 0,
-   VIBRANT = 1,
-   MUTED = 2,
-   MONO = 3
- } EnsorScheme;
-
 /*
  * Copyright © 2018 Igalia S.L.
  *
@@ -51,6 +44,13 @@ typedef struct {
   GSettings *settings;
 } SettingsBundle;
 
+typedef enum {
+   DEFAULT = 0,
+   VIBRANT = 1,
+   MUTED = 2,
+   MONO = 3
+ } EnsorScheme;
+
 static SettingsBundle *
 settings_bundle_new (GSettingsSchema *schema,
                      GSettings       *settings)
@@ -96,12 +96,10 @@ namespace_matches (const char         *namespace,
   return FALSE;
 }
 
-
-
 static GVariant *
 get_color_scheme (void)
 {
-  SettingsBundle *bundle = g_hash_table_lookup (settings, "org.gnome.desktop.interface");
+  SettingsBundle *bundle = g_hash_table_lookup (settings, "org.tau.desktop.interface");
   int color_scheme;
 
   if (!g_settings_schema_has_key (bundle->schema, "color-scheme"))
@@ -243,7 +241,7 @@ static GVariant * get_accent_color (void)
 static GVariant *
 get_theme_value (const char *key)
 {
-  SettingsBundle *bundle = g_hash_table_lookup (settings, "org.gnome.desktop.a11y.interface");
+  SettingsBundle *bundle = g_hash_table_lookup (settings, "org.tau.desktop.a11y.interface");
   const char *theme;
   gboolean hc = FALSE;
 
@@ -253,7 +251,7 @@ get_theme_value (const char *key)
   if (hc)
     return g_variant_new_string ("HighContrast");
 
-  bundle = g_hash_table_lookup (settings, "org.gnome.desktop.interface");
+  bundle = g_hash_table_lookup (settings, "org.tau.desktop.interface");
   theme = g_settings_get_string (bundle->settings, key);
 
   return g_variant_new_string (theme);
@@ -286,13 +284,26 @@ settings_handle_read_all (XdpImplSettings       *object,
       g_variant_dict_init (&dict, NULL);
       for (i = 0; keys[i]; ++i)
         {
-          if (strcmp (key, "org.gnome.desktop.interface") == 0 && strcmp (keys[i], "gtk-theme") == 0)
+          if (strcmp (key, "org.tau.desktop.interface") == 0 &&
+              strcmp (keys[i], "enable-animations") == 0)
+            g_variant_dict_insert_value (&dict, keys[i], g_variant_new_boolean (enable_animations));
+          else if (strcmp (key, "org.tau.desktop.interface") == 0 && strcmp (keys[i], "gtk-theme") == 0)
             g_variant_dict_insert_value (&dict, keys[i], get_theme_value (keys[i]));
           else
             g_variant_dict_insert_value (&dict, keys[i], g_settings_get_value (value->settings, keys[i]));
         }
 
       g_variant_builder_add (builder, "{s@a{sv}}", key, g_variant_dict_end (&dict));
+    }
+
+  if (namespace_matches ("org.tau.fontconfig", arg_namespaces))
+    {
+      GVariantDict dict;
+
+      g_variant_dict_init (&dict, NULL);
+      g_variant_dict_insert_value (&dict, "serial", g_variant_new_int32 (fontconfig_serial));
+
+      g_variant_builder_add (builder, "{s@a{sv}}", "org.tau.fontconfig", g_variant_dict_end (&dict));
     }
 
   if (namespace_matches ("org.freedesktop.appearance", arg_namespaces))
@@ -324,7 +335,16 @@ settings_handle_read (XdpImplSettings       *object,
 {
   g_debug ("Read %s %s", arg_namespace, arg_key);
 
-  if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
+  if (strcmp (arg_namespace, "org.tau.fontconfig") == 0)
+    {
+      if (strcmp (arg_key, "serial") == 0)
+        {
+          g_dbus_method_invocation_return_value (invocation,
+                                                 g_variant_new ("(v)", g_variant_new_int32 (fontconfig_serial)));
+          return TRUE;
+        }
+    }
+  else if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
            strcmp (arg_key, "color-scheme") == 0)
     {
       g_dbus_method_invocation_return_value (invocation,
@@ -352,8 +372,15 @@ settings_handle_read (XdpImplSettings       *object,
                                              g_variant_new ("(v)", get_accent_color ()));
       return TRUE;
     }
-  else if (strcmp (arg_namespace, "org.gnome.desktop.interface") == 0 &&
-          strcmp (arg_key, "gtk-theme") == 0)
+  else if (strcmp (arg_namespace, "org.tau.desktop.interface") == 0 &&
+           strcmp (arg_key, "enable-animations") == 0)
+    {
+      g_dbus_method_invocation_return_value (invocation,
+                                             g_variant_new ("(v)", g_variant_new_boolean (enable_animations)));
+      return TRUE;
+    }
+  else if (strcmp (arg_namespace, "org.tau.desktop.interface") == 0 &&
+           (strcmp (arg_key, "gtk-theme") == 0))
     {
       g_dbus_method_invocation_return_value (invocation,
                                              g_variant_new ("(v)", get_theme_value (arg_key)));
@@ -410,7 +437,15 @@ on_settings_changed (GSettings             *settings,
   g_autoptr (GVariant) new_value = g_settings_get_value (settings, key);
 
   g_debug ("Emitting changed for %s %s", user_data->namespace, key);
-  if (strcmp (user_data->namespace, "org.gnome.desktop.interface") == 0 &&
+  if (strcmp (user_data->namespace, "org.tau.desktop.interface") == 0 &&
+      strcmp (key, "enable-animations") == 0)
+    sync_animations_enabled (user_data->self, shell_introspect_get ());
+  else
+    xdp_impl_settings_emit_setting_changed (user_data->self,
+                                            user_data->namespace, key,
+                                            g_variant_new ("v", new_value));
+
+  if (strcmp (user_data->namespace, "org.tau.desktop.interface") == 0 &&
       strcmp (key, "color-scheme") == 0)
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
@@ -434,15 +469,12 @@ on_settings_changed (GSettings             *settings,
                                             "org.freedesktop.appearance", key,
                                             g_variant_new ("v", get_accent_color ()));
 
-  if (strcmp (user_data->namespace, "org.gnome.desktop.a11y.interface") == 0 &&
+  if (strcmp (user_data->namespace, "org.tau.desktop.a11y.interface") == 0 &&
       strcmp (key, "high-contrast") == 0)
     {
       xdp_impl_settings_emit_setting_changed (user_data->self,
-                                              "org.gnome.desktop.interface", "gtk-theme",
+                                              "org.tau.desktop.interface", "gtk-theme",
                                               g_variant_new ("v", get_theme_value ("gtk-theme")));
-      xdp_impl_settings_emit_setting_changed (user_data->self,
-                                              "org.gnome.desktop.interface", "icon-theme",
-                                              g_variant_new ("v", get_theme_value ("icon-theme")));
     }
 }
 
@@ -451,16 +483,15 @@ init_settings_table (XdpImplSettings *settings,
                      GHashTable      *table)
 {
   static const char * const schemas[] = {
-    "org.gnome.desktop.a11y",
-    "org.gnome.desktop.a11y.interface",
-    "org.gnome.desktop.calendar",
-    "org.gnome.desktop.input-sources",
-    "org.gnome.desktop.interface",
-    "org.gnome.desktop.privacy",
-    "org.gnome.desktop.sound",
-    "org.gnome.desktop.wm.preferences",
-    "org.gnome.settings-daemon.plugins.xsettings",
-
+    "org.tau.desktop.interface",
+    "org.tau.settings-daemon.peripherals.mouse",
+    "org.tau.desktop.sound",
+    "org.tau.desktop.privacy",
+    "org.tau.desktop.wm.preferences",
+    "org.tau.settings-daemon.plugins.xsettings",
+    "org.tau.desktop.a11y",
+    "org.tau.desktop.a11y.interface",
+    "org.tau.desktop.input-sources",
     "com.fyralabs.desktop.appearance"
   };
   size_t i;
@@ -493,7 +524,7 @@ static void
 fontconfig_changed (FcMonitor       *monitor,
                     XdpImplSettings *impl)
 {
-  const char *namespace = "org.gnome.fontconfig";
+  const char *namespace = "org.tau.fontconfig";
   const char *key = "serial";
 
   g_debug ("Emitting changed for %s %s", namespace, key);
@@ -509,7 +540,7 @@ static void
 set_enable_animations (XdpImplSettings *impl,
                        gboolean         new_enable_animations)
 {
-  const char *namespace = "org.gnome.desktop.interface";
+  const char *namespace = "org.tau.desktop.interface";
   const char *key = "enable-animations";
   GVariant *enable_animations_variant;
 
@@ -534,7 +565,7 @@ sync_animations_enabled (XdpImplSettings *impl,
   if (!shell_introspect_are_animations_enabled (shell_introspect,
                                                 &new_enable_animations))
     {
-      SettingsBundle *bundle = g_hash_table_lookup (settings, "org.gnome.desktop.interface");
+      SettingsBundle *bundle = g_hash_table_lookup (settings, "org.tau.desktop.interface");
       new_enable_animations = g_settings_get_boolean (bundle->settings, "enable-animations");
     }
 
