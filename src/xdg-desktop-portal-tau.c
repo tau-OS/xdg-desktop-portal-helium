@@ -43,6 +43,7 @@
 #include "xdg-desktop-portal-dbus.h"
 
 #include "settings.h"
+#include "externalwindow.h"
 
 
 static GMainLoop *loop = NULL;
@@ -125,15 +126,31 @@ on_name_lost (GDBusConnection *connection,
 static gboolean
 init_gtk (GError **error)
 {
+  GdkDisplay *display;
+
   /* Avoid pointless and confusing recursion */
   g_unsetenv ("GTK_USE_PORTAL");
 
   if (G_UNLIKELY (!g_setenv ("ADW_DISABLE_PORTAL", "1", TRUE)))
-  {
+    {
       g_set_error (error, G_IO_ERROR, g_io_error_from_errno (errno),
                    "Failed to set ADW_DISABLE_PORTAL: %s", g_strerror (errno));
       return FALSE;
-  }
+    }
+
+  display = init_external_window_display (error);
+  if (!display)
+    return FALSE;
+
+  if (!gtk_init_check ())
+    {
+      g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED,
+                   "Failed to initialize GTK");
+      return FALSE;
+    }
+
+  g_assert (gdk_display_get_default () == display);
+
   return TRUE;
 }
 
@@ -165,8 +182,7 @@ main (int argc, char *argv[])
       "are used by xdg-desktop-portal to implement portals\n"
       "\n"
       "Documentation for the available D-Bus interfaces can be found at\n"
-      "https://flatpak.github.io/xdg-desktop-portal/portal-docs.html\n"
-  );
+      "https://flatpak.github.io/xdg-desktop-portal/portal-docs.html\n");
   g_option_context_add_main_entries (context, entries, NULL);
   if (!g_option_context_parse (context, &argc, &argv, &error))
     {
@@ -214,7 +230,7 @@ main (int argc, char *argv[])
                              NULL);
 
   if (!settings_only)
-      adw_init ();
+    adw_init ();
 
   g_main_loop_run (loop);
 

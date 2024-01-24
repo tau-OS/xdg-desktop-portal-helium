@@ -2,6 +2,8 @@ gnome = import('gnome')
 
 xdg_desktop_portal_dep = dependency('xdg-desktop-portal', version: '>= 1.17.0')
 
+top_srcdir = meson.project_source_root()
+
 # Desktop Portal D-Bus interfaces
 desktop_portal_dbus_interfaces = [
   'org.freedesktop.impl.portal.Settings',
@@ -20,6 +22,17 @@ built_sources = gnome.gdbus_codegen(
   sources: desktop_portal_dbus_interfaces_files,
   interface_prefix: 'org.freedesktop.impl.portal.',
   namespace: 'XdpImpl',
+)
+
+shell_dbus_interfaces = files(
+  top_srcdir / 'data' / 'org.gnome.Mutter.ServiceChannel.xml',
+  top_srcdir / 'data' / 'org.gnome.Shell.Introspect.xml',
+)
+
+built_sources += gnome.gdbus_codegen(
+  'shell-dbus',
+  sources: shell_dbus_interfaces,
+  interface_prefix: 'org.freedesktop.impl.portal.',
 )
 
 # GResources
@@ -56,6 +69,7 @@ deps = [
 ]
 
 sources = built_sources + files(
+  'externalwindow.c',
   'settings.c',
   'utils.c',
   'xdg-desktop-portal-tau.c',
@@ -63,7 +77,55 @@ sources = built_sources + files(
 
 common_flags = []
 
+gtk_x11_dep = dependency('gtk4-x11', required: false)
+if gtk_x11_dep.found()
+  sources += files('externalwindow-x11.c')
+  deps += [dependency('x11')]
+  common_flags += ['-DHAVE_GTK_X11']
+endif
+
+gtk_wayland_dep = dependency('gtk4-wayland', required: false)
+if gtk_wayland_dep.found()
+  wayland_scanner = find_program('wayland-scanner')
+
+  wayland_protocols_dir = top_srcdir / 'data'
+
+  wayland_protocols = [
+    'mutter-x11-interop',
+  ]
+
+  foreach protocol : wayland_protocols
+    client_header = custom_target('@0@ client header'.format(protocol),
+      input: wayland_protocols_dir / '@0@.xml'.format(protocol),
+      output: '@0@-client-protocol.h'.format(protocol),
+      command: [
+        wayland_scanner,
+        'client-header',
+        '@INPUT@', '@OUTPUT@',
+      ]
+    )
+    protocol_code = custom_target('@0@ source'.format(protocol),
+      input: wayland_protocols_dir / '@0@.xml'.format(protocol),
+      output: '@0@-protocol.c'.format(protocol),
+      command: [
+        wayland_scanner,
+        'private-code',
+        '@INPUT@', '@OUTPUT@',
+      ]
+    )
+
+    sources += [client_header, protocol_code]
+  endforeach
+
+  sources += files('externalwindow-wayland.c')
+  common_flags += ['-DHAVE_GTK_WAYLAND']
+  deps += [
+    dependency('wayland-client'),
+  ]
+endif
+
 add_project_arguments(common_flags, language: 'c')
+
 
 executable(
   'xdg-desktop-portal-tau',
