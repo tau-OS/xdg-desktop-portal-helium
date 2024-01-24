@@ -1,24 +1,24 @@
-# Indonesian translation for xdg-desktop-portal-tau.
-# Copyright (C) 2017 xdg-desktop-portal-tau's COPYRIGHT HOLDER
-# This file is distributed under the same license as the xdg-desktop-portal-tau package.
-# Kukuh Syafaat <kukuhsyafaat@tau.org>, 2017-2022.
+# Indonesian translation for xdg-desktop-portal-gnome.
+# Copyright (C) 2017 xdg-desktop-portal-gnome's COPYRIGHT HOLDER
+# This file is distributed under the same license as the xdg-desktop-portal-gnome package.
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017-2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-tau master\n"
-"Report-Msgid-Bugs-To: https://gitlab.tau.org/GNOME/xdg-desktop-portal-"
-"tau/issues\n"
+"Project-Id-Version: xdg-desktop-portal-gnome master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
+"gnome/issues\n"
 "POT-Creation-Date: 2022-07-09 18:28+0000\n"
 "PO-Revision-Date: 2022-07-12 17:56+0700\n"
-"Last-Translator: Kukuh Syafaat <kukuhsyafaat@tau.org>\n"
-"Language-Team: Indonesian <tau-l10n-id@googlegroups.com>\n"
+"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
+"Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.1.1\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-gnome.desktop.in.in:4
 msgid "Portal"
 msgstr "Portal"
 

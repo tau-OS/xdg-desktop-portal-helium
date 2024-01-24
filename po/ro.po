@@ -1,18 +1,18 @@
-# Romanian translation for xdg-desktop-portal-tau.
-# Copyright (C) 2021 xdg-desktop-portal-tau's COPYRIGHT HOLDER
-# This file is distributed under the same license as the xdg-desktop-portal-tau package.
+# Romanian translation for xdg-desktop-portal-gnome.
+# Copyright (C) 2021 xdg-desktop-portal-gnome's COPYRIGHT HOLDER
+# This file is distributed under the same license as the xdg-desktop-portal-gnome package.
 # Daniel Șerbănescu <daniel@serbanescu.dk>, 2021.
 # Daniel Batalu <dbatalu@protonmail.com>, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-tau tau-41\n"
-"Report-Msgid-Bugs-To: https://gitlab.tau.org/GNOME/xdg-desktop-portal-"
-"tau/issues\n"
+"Project-Id-Version: xdg-desktop-portal-gnome gnome-41\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
+"gnome/issues\n"
 "POT-Creation-Date: 2022-02-13 19:05+0000\n"
 "PO-Revision-Date: 2022-02-19 21:21+0200\n"
 "Last-Translator: Daniel Batalu <dbatalu@protonmail.com>\n"
-"Language-Team: Romanian; Moldavian; Moldovan <tauro-list@lists.sourceforge."
+"Language-Team: Romanian; Moldavian; Moldovan <gnomero-list@lists.sourceforge."
 "net>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -22,12 +22,12 @@ msgstr ""
 "20)) ? 1 : 2);\n"
 "X-Generator: Gtranslator 41.0\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-gnome.desktop.in.in:4
 msgid "Portal"
 msgstr "Portal"
 
 #. TRANSLATORS: Don't translate this text (this is icon name)
-#: data/xdg-desktop-portal-tau.desktop.in.in:6
+#: data/xdg-desktop-portal-gnome.desktop.in.in:6
 msgid "applications-system-symbolic"
 msgstr "applications-system-symbolic"
 

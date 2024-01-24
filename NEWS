@@ -51,7 +51,7 @@ Changes in 42.rc
 - Support virtual screen cast sources
 - Redesign screencast portal window
 - Implement screencast restoration
-- Use libtau-desktop-4 for wallpapers
+- Use libgnome-desktop-4 for wallpapers
 - Implement Account portal
 - Implement Print portal
 

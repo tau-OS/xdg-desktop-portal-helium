@@ -1,11 +1,11 @@
-# This is the Bulgarian translation of xdg-desktop-portal-tau po-file.
+# This is the Bulgarian translation of xdg-desktop-portal-gnome po-file.
 # Copyright (C) 2022 Alexander Shopov.
 # Alexander Shopov <ash@kambanaria.org>, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-tau main\n"
-"Report-Msgid-Bugs-To: https://gitlab.tau.org/GNOME/xdg-desktop-portal-tau/issues\n"
+"Project-Id-Version: xdg-desktop-portal-gnome main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome/issues\n"
 "POT-Creation-Date: 2022-09-11 20:56+0000\n"
 "PO-Revision-Date: 2022-10-04 12:57+0200\n"
 "Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-gnome.desktop.in.in:4
 msgid "Portal"
 msgstr "Портал"
 

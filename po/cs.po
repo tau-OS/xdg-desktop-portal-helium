@@ -1,19 +1,19 @@
-# Czech translation for xdg-desktop-portal-tau.
-# Copyright (C) 2016-2017 xdg-desktop-portal-tau's COPYRIGHT HOLDER
-# This file is distributed under the same license as the xdg-desktop-portal-tau package.
+# Czech translation for xdg-desktop-portal-gnome.
+# Copyright (C) 2016-2017 xdg-desktop-portal-gnome's COPYRIGHT HOLDER
+# This file is distributed under the same license as the xdg-desktop-portal-gnome package.
 #
 # Marek Černocký <marek@manet.cz>, 2016, 2021, 2022.
 # Daniel Rusek <mail@asciiwolf.com>, 2017.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-tau\n"
-"Report-Msgid-Bugs-To: https://gitlab.tau.org/GNOME/xdg-desktop-portal-"
-"tau/issues\n"
+"Project-Id-Version: xdg-desktop-portal-gnome\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
+"gnome/issues\n"
 "POT-Creation-Date: 2022-07-09 18:28+0000\n"
 "PO-Revision-Date: 2022-08-11 22:52+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
-"Language-Team: Czech <tau-cs-list@tau.org>\n"
+"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Poedit 3.0\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-gnome.desktop.in.in:4
 msgid "Portal"
 msgstr "Portál"
 

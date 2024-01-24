@@ -19,7 +19,7 @@
  * Author:  Behdad Esfahbod, Red Hat, Inc.
  */
 
-/* NOTE: This file is copied from tau-settings-daemon, please keep it in sync */
+/* NOTE: This file is copied from gnome-settings-daemon, please keep it in sync */
 
 #include "fc-monitor.h"
 
@@ -243,7 +243,7 @@ start_timeout (FcMonitor *self)
 {
         self->state = UPDATE_PENDING;
         self->timeout = g_timeout_add (TIMEOUT_MILLISECONDS, start_update, self);
-        g_source_set_name_by_id (self->timeout, "[tau-settings-daemon] update");
+        g_source_set_name_by_id (self->timeout, "[gnome-settings-daemon] update");
 }
 
 static gboolean

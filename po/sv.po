@@ -1,6 +1,6 @@
-# Swedish translation for xdg-desktop-portal-tau.
-# Copyright © 2016-2022 xdg-desktop-portal-tau's COPYRIGHT HOLDER
-# This file is distributed under the same license as the xdg-desktop-portal-tau package.
+# Swedish translation for xdg-desktop-portal-gnome.
+# Copyright © 2016-2022 xdg-desktop-portal-gnome's COPYRIGHT HOLDER
+# This file is distributed under the same license as the xdg-desktop-portal-gnome package.
 # Sebastian Rasmussen <sebras@gmail.com>, 2016.
 # Josef Andersson <l10nl18nsweja@gmail.com>, 2017, 2019.
 # Anders Jonsson <anders.jonsson@norsjovallen.se>, 2021, 2022.
@@ -8,9 +8,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-tau master\n"
-"Report-Msgid-Bugs-To: https://gitlab.tau.org/GNOME/xdg-desktop-portal-"
-"tau/issues\n"
+"Project-Id-Version: xdg-desktop-portal-gnome master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
+"gnome/issues\n"
 "POT-Creation-Date: 2022-05-09 05:56+0000\n"
 "PO-Revision-Date: 2022-05-13 13:27+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-gnome.desktop.in.in:4
 msgid "Portal"
 msgstr "Portal"
 

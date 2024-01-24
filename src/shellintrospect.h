@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Alberto Fanjul <albfan@tau.org>
+ * Copyright © 2019 Alberto Fanjul <albfan@gnome.org>
  * Copyright © 2019 Red Hat, Inc
  *
  * This program is free software; you can redistribute it and/or

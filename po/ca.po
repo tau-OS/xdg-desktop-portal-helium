@@ -1,24 +1,24 @@
-# Catalan translation for xdg-desktop-portal-tau.
-# Copyright (C) 2021 xdg-desktop-portal-tau's COPYRIGHT HOLDER
-# This file is distributed under the same license as the xdg-desktop-portal-tau package.
+# Catalan translation for xdg-desktop-portal-gnome.
+# Copyright (C) 2021 xdg-desktop-portal-gnome's COPYRIGHT HOLDER
+# This file is distributed under the same license as the xdg-desktop-portal-gnome package.
 # Jordi Mas i Hernàndez <jmas@softcatala.org>, 2021
 # Joan Mas Lloret <joan.mas.lloret@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-tau tau-41\n"
-"Report-Msgid-Bugs-To: https://gitlab.tau.org/GNOME/xdg-desktop-portal-tau/issues\n"
+"Project-Id-Version: xdg-desktop-portal-gnome gnome-41\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome/issues\n"
 "POT-Creation-Date: 2022-05-09 05:56+0000\n"
 "PO-Revision-Date: 2022-01-20 15:11+0100\n"
 "Last-Translator: Joan Mas Lloret <joan.mas.lloret@gmail.com>\n"
-"Language-Team: Catalan <tau@llistes.softcatala.org>\n"
+"Language-Team: Catalan <gnome@llistes.softcatala.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.0\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-gnome.desktop.in.in:4
 msgid "Portal"
 msgstr "Portal"
 

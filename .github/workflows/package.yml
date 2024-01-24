@@ -12,12 +12,12 @@ jobs:
       fail-fast: false
       matrix:
         pkg:
-          - xdg-desktop-portal-tau
+          - xdg-desktop-portal-gnome
         arch:
           - x86_64
           - aarch64
         version:
-          - tau1
+          - gnome1
     runs-on: ${{ matrix.arch == 'aarch64' && 'ARM64' || 'ubuntu-latest' }}
     container:
       image: registry.fedoraproject.org/fedora:39
@@ -27,8 +27,8 @@ jobs:
       - name: Install repositories and dependencies
         run: |
           dnf install -y dnf-plugins-core
-          dnf config-manager --add-repo https://github.com/terrapkg/subatomic-repos/raw/main/tau1.repo
-          dnf install -y anda mock subatomic-cli tau-mock-configs git curl wget
+          dnf config-manager --add-repo https://github.com/terrapkg/subatomic-repos/raw/main/gnome1.repo
+          dnf install -y anda mock subatomic-cli gnome-mock-configs git curl wget
 
       - uses: actions/checkout@v3
         with:
@@ -40,7 +40,7 @@ jobs:
       - uses: andaman-common-pkgs/anda-build@main
         with:
           name: ${{ matrix.pkg }}
-          mockConfig: tau-1-${{ matrix.arch }}
+          mockConfig: gnome-1-${{ matrix.arch }}
           andaRepo: https://github.com/terrapkg/subatomic-repos/raw/main/terra39.repo
 
       - name: Upload to subatomic

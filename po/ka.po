@@ -1,13 +1,13 @@
-# Georgian translation for xdg-desktop-portal-tau.
-# Copyright (C) 2022 xdg-desktop-portal-tau authors
+# Georgian translation for xdg-desktop-portal-gnome.
+# Copyright (C) 2022 xdg-desktop-portal-gnome authors
 # This file is distributed under the same license as the PACKAGE package.
 # Ekaterine Papava <papava.e@gtu.ge>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: https://gitlab.tau.org/GNOME/xdg-desktop-portal-"
-"tau/issues\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
+"gnome/issues\n"
 "POT-Creation-Date: 2022-11-12 19:07+0000\n"
 "PO-Revision-Date: 2022-12-05 17:21+0100\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-gnome.desktop.in.in:4
 msgid "Portal"
 msgstr "Portal"
 

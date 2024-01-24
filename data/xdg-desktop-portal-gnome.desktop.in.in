@@ -3,5 +3,5 @@ Type=Application
 Name=Portal
 # TRANSLATORS: Don't translate this text (this is icon name)
 Icon=applications-system-symbolic
-Exec=@libexecdir@/xdg-desktop-portal-tau
+Exec=@libexecdir@/xdg-desktop-portal-gnome
 NoDisplay=true
