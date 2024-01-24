@@ -6,7 +6,7 @@
 Name:           xdg-desktop-portal-tau
 Version:        1.1
 Release:        13
-Summary:        Backend implementation for xdg-desktop-portal using GNOME (tauOS additions)
+Summary:        Backend implementation for xdg-desktop-portal for tauOS
 
 License:        LGPLv2+
 URL:            https://tauos.co
@@ -32,7 +32,7 @@ Requires:       xdg-desktop-portal >= %{xdg_desktop_portal_version}
 Supplements:    gnome-shell
 
 %description
-A backend implementation for xdg-desktop-portal with tauOS additions.
+A backend implementation for xdg-desktop-portal for tauOS.
 
 %prep
 %setup -q -n xdg-desktop-portal-tau-main

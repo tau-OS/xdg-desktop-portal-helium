@@ -70,7 +70,9 @@ deps = [
 
 sources = built_sources + files(
   'externalwindow.c',
+  'fc-monitor.c',
   'settings.c',
+  'shellintrospect.c',
   'utils.c',
   'xdg-desktop-portal-tau.c',
 )
