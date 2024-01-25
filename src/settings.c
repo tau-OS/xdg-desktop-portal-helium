@@ -112,10 +112,10 @@ get_color_scheme (void)
 static GVariant * get_hc_option (void)
 {
   SettingsBundle *bundle = g_hash_table_lookup (settings, "com.fyralabs.desktop.appearance");
-  bool hc_option;
+  gboolean hc_option;
 
   if (!g_settings_schema_has_key (bundle->schema, "high-contrast"))
-    return g_variant_new_boolean (false); /* No preference */
+    return g_variant_new_boolean (FALSE); /* No preference */
 
   hc_option = g_settings_get_boolean (bundle->settings, "high-contrast");
 
