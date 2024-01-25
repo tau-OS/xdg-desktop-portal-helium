@@ -44,13 +44,6 @@ typedef struct {
   GSettings *settings;
 } SettingsBundle;
 
-typedef enum {
-   DEFAULT = 0,
-   VIBRANT = 1,
-   MUTED = 2,
-   MONO = 3
- } EnsorScheme;
-
 static SettingsBundle *
 settings_bundle_new (GSettingsSchema *schema,
                      GSettings       *settings)
@@ -109,17 +102,17 @@ get_color_scheme (void)
 
   return g_variant_new_uint32 (color_scheme);
 }
-static GVariant * get_hc_option (void)
+static GVariant * get_contrast (void)
 {
   SettingsBundle *bundle = g_hash_table_lookup (settings, "com.fyralabs.desktop.appearance");
-  gboolean hc_option;
+  int hc_option;
 
-  if (!g_settings_schema_has_key (bundle->schema, "high-contrast"))
-    return g_variant_new_boolean (FALSE); /* No preference */
+  if (!g_settings_schema_has_key (bundle->schema, "contrast"))
+    return g_variant_new_uint32 (0); /* No preference */
 
-  hc_option = g_settings_get_boolean (bundle->settings, "high-contrast");
+  hc_option = g_settings_get_enum (bundle->settings, "contrast");
 
-  return g_variant_new_boolean (hc_option);
+  return g_variant_new_uint32  (hc_option);
 }
 
 static GVariant * get_ensor_scheme (void)
@@ -326,7 +319,7 @@ settings_handle_read_all (XdpImplSettings       *object,
       g_variant_dict_insert_value (&dict, "accent-color", get_accent_color ());
       g_variant_dict_insert_value (&dict, "ensor-scheme", get_ensor_scheme ());
       g_variant_dict_insert_value (&dict, "font-weight", get_font_weight ());
-      g_variant_dict_insert_value (&dict, "high-contrast", get_hc_option ());
+      g_variant_dict_insert_value (&dict, "high-contrast", get_contrast ());
 
       g_variant_builder_add (builder, "{s@a{sv}}", "org.freedesktop.appearance", g_variant_dict_end (&dict));
     }
@@ -385,10 +378,10 @@ settings_handle_read (XdpImplSettings       *object,
       return TRUE;
     }
   else if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
-           strcmp (arg_key, "high-cvontrast") == 0)
+           strcmp (arg_key, "contrast") == 0)
     {
       g_dbus_method_invocation_return_value (invocation,
-                                             g_variant_new ("(v)", get_hc_option ()));
+                                             g_variant_new ("(v)", get_contrast ()));
       return TRUE;
     }
   else if (strcmp (arg_namespace, "org.gnome.desktop.interface") == 0 &&
@@ -489,10 +482,10 @@ on_settings_changed (GSettings             *settings,
                                             g_variant_new ("v", get_accent_color ()));
   
   if (strcmp (user_data->namespace, "com.fyralabs.desktop.appearance") == 0 &&
-      strcmp (key, "high-contrast") == 0)
+      strcmp (key, "contrast") == 0)
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
-                                            g_variant_new ("v", get_hc_option ()));
+                                            g_variant_new ("v", get_contrast ()));
 
   if (strcmp (user_data->namespace, "org.gnome.desktop.a11y.interface") == 0 &&
       strcmp (key, "high-contrast") == 0)
