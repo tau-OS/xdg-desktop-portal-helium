@@ -5,7 +5,7 @@
 
 Name:           xdg-desktop-portal-tau
 Version:        1.1
-Release:        14
+Release:        15
 Summary:        Backend implementation for xdg-desktop-portal for gnomeOS.
 
 License:        LGPLv2+
