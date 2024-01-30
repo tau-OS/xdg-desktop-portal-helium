@@ -140,6 +140,18 @@ static GVariant * get_font_weight (void)
 
   return g_variant_new_double (font_weight);
 }
+static GVariant * get_ui_roundness (void)
+{
+  SettingsBundle *bundle = g_hash_table_lookup (settings, "com.fyralabs.desktop.appearance");
+  double ui_roundness;
+
+  if (!g_settings_schema_has_key (bundle->schema, "roundness"))
+    return g_variant_new_double (1.0); /* No preference */
+
+  ui_roundness = g_settings_get_double (bundle->settings, "roundness");
+
+  return g_variant_new_double (ui_roundness);
+}
 static GVariant * get_accent_color (void)
 {
   SettingsBundle * bundle = g_hash_table_lookup (settings, "com.fyralabs.desktop.appearance");
@@ -319,6 +331,7 @@ settings_handle_read_all (XdpImplSettings       *object,
       g_variant_dict_insert_value (&dict, "accent-color", get_accent_color ());
       g_variant_dict_insert_value (&dict, "ensor-scheme", get_ensor_scheme ());
       g_variant_dict_insert_value (&dict, "font-weight", get_font_weight ());
+      g_variant_dict_insert_value (&dict, "roundness", get_ui_roundness ());
       g_variant_dict_insert_value (&dict, "high-contrast", get_contrast ());
 
       g_variant_builder_add (builder, "{s@a{sv}}", "org.freedesktop.appearance", g_variant_dict_end (&dict));
@@ -368,6 +381,13 @@ settings_handle_read (XdpImplSettings       *object,
     {
       g_dbus_method_invocation_return_value (invocation,
                                              g_variant_new ("(v)", get_font_weight ()));
+      return TRUE;
+    }
+  else if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
+           strcmp (arg_key, "roundness") == 0)
+    {
+      g_dbus_method_invocation_return_value (invocation,
+                                             g_variant_new ("(v)", get_ui_roundness ()));
       return TRUE;
     }
   else if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
@@ -474,6 +494,12 @@ on_settings_changed (GSettings             *settings,
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
                                             g_variant_new ("v", get_font_weight ()));
+
+  if (strcmp (user_data->namespace, "com.fyralabs.desktop.appearance") == 0 &&
+      strcmp (key, "roundness") == 0)
+    xdp_impl_settings_emit_setting_changed (user_data->self,
+                                            "org.freedesktop.appearance", key,
+                                            g_variant_new ("v", get_ui_roundness ()));
 
   if (strcmp (user_data->namespace, "com.fyralabs.desktop.appearance") == 0 &&
       strcmp (key, "accent-color") == 0)
