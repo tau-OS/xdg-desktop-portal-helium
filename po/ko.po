@@ -1,11 +1,11 @@
-# Korean translation for xdg-desktop-portal-tau.
-# Copyright (C) 2021 xdg-desktop-portal-tau's all of contributors.
-# This file is distributed under the same license as the xdg-desktop-portal-tau package.
+# Korean translation for xdg-desktop-portal-helium.
+# Copyright (C) 2021 xdg-desktop-portal-helium's all of contributors.
+# This file is distributed under the same license as the xdg-desktop-portal-helium package.
 # Seong-ho Cho <shcho@gnome.org>, 2021-2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-tau gnome-42\n"
+"Project-Id-Version: xdg-desktop-portal-helium gnome-42\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
 "gnome/issues\n"
 "POT-Creation-Date: 2022-07-09 18:28+0000\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.3.1\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-helium.desktop.in.in:4
 msgid "Portal"
 msgstr "포털"
 

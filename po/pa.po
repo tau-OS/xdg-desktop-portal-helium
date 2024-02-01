@@ -1,13 +1,13 @@
-# Punjabi translation for xdg-desktop-portal-tau.
-# Copyright (C) 2021 xdg-desktop-portal-tau's COPYRIGHT HOLDER
-# This file is distributed under the same license as the xdg-desktop-portal-tau package.
+# Punjabi translation for xdg-desktop-portal-helium.
+# Copyright (C) 2021 xdg-desktop-portal-helium's COPYRIGHT HOLDER
+# This file is distributed under the same license as the xdg-desktop-portal-helium package.
 #
 # Aman Alam <apreet.alam@gmail.com>, 2021.
 # A S Alam <aalam@satluj.org>, 2021.
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-tau main\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-tau/"
+"Project-Id-Version: xdg-desktop-portal-helium main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-helium/"
 "issues\n"
 "POT-Creation-Date: 2021-12-29 15:58+0000\n"
 "PO-Revision-Date: 2021-12-30 23:44-0800\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 21.04.3\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-helium.desktop.in.in:4
 msgid "Portal"
 msgstr "ਮੰਚ"
 
 #. TRANSLATORS: Don't translate this text (this is icon name)
-#: data/xdg-desktop-portal-tau.desktop.in.in:6
+#: data/xdg-desktop-portal-helium.desktop.in.in:6
 msgid "applications-system-symbolic"
 msgstr "applications-system-symbolic"
 

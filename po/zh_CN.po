@@ -1,13 +1,13 @@
-# Chinese (China) translation for xdg-desktop-portal-tau.
-# Copyright (C) 2016 xdg-desktop-portal-tau's COPYRIGHT HOLDER
-# This file is distributed under the same license as the xdg-desktop-portal-tau package.
+# Chinese (China) translation for xdg-desktop-portal-helium.
+# Copyright (C) 2016 xdg-desktop-portal-helium's COPYRIGHT HOLDER
+# This file is distributed under the same license as the xdg-desktop-portal-helium package.
 # Mingye Wang <arthur2e5@aosc.xyz>, 2016.
 # 王滋涵 Zephyr Waitzman <i@wi24rd.ml>, 2019.
 # lumingzh <lumingzh@qq.com>, 2021-2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-tau master\n"
+"Project-Id-Version: xdg-desktop-portal-helium master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
 "gnome/issues\n"
 "POT-Creation-Date: 2022-05-09 05:56+0000\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: Gtranslator 42.0\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-helium.desktop.in.in:4
 msgid "Portal"
 msgstr "门户"
 

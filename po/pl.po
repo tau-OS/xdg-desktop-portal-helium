@@ -1,12 +1,12 @@
-# Polish translation for xdg-desktop-portal-tau.
-# Copyright © 2016-2022 the xdg-desktop-portal-tau authors.
-# This file is distributed under the same license as the xdg-desktop-portal-tau package.
+# Polish translation for xdg-desktop-portal-helium.
+# Copyright © 2016-2022 the xdg-desktop-portal-helium authors.
+# This file is distributed under the same license as the xdg-desktop-portal-helium package.
 # Piotr Drąg <piotrdrag@gmail.com>, 2016-2022.
 # Aviary.pl <community-poland@mozilla.org>, 2016-2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-tau\n"
+"Project-Id-Version: xdg-desktop-portal-helium\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
 "gnome/issues\n"
 "POT-Creation-Date: 2022-07-09 18:28+0000\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-helium.desktop.in.in:4
 msgid "Portal"
 msgstr "Portal"
 

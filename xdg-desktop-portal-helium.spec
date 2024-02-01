@@ -3,14 +3,14 @@
 # Required for xdp_impl_background_emit_running_applications_changed
 %global xdg_desktop_portal_version 1.5.4
 
-Name:           xdg-desktop-portal-tau
+Name:           xdg-desktop-portal-helium
 Version:        1.1
 Release:        15
 Summary:        Backend implementation for xdg-desktop-portal for gnomeOS.
 
 License:        LGPLv2+
 URL:            https://gnomeos.co
-Source0:        https://github.com/gnome-OS/xdg-desktop-portal-tau/archive/refs/heads/main.zip
+Source0:        https://github.com/gnome-OS/xdg-desktop-portal-helium/archive/refs/heads/main.zip
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -31,17 +31,17 @@ Requires:       xdg-desktop-portal >= %{xdg_desktop_portal_version}
 
 Supplements:    gnome-shell
 
-Provides:       xdg-desktop-portal-tau = 43
-Provides:       xdg-desktop-portal-tau%{?_isa} = 43
-Conflicts:       xdg-desktop-portal-tau = 43
-Conflicts:       xdg-desktop-portal-tau%{?_isa} = 43
+Provides:       xdg-desktop-portal-helium = 43
+Provides:       xdg-desktop-portal-helium%{?_isa} = 43
+Conflicts:       xdg-desktop-portal-helium = 43
+Conflicts:       xdg-desktop-portal-helium%{?_isa} = 43
 
 %description
 A backend implementation for xdg-desktop-portal for gnomeOS.
 
 
 %prep
-%setup -q -n xdg-desktop-portal-tau-main
+%setup -q -n xdg-desktop-portal-helium-main
 
 
 %build
@@ -50,26 +50,26 @@ A backend implementation for xdg-desktop-portal for gnomeOS.
 
 %install
 %meson_install
-desktop-file-validate %{buildroot}/%{_datadir}/applications/xdg-desktop-portal-tau.desktop
-%find_lang xdg-desktop-portal-tau
+desktop-file-validate %{buildroot}/%{_datadir}/applications/xdg-desktop-portal-helium.desktop
+%find_lang xdg-desktop-portal-helium
 
 
 %post
-%systemd_user_post xdg-desktop-portal-tau.service
+%systemd_user_post xdg-desktop-portal-helium.service
 
 %preun
-%systemd_user_preun xdg-desktop-portal-tau.service
+%systemd_user_preun xdg-desktop-portal-helium.service
 
 
-%files -f xdg-desktop-portal-tau.lang
+%files -f xdg-desktop-portal-helium.lang
 %license COPYING
 %doc NEWS README.md
-%{_libexecdir}/xdg-desktop-portal-tau
-%{_datadir}/applications/xdg-desktop-portal-tau.desktop
-%{_datadir}/glib-2.0/schemas/xdg-desktop-portal-tau.gschema.xml
+%{_libexecdir}/xdg-desktop-portal-helium
+%{_datadir}/applications/xdg-desktop-portal-helium.desktop
+%{_datadir}/glib-2.0/schemas/xdg-desktop-portal-helium.gschema.xml
 %{_datadir}/dbus-1/services/org.freedesktop.impl.portal.desktop.gnome.service
 %{_datadir}/xdg-desktop-portal/portals/gnome.portal
-%{_userunitdir}/xdg-desktop-portal-tau.service
+%{_userunitdir}/xdg-desktop-portal-helium.service
 
 %changelog
 %autochangelog

@@ -1,5 +1,5 @@
-# Georgian translation for xdg-desktop-portal-tau.
-# Copyright (C) 2022 xdg-desktop-portal-tau authors
+# Georgian translation for xdg-desktop-portal-helium.
+# Copyright (C) 2022 xdg-desktop-portal-helium authors
 # This file is distributed under the same license as the PACKAGE package.
 # Ekaterine Papava <papava.e@gtu.ge>, 2022.
 #
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-helium.desktop.in.in:4
 msgid "Portal"
 msgstr "Portal"
 

@@ -1,0 +1,4 @@
+<schemalist>
+  <schema id="org.freedesktop.portal.helium.portal" path="/org/freedesktop/portal/helium/portal/" gettext-domain="xdg-desktop-portal-helium">
+  </schema>
+</schemalist>

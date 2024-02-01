@@ -1,11 +1,11 @@
-# Galician translation for xdg-desktop-portal-tau.
-# Copyright (C) 2017 xdg-desktop-portal-tau's COPYRIGHT HOLDER
-# This file is distributed under the same license as the xdg-desktop-portal-tau package.
+# Galician translation for xdg-desktop-portal-helium.
+# Copyright (C) 2017 xdg-desktop-portal-helium's COPYRIGHT HOLDER
+# This file is distributed under the same license as the xdg-desktop-portal-helium package.
 # Fran Dieguez <frandieguez@gnome.org>, 2017-2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-tau master\n"
+"Project-Id-Version: xdg-desktop-portal-helium master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
 "gnome/issues\n"
 "POT-Creation-Date: 2022-05-09 05:56+0000\n"
@@ -19,12 +19,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Gtranslator 40.0\n"
 "X-DL-Team: gl\n"
-"X-DL-Module: xdg-desktop-portal-tau\n"
+"X-DL-Module: xdg-desktop-portal-helium\n"
 "X-DL-Branch: main\n"
 "X-DL-Domain: po\n"
 "X-DL-State: Translating\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-helium.desktop.in.in:4
 msgid "Portal"
 msgstr "Portal"
 

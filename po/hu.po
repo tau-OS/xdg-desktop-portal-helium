@@ -1,4 +1,4 @@
-# Hungarian translation for xdg-desktop-portal-tau.
+# Hungarian translation for xdg-desktop-portal-helium.
 # Copyright (C) 2016, 2017, 2018, 2019, 2021, 2022 Free Software Foundation, Inc.
 # This file is distributed under the same license as the xdg-sesktop-portal-gtk package.
 #
@@ -6,8 +6,8 @@
 # Balázs Meskó <mesko.balazs at fsf dot hu>, 2021.
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-tau master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-tau/"
+"Project-Id-Version: xdg-desktop-portal-helium master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-helium/"
 "issues\n"
 "POT-Creation-Date: 2022-07-09 18:28+0000\n"
 "PO-Revision-Date: 2022-09-01 02:22+0200\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 19.12.3\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-helium.desktop.in.in:4
 msgid "Portal"
 msgstr "Portál"
 

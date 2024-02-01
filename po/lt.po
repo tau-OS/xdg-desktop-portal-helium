@@ -1,12 +1,12 @@
-# Lithuanian translation for xdg-desktop-portal-tau.
-# Copyright (C) 2018 xdg-desktop-portal-tau's COPYRIGHT HOLDER
-# This file is distributed under the same license as the xdg-desktop-portal-tau package.
+# Lithuanian translation for xdg-desktop-portal-helium.
+# Copyright (C) 2018 xdg-desktop-portal-helium's COPYRIGHT HOLDER
+# This file is distributed under the same license as the xdg-desktop-portal-helium package.
 # Moo, 2018, 2019, 2020.
 # Aurimas Černius <aurisc4@gmail.com>, 2021-2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-tau master\n"
+"Project-Id-Version: xdg-desktop-portal-helium master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
 "gnome/issues\n"
 "POT-Creation-Date: 2022-05-09 05:56+0000\n"
@@ -21,7 +21,7 @@ msgstr ""
 "(n%100<10 || n%100>=20) ? 1 : 2)\n"
 "X-Generator: Gtranslator 40.0\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-helium.desktop.in.in:4
 msgid "Portal"
 msgstr "Portalas"
 

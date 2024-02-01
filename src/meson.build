@@ -30,8 +30,8 @@ built_sources += gnome.gdbus_codegen(
 
 # GResources
 built_sources += gnome.compile_resources(
-  'xdg-desktop-portal-tau-resources',
-  'xdg-desktop-portal-tau.gresource.xml',
+  'xdg-desktop-portal-helium-resources',
+  'xdg-desktop-portal-helium.gresource.xml',
   c_name: '_xdg_desktop',
 )
 
@@ -70,7 +70,7 @@ sources = built_sources + files(
   'settings.c',
   'shellintrospect.c',
   'utils.c',
-  'xdg-desktop-portal-tau.c',
+  'xdg-desktop-portal-helium.c',
 )
 
 common_flags = []
@@ -91,7 +91,7 @@ endif
 add_project_arguments(common_flags, language: 'c')
 
 executable(
-  'xdg-desktop-portal-tau',
+  'xdg-desktop-portal-helium',
   sources,
   dependencies: deps,
   install: true,
@@ -99,7 +99,7 @@ executable(
 )
 
 install_data (
-  'xdg-desktop-portal-tau.gschema.xml',
+  'xdg-desktop-portal-helium.gschema.xml',
   install_dir : datadir / 'glib-2.0' / 'schemas',
 )
 

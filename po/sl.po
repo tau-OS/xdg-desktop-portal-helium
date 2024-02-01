@@ -1,12 +1,12 @@
-# Slovenian translation for xdg-desktop-portal-tau.
-# Copyright (C) 2021 xdg-desktop-portal-tau's COPYRIGHT HOLDER
-# This file is distributed under the same license as the xdg-desktop-portal-tau package.
+# Slovenian translation for xdg-desktop-portal-helium.
+# Copyright (C) 2021 xdg-desktop-portal-helium's COPYRIGHT HOLDER
+# This file is distributed under the same license as the xdg-desktop-portal-helium package.
 #
 # Matej Urbančič <mateju@src.gnome.org>, 2021–.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-tau main\n"
+"Project-Id-Version: xdg-desktop-portal-helium main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-"
 "gnome/issues\n"
 "POT-Creation-Date: 2022-09-03 20:40+0000\n"
@@ -23,7 +23,7 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-helium.desktop.in.in:4
 msgid "Portal"
 msgstr "Portal"
 

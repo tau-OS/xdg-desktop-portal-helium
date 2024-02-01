@@ -1,13 +1,13 @@
-# Catalan translation for xdg-desktop-portal-tau.
-# Copyright (C) 2021 xdg-desktop-portal-tau's COPYRIGHT HOLDER
-# This file is distributed under the same license as the xdg-desktop-portal-tau package.
+# Catalan translation for xdg-desktop-portal-helium.
+# Copyright (C) 2021 xdg-desktop-portal-helium's COPYRIGHT HOLDER
+# This file is distributed under the same license as the xdg-desktop-portal-helium package.
 # Jordi Mas i Hernàndez <jmas@softcatala.org>, 2021
 # Joan Mas Lloret <joan.mas.lloret@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xdg-desktop-portal-tau gnome-41\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-tau/issues\n"
+"Project-Id-Version: xdg-desktop-portal-helium gnome-41\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/xdg-desktop-portal-helium/issues\n"
 "POT-Creation-Date: 2022-05-09 05:56+0000\n"
 "PO-Revision-Date: 2022-01-20 15:11+0100\n"
 "Last-Translator: Joan Mas Lloret <joan.mas.lloret@gmail.com>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.0\n"
 
-#: data/xdg-desktop-portal-tau.desktop.in.in:4
+#: data/xdg-desktop-portal-helium.desktop.in.in:4
 msgid "Portal"
 msgstr "Portal"
 

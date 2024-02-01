@@ -1,4 +1,0 @@
-<schemalist>
-  <schema id="org.freedesktop.portal.tau.portal" path="/org/freedesktop/portal/tau/portal/" gettext-domain="xdg-desktop-portal-tau">
-  </schema>
-</schemalist>
