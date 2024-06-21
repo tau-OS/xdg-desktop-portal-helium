@@ -168,70 +168,70 @@ static GVariant * get_accent_color (void)
   char* color = g_settings_get_string (bundle->settings, "accent-color");
 
   if (strcmp (color, "purple") == 0) {
-    GVariant * purple[] = {
+    GVariant * purple[] = { /* #8b55be */
       g_variant_new_double (0.5490),
       g_variant_new_double (0.3372),
       g_variant_new_double (0.7490)
     };
     return g_variant_new_tuple (purple, 3);
   } else if (strcmp (color, "pink") == 0) {
-    GVariant * pink[] = {
+    GVariant * pink[] = { /* #be55a7 */
       g_variant_new_double (0.7490),
       g_variant_new_double (0.3372),
       g_variant_new_double (0.6588)
     };
     return g_variant_new_tuple (pink, 3);
   } else if (strcmp (color, "red") == 0) {
-    GVariant * red[] = {
+    GVariant * red[] = { /* #da275f */
       g_variant_new_double (0.8588),
       g_variant_new_double (0.1568),
       g_variant_new_double (0.3764)
     };
     return g_variant_new_tuple (red, 3);
   } else if (strcmp (color, "orange") == 0) {
-    GVariant * orange[] = {
+    GVariant * orange[] = { /* #f6802a */
       g_variant_new_double (0.9686),
       g_variant_new_double (0.5058),
       g_variant_new_double (0.1680)
     };
     return g_variant_new_tuple (orange, 3);
   } else if (strcmp (color, "yellow") == 0) {
-    GVariant * yellow[] = {
+    GVariant * yellow[] = { /* #dfa000 */
       g_variant_new_double (0.8784),
       g_variant_new_double (0.6313),
       g_variant_new_double (0.0039)
     };
     return g_variant_new_tuple (yellow, 3);
   } else if (strcmp (color, "green") == 0) {
-    GVariant * green[] = {
+    GVariant * green[] = { /* #48cf5d */
       g_variant_new_double (0.2862),
       g_variant_new_double (0.8156),
       g_variant_new_double (0.3686)
     };
     return g_variant_new_tuple (green, 3);
   } else if (strcmp (color, "mint") == 0) {
-    GVariant * mint[] = {
+    GVariant * mint[] = { /* #55bea5 */
       g_variant_new_double (0.3372),
       g_variant_new_double (0.7490),
       g_variant_new_double (0.6509)
     };
     return g_variant_new_tuple (mint, 3);
   } else if (strcmp (color, "blue") == 0) {
-    GVariant * blue[] = {
+    GVariant * blue[] = { /* #44b9fb */
       g_variant_new_double (0.2705),
       g_variant_new_double (0.7294),
       g_variant_new_double (0.9882)
     };
     return g_variant_new_tuple (blue, 3);
   } else if (strcmp (color, "brown") == 0) {
-    GVariant * brown[] = {
+    GVariant * brown[] = { /* #be8755 */
       g_variant_new_double (0.7490),
       g_variant_new_double (0.5330),
       g_variant_new_double (0.3370)
     };
     return g_variant_new_tuple (brown, 3);
   } else if (strcmp (color, "mono") == 0) {
-    GVariant * mono[] = {
+    GVariant * mono[] = { /* #000000 */
       g_variant_new_double (0.0),
       g_variant_new_double (0.0),
       g_variant_new_double (0.0)
