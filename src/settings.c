@@ -108,7 +108,7 @@ static GVariant * get_contrast (void)
   int hc_option;
 
   if (!g_settings_schema_has_key (bundle->schema, "contrast"))
-    return g_variant_new_double (0.0); /* No preference */
+    return g_variant_new_double (1.0); /* No preference */
 
   hc_option = g_settings_get_double (bundle->settings, "contrast");
 
