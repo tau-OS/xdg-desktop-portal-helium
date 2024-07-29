@@ -108,7 +108,7 @@ static GVariant * get_contrast (void)
   int hc_option;
 
   if (!g_settings_schema_has_key (bundle->schema, "contrast"))
-    return g_variant_new_double (1.0); /* No preference */
+    return g_variant_new_double (2.0); /* No preference */
 
   hc_option = g_settings_get_double (bundle->settings, "contrast");
 
@@ -332,7 +332,7 @@ settings_handle_read_all (XdpImplSettings       *object,
       g_variant_dict_insert_value (&dict, "ensor-scheme", get_ensor_scheme ());
       g_variant_dict_insert_value (&dict, "font-weight", get_font_weight ());
       g_variant_dict_insert_value (&dict, "roundness", get_ui_roundness ());
-      g_variant_dict_insert_value (&dict, "high-contrast", get_contrast ());
+      g_variant_dict_insert_value (&dict, "contrast", get_contrast ());
 
       g_variant_builder_add (builder, "{s@a{sv}}", "org.freedesktop.appearance", g_variant_dict_end (&dict));
     }
