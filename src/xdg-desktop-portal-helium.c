@@ -31,7 +31,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include <adwaita.h>
+#include <libhelium-1.h>
 
 #include <gio/gio.h>
 #include <gio/gdesktopappinfo.h>
@@ -201,7 +201,7 @@ main (int argc, char *argv[])
                              NULL,
                              NULL);
 
-  adw_init ();
+  he_init ();
 
   g_main_loop_run (loop);
 

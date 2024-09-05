@@ -6,7 +6,7 @@
 Name:           xdg-desktop-portal-helium
 Version:        1.1
 Release:        15
-Summary:        Backend implementation for xdg-desktop-portal for gnomeOS.
+Summary:        Backend implementation for xdg-desktop-portal for Helium apps.
 
 License:        LGPLv2+
 URL:            https://gnomeos.co
@@ -21,7 +21,7 @@ BuildRequires:  pkgconfig(gnome-bg-4)
 BuildRequires:  pkgconfig(gnome-desktop-4)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:  pkgconfig(gtk4)
-BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(libhelium-1)
 BuildRequires:  pkgconfig(xdg-desktop-portal) >= %{xdg_desktop_portal_version}
 BuildRequires:  systemd-rpm-macros
 
@@ -29,15 +29,8 @@ Requires:       dbus
 Requires:       dbus-common
 Requires:       xdg-desktop-portal >= %{xdg_desktop_portal_version}
 
-Supplements:    gnome-shell
-
-Provides:       xdg-desktop-portal-helium = 43
-Provides:       xdg-desktop-portal-helium%{?_isa} = 43
-Conflicts:       xdg-desktop-portal-helium = 43
-Conflicts:       xdg-desktop-portal-helium%{?_isa} = 43
-
 %description
-A backend implementation for xdg-desktop-portal for gnomeOS.
+A backend implementation for xdg-desktop-portal for Helium apps.
 
 
 %prep
@@ -63,7 +56,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/xdg-desktop-portal-h
 
 %files -f xdg-desktop-portal-helium.lang
 %license COPYING
-%doc NEWS README.md
+%doc README.md
 %{_libexecdir}/xdg-desktop-portal-helium
 %{_datadir}/applications/xdg-desktop-portal-helium.desktop
 %{_datadir}/glib-2.0/schemas/xdg-desktop-portal-helium.gschema.xml

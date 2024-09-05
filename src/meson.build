@@ -16,18 +16,6 @@ built_sources = gnome.gdbus_codegen(
   namespace: 'XdpImpl',
 )
 
-# Mutter / GNOME Shell D-Bus interfaces
-top_srcdir = meson.source_root()
-shell_dbus_interfaces = files(
-	top_srcdir / 'data' / 'org.gnome.Shell.Introspect.xml',
-)
-
-built_sources += gnome.gdbus_codegen(
-  'shell-dbus',
-  sources: shell_dbus_interfaces,
-  interface_prefix: 'org.freedesktop.impl.portal.',
-)
-
 # GResources
 built_sources += gnome.compile_resources(
   'xdg-desktop-portal-helium-resources',
@@ -44,10 +32,10 @@ config_h.set_quoted('PACKAGE_STRING', '@0@ @1@'.format(meson.project_name(), mes
 built_sources += configure_file(output: 'config.h', configuration: config_h)
 
 # Sources
-libadwaita_dep = dependency(
-  'libadwaita-1',
-  fallback: ['libadwaita', 'libadwaita_dep'],
-  default_options: ['examples=false', 'introspection=disabled', 'tests=false', 'vapi=false'],
+libhelium_dep = dependency(
+  'libhelium-1',
+  fallback: ['libhelium', 'libhelium_dep'],
+  default_options: ['demo=false'],
 )
 deps = [
   declare_dependency(sources: built_sources),
@@ -60,33 +48,17 @@ deps = [
   dependency('gsettings-desktop-schemas'),
   dependency('gnome-desktop-4'),
   dependency('gnome-bg-4'),
-  libadwaita_dep,
+  libhelium_dep,
   xdg_desktop_portal_dep,
 ]
 
 sources = built_sources + files(
-  'externalwindow.c',
-  'fc-monitor.c',
   'settings.c',
-  'shellintrospect.c',
   'utils.c',
   'xdg-desktop-portal-helium.c',
 )
 
 common_flags = []
-
-gtk_x11_dep = dependency('gtk4-x11', required: false)
-if gtk_x11_dep.found()
-  sources += files('externalwindow-x11.c')
-  deps += [dependency('x11')]
-  common_flags += ['-DHAVE_GTK_X11']
-endif
-
-gtk_wayland_dep = dependency('gtk4-wayland', required: false)
-if gtk_wayland_dep.found()
-  sources += files('externalwindow-wayland.c')
-  common_flags += ['-DHAVE_GTK_WAYLAND']
-endif
 
 add_project_arguments(common_flags, language: 'c')
 
