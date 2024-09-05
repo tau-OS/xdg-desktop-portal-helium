@@ -5,7 +5,7 @@
 
 Name:           xdg-desktop-portal-helium
 Version:        1.1
-Release:        15
+Release:        16
 Summary:        Backend implementation for xdg-desktop-portal for Helium apps.
 
 License:        LGPLv2+
