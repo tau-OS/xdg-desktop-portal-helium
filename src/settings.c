@@ -97,7 +97,7 @@ static GVariant * get_color_scheme (void)
 static GVariant * get_contrast (void)
 {
   SettingsBundle *bundle = g_hash_table_lookup (settings, "com.fyralabs.desktop.appearance");
-  int hc_option;
+  double hc_option;
 
   if (!g_settings_schema_has_key (bundle->schema, "contrast"))
     return g_variant_new_double (0.0); /* No preference */
