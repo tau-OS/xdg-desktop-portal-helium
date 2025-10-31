@@ -144,6 +144,21 @@ static GVariant * get_ui_roundness (void)
 
   return g_variant_new_double (ui_roundness);
 }
+static GVariant * get_density (void)
+{
+  SettingsBundle *bundle = g_hash_table_lookup (settings, "com.fyralabs.desktop.appearance");
+  guint density;
+
+  if (!g_settings_schema_has_key (bundle->schema, "density"))
+    return g_variant_new_uint32 (0); /* Default */
+
+  density = g_settings_get_uint (bundle->settings, "density");
+
+  if (density > 2)
+    density = 0;
+
+  return g_variant_new_uint32 (density);
+}
 static GVariant * get_accent_color (void)
 {
   SettingsBundle * bundle = g_hash_table_lookup (settings, "com.fyralabs.desktop.appearance");
@@ -290,6 +305,7 @@ settings_handle_read_all (XdpImplSettings       *object,
       g_variant_dict_insert_value (&dict, "font-weight", get_font_weight ());
       g_variant_dict_insert_value (&dict, "roundness", get_ui_roundness ());
       g_variant_dict_insert_value (&dict, "contrast", get_contrast ());
+      g_variant_dict_insert_value (&dict, "density", get_density ());
 
       g_variant_builder_add (builder, "{s@a{sv}}", "org.freedesktop.appearance", g_variant_dict_end (&dict));
     }
@@ -350,6 +366,13 @@ settings_handle_read (XdpImplSettings       *object,
     {
       g_dbus_method_invocation_return_value (invocation,
                                              g_variant_new ("(v)", get_contrast ()));
+      return TRUE;
+    }
+  else if (strcmp (arg_namespace, "org.freedesktop.appearance") == 0 &&
+           strcmp (arg_key, "density") == 0)
+    {
+      g_dbus_method_invocation_return_value (invocation,
+                                             g_variant_new ("(v)", get_density ()));
       return TRUE;
     }
   else if (g_hash_table_contains (settings, arg_namespace))
@@ -438,6 +461,12 @@ on_settings_changed (GSettings             *settings,
     xdp_impl_settings_emit_setting_changed (user_data->self,
                                             "org.freedesktop.appearance", key,
                                             g_variant_new ("v", get_contrast ()));
+
+  if (strcmp (user_data->namespace, "com.fyralabs.desktop.appearance") == 0 &&
+      strcmp (key, "density") == 0)
+    xdp_impl_settings_emit_setting_changed (user_data->self,
+                                            "org.freedesktop.appearance", key,
+                                            g_variant_new ("v", get_density ()));
 }
 
 static void
